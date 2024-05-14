@@ -1,0 +1,4 @@
+/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/MediaEditor.dir
+/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/edit_cache.dir
+/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/rebuild_cache.dir
+/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/MediaEditor_autogen.dir
