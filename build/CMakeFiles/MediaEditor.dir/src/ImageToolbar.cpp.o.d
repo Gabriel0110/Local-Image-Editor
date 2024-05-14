@@ -1,6 +1,6 @@
 CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.cpp \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QWidget \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qwidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \

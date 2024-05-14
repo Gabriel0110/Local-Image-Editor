@@ -1,17 +1,17 @@
 {
-	"BUILD_DIR" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen",
-	"CMAKE_BINARY_DIR" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build",
-	"CMAKE_CURRENT_BINARY_DIR" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build",
-	"CMAKE_CURRENT_SOURCE_DIR" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor",
+	"BUILD_DIR" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen",
+	"CMAKE_BINARY_DIR" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor",
 	"CMAKE_EXECUTABLE" : "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/bin/cmake",
 	"CMAKE_LIST_FILES" : 
 	[
-		"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/CMakeLists.txt",
-		"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/3.26.1/CMakeSystem.cmake",
+		"/Users/gtomberlin/Documents/Code/Local-Image-Editor/CMakeLists.txt",
+		"/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/3.26.1/CMakeSystem.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Platform/Darwin-Initialize.cmake",
-		"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/3.26.1/CMakeCCompiler.cmake",
-		"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/3.26.1/CMakeCXXCompiler.cmake",
+		"/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/3.26.1/CMakeCCompiler.cmake",
+		"/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/3.26.1/CMakeCXXCompiler.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeGenericSystem.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake",
@@ -90,27 +90,27 @@
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageMessage.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor",
+	"CMAKE_SOURCE_DIR" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor",
 	"DEP_FILE" : "",
 	"DEP_FILE_RULE_NAME" : "",
 	"HEADERS" : 
 	[
 		[
-			"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h",
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h",
 			"MU",
 			"UVLADIE3JM/moc_ImageToolbar.cpp",
 			null
 		],
 		[
-			"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.h",
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h",
 			"MU",
 			"UVLADIE3JM/moc_MyOpenGLWidget.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/include",
-	"MOC_COMPILATION_FILE" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/include",
+	"MOC_COMPILATION_FILE" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"QT_CORE_LIB",
@@ -155,31 +155,31 @@
 		"-c",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 10,
-	"PARSE_CACHE_FILE" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/MediaEditor_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/opt/homebrew/opt/qt@5/bin/moc",
 	"QT_UIC_EXECUTABLE" : "/opt/homebrew/opt/qt@5/bin/uic",
 	"QT_VERSION_MAJOR" : 5,
 	"QT_VERSION_MINOR" : 15,
-	"SETTINGS_FILE" : "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/MediaEditor_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
 		[
-			"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.cpp",
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp",
 			"MU",
 			null
 		],
 		[
-			"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.cpp",
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp",
 			"MU",
 			null
 		],
 		[
-			"/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/main.cpp",
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp",
 			"MU",
 			null
 		]

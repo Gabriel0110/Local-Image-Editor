@@ -27,3 +27,4 @@ target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui Qt5::OpenG
 
 # Define additional compile flags
 add_definitions(${Qt5Widgets_DEFINITIONS})
+

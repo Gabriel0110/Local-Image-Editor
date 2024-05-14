@@ -1,5 +1,5 @@
-/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp: /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/moc_predefs.h \
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/moc_predefs.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/OpenGLAvailability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/gl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/gl3.h \
@@ -694,8 +694,8 @@
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/sys/qos.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/time.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageObject.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/QRect \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qalgorithms.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qarraydata.h \

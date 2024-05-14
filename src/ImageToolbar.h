@@ -18,6 +18,7 @@ signals:
     void mirrorImage();
     void copyImage();
     void deleteImage();
+    void saveImage();
 };
 
 #endif // IMAGETOOLBAR_H

@@ -1,5 +1,5 @@
 CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/main.cpp \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
@@ -958,6 +958,6 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/_types/_nl_item.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cstdarg \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageObject.h
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h

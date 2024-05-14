@@ -1,4 +1,4 @@
-# Install script for directory: /Users/gtomberlin/Documents/Code/CPP-Media-Editor
+# Install script for directory: /Users/gtomberlin/Documents/Code/Local-Image-Editor
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

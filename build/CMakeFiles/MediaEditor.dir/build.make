@@ -53,10 +53,10 @@ RM = /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packag
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/gtomberlin/Documents/Code/CPP-Media-Editor
+CMAKE_SOURCE_DIR = /Users/gtomberlin/Documents/Code/Local-Image-Editor
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build
+CMAKE_BINARY_DIR = /Users/gtomberlin/Documents/Code/Local-Image-Editor/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/MediaEditor.dir/depend.make
@@ -72,58 +72,58 @@ include CMakeFiles/MediaEditor.dir/flags.make
 CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: CMakeFiles/MediaEditor.dir/flags.make
 CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEditor_autogen/mocs_compilation.cpp
 CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: CMakeFiles/MediaEditor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o -MF CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o -c /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o -MF CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o -c /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/mocs_compilation.cpp
 
 CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/mocs_compilation.cpp > CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/mocs_compilation.cpp > CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.i
 
 CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/mocs_compilation.cpp -o CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/mocs_compilation.cpp -o CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.s
 
 CMakeFiles/MediaEditor.dir/src/main.cpp.o: CMakeFiles/MediaEditor.dir/flags.make
-CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/main.cpp
+CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp
 CMakeFiles/MediaEditor.dir/src/main.cpp.o: CMakeFiles/MediaEditor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MediaEditor.dir/src/main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/src/main.cpp.o -MF CMakeFiles/MediaEditor.dir/src/main.cpp.o.d -o CMakeFiles/MediaEditor.dir/src/main.cpp.o -c /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MediaEditor.dir/src/main.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/src/main.cpp.o -MF CMakeFiles/MediaEditor.dir/src/main.cpp.o.d -o CMakeFiles/MediaEditor.dir/src/main.cpp.o -c /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp
 
 CMakeFiles/MediaEditor.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MediaEditor.dir/src/main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/main.cpp > CMakeFiles/MediaEditor.dir/src/main.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp > CMakeFiles/MediaEditor.dir/src/main.cpp.i
 
 CMakeFiles/MediaEditor.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MediaEditor.dir/src/main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/main.cpp -o CMakeFiles/MediaEditor.dir/src/main.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp -o CMakeFiles/MediaEditor.dir/src/main.cpp.s
 
 CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: CMakeFiles/MediaEditor.dir/flags.make
-CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.cpp
+CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp
 CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: CMakeFiles/MediaEditor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o -MF CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o.d -o CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o -c /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o -MF CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o.d -o CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o -c /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp
 
 CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.cpp > CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp > CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.i
 
 CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.cpp -o CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp -o CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.s
 
 CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: CMakeFiles/MediaEditor.dir/flags.make
-CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.cpp
+CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp
 CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: CMakeFiles/MediaEditor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o -MF CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o.d -o CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o -c /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o -MF CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o.d -o CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o -c /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp
 
 CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.cpp > CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp > CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.i
 
 CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.cpp -o CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp -o CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.s
 
 # Object files for target MediaEditor
 MediaEditor_OBJECTS = \
@@ -200,7 +200,7 @@ MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_photo.4.9.0.dylib
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_imgproc.4.9.0.dylib
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_core.4.9.0.dylib
 MediaEditor: CMakeFiles/MediaEditor.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable MediaEditor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable MediaEditor"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MediaEditor.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -212,6 +212,6 @@ CMakeFiles/MediaEditor.dir/clean:
 .PHONY : CMakeFiles/MediaEditor.dir/clean
 
 CMakeFiles/MediaEditor.dir/depend:
-	cd /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/gtomberlin/Documents/Code/CPP-Media-Editor /Users/gtomberlin/Documents/Code/CPP-Media-Editor /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/MediaEditor.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/gtomberlin/Documents/Code/Local-Image-Editor/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/gtomberlin/Documents/Code/Local-Image-Editor /Users/gtomberlin/Documents/Code/Local-Image-Editor /Users/gtomberlin/Documents/Code/Local-Image-Editor/build /Users/gtomberlin/Documents/Code/Local-Image-Editor/build /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/MediaEditor.dir/depend
 

@@ -32,7 +32,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Platform/Darwin-Initialize.cmake"
   "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Platform/Darwin.cmake"
   "/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Platform/UnixPaths.cmake"
-  "/Users/gtomberlin/Documents/Code/CPP-Media-Editor/CMakeLists.txt"
+  "/Users/gtomberlin/Documents/Code/Local-Image-Editor/CMakeLists.txt"
   "CMakeFiles/3.26.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.26.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.26.1/CMakeSystem.cmake"

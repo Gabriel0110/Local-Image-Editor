@@ -1,5 +1,5 @@
-/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/UVLADIE3JM/moc_ImageToolbar.cpp: /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/MediaEditor_autogen/moc_predefs.h \
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/UVLADIE3JM/moc_ImageToolbar.cpp: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/moc_predefs.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/Availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/AvailabilityInternal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/AvailabilityInternalLegacy.h \

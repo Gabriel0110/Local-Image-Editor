@@ -53,10 +53,10 @@ RM = /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packag
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/gtomberlin/Documents/Code/CPP-Media-Editor
+CMAKE_SOURCE_DIR = /Users/gtomberlin/Documents/Code/Local-Image-Editor
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build
+CMAKE_BINARY_DIR = /Users/gtomberlin/Documents/Code/Local-Image-Editor/build
 
 # Utility rule file for MediaEditor_autogen.
 
@@ -67,8 +67,8 @@ include CMakeFiles/MediaEditor_autogen.dir/compiler_depend.make
 include CMakeFiles/MediaEditor_autogen.dir/progress.make
 
 CMakeFiles/MediaEditor_autogen:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target MediaEditor"
-	/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/bin/cmake -E cmake_autogen /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/MediaEditor_autogen.dir/AutogenInfo.json ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target MediaEditor"
+	/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/bin/cmake -E cmake_autogen /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor_autogen.dir/AutogenInfo.json ""
 
 MediaEditor_autogen: CMakeFiles/MediaEditor_autogen
 MediaEditor_autogen: CMakeFiles/MediaEditor_autogen.dir/build.make
@@ -83,6 +83,6 @@ CMakeFiles/MediaEditor_autogen.dir/clean:
 .PHONY : CMakeFiles/MediaEditor_autogen.dir/clean
 
 CMakeFiles/MediaEditor_autogen.dir/depend:
-	cd /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/gtomberlin/Documents/Code/CPP-Media-Editor /Users/gtomberlin/Documents/Code/CPP-Media-Editor /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build /Users/gtomberlin/Documents/Code/CPP-Media-Editor/build/CMakeFiles/MediaEditor_autogen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/gtomberlin/Documents/Code/Local-Image-Editor/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/gtomberlin/Documents/Code/Local-Image-Editor /Users/gtomberlin/Documents/Code/Local-Image-Editor /Users/gtomberlin/Documents/Code/Local-Image-Editor/build /Users/gtomberlin/Documents/Code/Local-Image-Editor/build /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor_autogen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/MediaEditor_autogen.dir/depend
 

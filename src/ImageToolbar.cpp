@@ -9,6 +9,8 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QAction* mirrorAction = toolbar->addAction(QIcon::fromTheme("object-flip-horizontal"), "Mirror");
     QAction* copyAction = toolbar->addAction(QIcon::fromTheme("edit-copy"), "Copy");
     QAction* deleteAction = toolbar->addAction(QIcon::fromTheme("edit-delete"), "Delete");
+    QAction* saveAction = toolbar->addAction(QIcon::fromTheme("document-save"), "Save");
+
 
     connect(rotateAction, &QAction::triggered, this, [this]() {
         qDebug() << "Rotate button clicked";
@@ -25,6 +27,10 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     connect(deleteAction, &QAction::triggered, this, [this]() {
         qDebug() << "Delete button clicked";
         emit deleteImage();
+    });
+    connect(saveAction, &QAction::triggered, this, [this]() {
+        qDebug() << "Save button clicked";
+        emit saveImage();
     });
 
     layout->addWidget(toolbar);

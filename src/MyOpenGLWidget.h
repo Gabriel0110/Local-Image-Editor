@@ -35,6 +35,7 @@ private slots:
     void mirrorSelectedImage();
     void copySelectedImage();
     void deleteSelectedImage();
+    void saveSelectedImage();
 };
 
 #endif // MYOPENGLWIDGET_H

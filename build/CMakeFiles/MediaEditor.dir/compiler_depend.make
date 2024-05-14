@@ -471,7 +471,7 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__iterator/sortable.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__iterator/unreachable_sentinel.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__iterator/wrap_iter.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QWidget \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qwidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
@@ -863,7 +863,7 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon \
   MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QOpenGLWidget \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qopenglwidget.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QSurfaceFormat \
@@ -878,7 +878,7 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/inttypes.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/inttypes.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageObject.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QImage \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QRect \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPainter \
@@ -886,8 +886,8 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextoption.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h
 
-CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.cpp \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
+CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QWidget \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qwidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
@@ -1753,8 +1753,8 @@ CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: /Users/gtomberlin/Documents/C
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qset.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h
 
-CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.cpp \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.h \
+CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QOpenGLWidget \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qopenglwidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
@@ -2613,7 +2613,7 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/inttypes.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/inttypes.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QToolBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtoolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qaction.h \
@@ -2628,7 +2628,7 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayoutitem.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageObject.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QImage \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QRect \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPainter \
@@ -2653,10 +2653,13 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtouchdevice.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QMouseEvent \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QUrl \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QtMath \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmath.h
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qfiledialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h
 
-CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/main.cpp \
+CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
@@ -3615,9 +3618,9 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/CPP-
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/_types/_nl_item.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cstdarg \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageObject.h
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h
 
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cstdarg:
@@ -3688,7 +3691,13 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/CPP-
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication:
 
-/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/main.cpp:
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog:
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QUrl:
 
@@ -3702,11 +3711,11 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/CPP-
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QMimeData:
 
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp:
+
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h:
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qset.h:
-
-/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.cpp:
 
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h:
 
@@ -3716,7 +3725,7 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/CPP-
 
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QImage:
 
-/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageObject.h:
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h:
 
@@ -3735,6 +3744,8 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/CPP-
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QSurfaceFormat:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qopenglwidget.h:
+
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h:
 
 MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 
@@ -3819,8 +3830,6 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qregexp.h:
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qvector.h:
-
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmath.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__numeric/transform_exclusive_scan.h:
 
@@ -4008,8 +4017,6 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/unique_copy.h:
 
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QtMath:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/ranges_unique.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/ranges_transform.h:
@@ -4098,8 +4105,6 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/ranges_remove.h:
 
-/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__numeric/transform_reduce.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__functional/binary_negate.h:
@@ -4139,6 +4144,8 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/ranges_max_element.h:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h:
+
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__random/is_valid.h:
 
@@ -4288,8 +4295,6 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__memory/destruct_n.h:
 
-/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.cpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__numeric/transform_inclusive_scan.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/rotate.h:
@@ -4365,6 +4370,8 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qactiongroup.h:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QWidget:
+
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__iterator/wrap_iter.h:
 
@@ -4623,8 +4630,6 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__tuple_dir/pair_like.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__memory/allocator_destructor.h:
-
-/Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__type_traits/promote.h:
 
@@ -5226,6 +5231,8 @@ MediaEditor_autogen/mocs_compilation.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__iterator/istream_iterator.h:
 
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qfiledialog.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/iter_swap.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__memory_resource/memory_resource.h:
@@ -5259,6 +5266,8 @@ MediaEditor_autogen/mocs_compilation.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__iterator/segmented_iterator.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/move_backward.h:
+
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__type_traits/is_signed.h:
 

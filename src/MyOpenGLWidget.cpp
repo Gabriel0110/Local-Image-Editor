@@ -5,6 +5,7 @@
 #include <QDropEvent>
 #include <QMouseEvent>
 #include <QUrl>
+#include <QFileDialog>
 #include <algorithm>
 
 MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
@@ -15,6 +16,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::mirrorImage, this, &MyOpenGLWidget::mirrorSelectedImage);
     connect(toolbar, &ImageToolbar::copyImage, this, &MyOpenGLWidget::copySelectedImage);
     connect(toolbar, &ImageToolbar::deleteImage, this, &MyOpenGLWidget::deleteSelectedImage);
+    connect(toolbar, &ImageToolbar::saveImage, this, &MyOpenGLWidget::saveSelectedImage);
 }
 
 void MyOpenGLWidget::initializeGL() {
@@ -58,6 +60,12 @@ void MyOpenGLWidget::dropEvent(QDropEvent* event) {
     }
 }
 
+void unselectImages(std::vector<ImageObject>& images) {
+    for (auto& img : images) {
+        img.isSelected = false;
+    }
+}
+
 void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
     QPoint pos = event->pos() - scrollPosition;
     bool imageClicked = false;
@@ -84,6 +92,9 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
     if (!imageClicked) {
         isDragging = true;
         qDebug() << "No image clicked, starting canvas drag";
+        unselectImages(images);
+        selectedImage = nullptr;
+        toolbar->setVisible(false);
     } else {
         qDebug() << "Selected image: " << (selectedImage != nullptr);
     }
@@ -176,6 +187,25 @@ void MyOpenGLWidget::deleteSelectedImage() {
         images.erase(std::remove(images.begin(), images.end(), *selectedImage), images.end());
         selectedImage = nullptr;
         update();
+    } else {
+        qDebug() << "No image selected";
+    }
+}
+
+void MyOpenGLWidget::saveSelectedImage() {
+    qDebug() << "saveSelectedImage called";
+    if (selectedImage) {
+        qDebug() << "Saving image";
+        QString filePath = QFileDialog::getSaveFileName(this, "Save Image", "", "PNG Files (*.png);;JPEG Files (*.jpg *.jpeg);;All Files (*)");
+        if (!filePath.isEmpty()) {
+            if (selectedImage->image.save(filePath)) {
+                qDebug() << "Image saved to" << filePath;
+            } else {
+                qDebug() << "Failed to save image";
+            }
+        } else {
+            qDebug() << "No file selected // Cancelled";
+        }
     } else {
         qDebug() << "No image selected";
     }

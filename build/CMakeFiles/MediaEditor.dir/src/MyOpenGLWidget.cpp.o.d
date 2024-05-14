@@ -1,6 +1,6 @@
 CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.cpp \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/MyOpenGLWidget.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QOpenGLWidget \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qopenglwidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
@@ -859,7 +859,7 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/inttypes.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/inttypes.h \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageToolbar.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QToolBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtoolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qaction.h \
@@ -874,7 +874,7 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayoutitem.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon \
-  /Users/gtomberlin/Documents/Code/CPP-Media-Editor/src/ImageObject.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QImage \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QRect \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPainter \
@@ -898,4 +898,9 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qvector2d.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtouchdevice.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QMouseEvent \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QUrl
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QUrl \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qfiledialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h
