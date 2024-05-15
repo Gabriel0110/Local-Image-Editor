@@ -874,6 +874,9 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayoutitem.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QSlider \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qslider.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractslider.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QImage \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QRect \
@@ -881,6 +884,11 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpainter.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextoption.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QMimeData \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmimedata.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QDebug \

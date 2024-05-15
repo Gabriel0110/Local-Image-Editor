@@ -860,6 +860,9 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayoutitem.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QSlider \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qslider.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractslider.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/UVLADIE3JM/../../../src/MyOpenGLWidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QOpenGLWidget \
@@ -882,4 +885,9 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPainter \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpainter.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextoption.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque

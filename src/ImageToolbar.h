@@ -6,6 +6,7 @@
 #include <QAction>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QSlider>
 
 class ImageToolbar : public QWidget {
     Q_OBJECT
@@ -19,6 +20,15 @@ signals:
     void copyImage();
     void deleteImage();
     void saveImage();
+    void toggleEraser(bool enabled);
+    void eraserSizeChanged(int size);
+
+private:
+    QAction* eraserAction;
+    QSlider* eraserSizeSlider;
+
+private slots:
+    void onEraserButtonClicked();
 };
 
 #endif // IMAGETOOLBAR_H

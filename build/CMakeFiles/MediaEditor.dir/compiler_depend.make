@@ -862,6 +862,9 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayoutitem.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QSlider \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qslider.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractslider.h \
   MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QOpenGLWidget \
@@ -884,7 +887,12 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPainter \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpainter.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextoption.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque
 
 CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
@@ -1746,6 +1754,9 @@ CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: /Users/gtomberlin/Documents/C
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayoutitem.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QSlider \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qslider.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractslider.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QDebug \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdebug.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qtextstream.h \
@@ -2628,6 +2639,9 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayoutitem.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QSlider \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qslider.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractslider.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QImage \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QRect \
@@ -2635,6 +2649,11 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpainter.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextoption.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QMimeData \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmimedata.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QDebug \
@@ -3620,7 +3639,15 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cstdarg \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
-  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QSlider \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qslider.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractslider.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque
 
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cstdarg:
@@ -3717,6 +3744,14 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qset.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton:
+
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/sys/_types/_blksize_t.h:
@@ -3748,6 +3783,10 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h:
 
 MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractslider.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qslider.h:
 
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QIcon:
 
@@ -3806,6 +3845,8 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qbrush.h:
 
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qrgba64.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque:
 
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qrgb.h:
 
@@ -4780,6 +4821,8 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/arm/types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__concepts/destructible.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QSlider:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/sys/_pthread/_pthread_types.h:
 

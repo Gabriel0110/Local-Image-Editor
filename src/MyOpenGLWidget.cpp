@@ -17,10 +17,28 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::copyImage, this, &MyOpenGLWidget::copySelectedImage);
     connect(toolbar, &ImageToolbar::deleteImage, this, &MyOpenGLWidget::deleteSelectedImage);
     connect(toolbar, &ImageToolbar::saveImage, this, &MyOpenGLWidget::saveSelectedImage);
+    connect(toolbar, &ImageToolbar::toggleEraser, this, &MyOpenGLWidget::toggleEraserMode);
+
+    eraserSizeSlider = new QSlider(Qt::Horizontal, this);
+    eraserSizeSlider->setRange(1, 100);
+    eraserSizeSlider->setValue(10);
+    eraserSizeSlider->setVisible(false);
+    eraserSizeSlider->setFixedWidth(200);
+    connect(eraserSizeSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::updateEraserSize);
+
+    installEventFilter(this);
+
+    // Add undo and redo buttons
+    undoButton = new QPushButton("Undo", this);
+    redoButton = new QPushButton("Redo", this);
+    undoButton->setGeometry(10, height() - 40, 80, 30);
+    redoButton->setGeometry(100, height() - 40, 80, 30);
+
+    connect(undoButton, &QPushButton::clicked, this, &MyOpenGLWidget::undo);
+    connect(redoButton, &QPushButton::clicked, this, &MyOpenGLWidget::redo);
 }
 
 void MyOpenGLWidget::initializeGL() {
-    // Set the background color to semi-dark gray
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 }
 
@@ -34,9 +52,18 @@ void MyOpenGLWidget::paintGL() {
         QPoint toolbarPos = selectedImage->boundingBox.topLeft() + scrollPosition - QPoint(0, toolbar->height());
         toolbar->move(toolbarPos);
         toolbar->setVisible(true);
+
+        QPoint sliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - eraserSizeSlider->width()) / 2, 10);
+        eraserSizeSlider->move(sliderPos);
+        eraserSizeSlider->setVisible(eraserMode);
     } else {
         toolbar->setVisible(false);
+        eraserSizeSlider->setVisible(false);
     }
+
+    // Ensure undo and redo buttons are always at the bottom right
+    undoButton->move(width() - 180, height() - 40);
+    redoButton->move(width() - 90, height() - 40);
 }
 
 void MyOpenGLWidget::dragEnterEvent(QDragEnterEvent* event) {
@@ -47,6 +74,7 @@ void MyOpenGLWidget::dragEnterEvent(QDragEnterEvent* event) {
 }
 
 void MyOpenGLWidget::dropEvent(QDropEvent* event) {
+    saveState(); // Save state before making changes
     const QMimeData* mimeData = event->mimeData();
     if (mimeData->hasUrls()) {
         QList<QUrl> urls = mimeData->urls();
@@ -57,12 +85,6 @@ void MyOpenGLWidget::dropEvent(QDropEvent* event) {
                 update();
             }
         }
-    }
-}
-
-void unselectImages(std::vector<ImageObject>& images) {
-    for (auto& img : images) {
-        img.isSelected = false;
     }
 }
 
@@ -77,39 +99,34 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
             selectedImage = &img;
             img.isSelected = true;
             imageClicked = true;
-            qDebug() << "Handle selected";
             break;
         } else if (img.contains(pos, QPoint(0, 0))) {
             selectedImage = &img;
             img.isSelected = true;
             imageClicked = true;
-            qDebug() << "Image selected";
         } else {
             img.isSelected = false;
         }
     }
 
-    if (!imageClicked) {
+    if (!imageClicked && !eraserMode) {
         isDragging = true;
-        qDebug() << "No image clicked, starting canvas drag";
-        unselectImages(images);
         selectedImage = nullptr;
-        toolbar->setVisible(false);
-    } else {
-        qDebug() << "Selected image: " << (selectedImage != nullptr);
+        qDebug() << "Mouse pressed, selected image set to nullptr";
+    } else if (imageClicked && !eraserMode) {
+        saveState(); // Save state before making changes
     }
 
     lastMousePosition = event->pos();
     update();
 }
 
-void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
-    isDragging = false;
-    currentHandle = 0;
-    qDebug() << "Mouse released";
-}
-
 void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
+    if (eraserMode && selectedImage) {
+        eraseAt(event->pos());
+        return;
+    }
+
     if (isDragging && !selectedImage) {
         QPoint delta = event->pos() - lastMousePosition;
         scrollPosition += delta;
@@ -144,10 +161,18 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
     }
 }
 
+void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
+    if (eraserMode) {
+        return;
+    }
+    isDragging = false;
+    currentHandle = 0;
+    update();
+}
+
 void MyOpenGLWidget::rotateSelectedImage() {
-    qDebug() << "rotateSelectedImage called";
     if (selectedImage) {
-        qDebug() << "Rotating image";
+        saveState(); // Save state before making changes
         QTransform transform;
         transform.rotate(90);
         selectedImage->image = selectedImage->image.transformed(transform);
@@ -159,9 +184,8 @@ void MyOpenGLWidget::rotateSelectedImage() {
 }
 
 void MyOpenGLWidget::mirrorSelectedImage() {
-    qDebug() << "mirrorSelectedImage called";
     if (selectedImage) {
-        qDebug() << "Mirroring image";
+        saveState(); // Save state before making changes
         selectedImage->image = selectedImage->image.mirrored(true, false);
         update();
     } else {
@@ -170,9 +194,8 @@ void MyOpenGLWidget::mirrorSelectedImage() {
 }
 
 void MyOpenGLWidget::copySelectedImage() {
-    qDebug() << "copySelectedImage called";
     if (selectedImage) {
-        qDebug() << "Copying image";
+        saveState(); // Save state before making changes
         images.emplace_back(selectedImage->image, selectedImage->boundingBox.center() + QPoint(20, 20));
         update();
     } else {
@@ -181,9 +204,8 @@ void MyOpenGLWidget::copySelectedImage() {
 }
 
 void MyOpenGLWidget::deleteSelectedImage() {
-    qDebug() << "deleteSelectedImage called";
     if (selectedImage) {
-        qDebug() << "Deleting image";
+        saveState(); // Save state before making changes
         images.erase(std::remove(images.begin(), images.end(), *selectedImage), images.end());
         selectedImage = nullptr;
         update();
@@ -193,20 +215,73 @@ void MyOpenGLWidget::deleteSelectedImage() {
 }
 
 void MyOpenGLWidget::saveSelectedImage() {
-    qDebug() << "saveSelectedImage called";
     if (selectedImage) {
-        qDebug() << "Saving image";
-        QString filePath = QFileDialog::getSaveFileName(this, "Save Image", "", "PNG Files (*.png);;JPEG Files (*.jpg *.jpeg);;All Files (*)");
-        if (!filePath.isEmpty()) {
-            if (selectedImage->image.save(filePath)) {
-                qDebug() << "Image saved to" << filePath;
-            } else {
-                qDebug() << "Failed to save image";
-            }
-        } else {
-            qDebug() << "No file selected // Cancelled";
+        QString fileName = QFileDialog::getSaveFileName(this, "Save Image", "", "PNG Files (*.png);;All Files (*)");
+        if (!fileName.isEmpty()) {
+            selectedImage->image.save(fileName);
         }
     } else {
         qDebug() << "No image selected";
+    }
+}
+
+void MyOpenGLWidget::toggleEraserMode(bool enabled) {
+    eraserMode = enabled;
+    if (enabled) {
+        setCursor(Qt::CrossCursor);
+    } else {
+        setCursor(Qt::ArrowCursor);
+    }
+    update();
+}
+
+void MyOpenGLWidget::updateEraserSize(int size) {
+    eraserSize = size;
+    update();
+}
+
+void MyOpenGLWidget::eraseAt(const QPoint& pos) {
+    if (!selectedImage) return;
+
+    QPoint imgPos = pos - scrollPosition - selectedImage->boundingBox.topLeft();
+    QPainter painter(&selectedImage->image);
+    painter.setCompositionMode(QPainter::CompositionMode_Clear);
+    painter.setBrush(QBrush(Qt::transparent));
+    painter.setPen(Qt::NoPen);
+    painter.drawEllipse(imgPos, eraserSize / 2, eraserSize / 2);
+    update();
+}
+
+bool MyOpenGLWidget::eventFilter(QObject* obj, QEvent* event) {
+    if (eraserMode && selectedImage && event->type() == QEvent::MouseMove) {
+        QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+        eraseAt(mouseEvent->pos());
+        return true;
+    }
+    return QOpenGLWidget::eventFilter(obj, event);
+}
+
+void MyOpenGLWidget::saveState() {
+    undoStack.push(images);
+    while (!redoStack.empty()) {
+        redoStack.pop();
+    }
+}
+
+void MyOpenGLWidget::undo() {
+    if (!undoStack.empty()) {
+        redoStack.push(images);
+        images = undoStack.top();
+        undoStack.pop();
+        update();
+    }
+}
+
+void MyOpenGLWidget::redo() {
+    if (!redoStack.empty()) {
+        undoStack.push(images);
+        images = redoStack.top();
+        redoStack.pop();
+        update();
     }
 }

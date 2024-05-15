@@ -1,5 +1,6 @@
 #include "ImageToolbar.h"
 #include <QDebug>
+#include <QToolBar>
 
 ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QHBoxLayout* layout = new QHBoxLayout(this);
@@ -10,31 +11,21 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QAction* copyAction = toolbar->addAction(QIcon::fromTheme("edit-copy"), "Copy");
     QAction* deleteAction = toolbar->addAction(QIcon::fromTheme("edit-delete"), "Delete");
     QAction* saveAction = toolbar->addAction(QIcon::fromTheme("document-save"), "Save");
+    eraserAction = toolbar->addAction(QIcon::fromTheme("edit-eraser"), "Eraser");
+    eraserAction->setCheckable(true);
 
-
-    connect(rotateAction, &QAction::triggered, this, [this]() {
-        qDebug() << "Rotate button clicked";
-        emit rotateImage();
-    });
-    connect(mirrorAction, &QAction::triggered, this, [this]() {
-        qDebug() << "Mirror button clicked";
-        emit mirrorImage();
-    });
-    connect(copyAction, &QAction::triggered, this, [this]() {
-        qDebug() << "Copy button clicked";
-        emit copyImage();
-    });
-    connect(deleteAction, &QAction::triggered, this, [this]() {
-        qDebug() << "Delete button clicked";
-        emit deleteImage();
-    });
-    connect(saveAction, &QAction::triggered, this, [this]() {
-        qDebug() << "Save button clicked";
-        emit saveImage();
-    });
+    connect(rotateAction, &QAction::triggered, this, &ImageToolbar::rotateImage);
+    connect(mirrorAction, &QAction::triggered, this, &ImageToolbar::mirrorImage);
+    connect(copyAction, &QAction::triggered, this, &ImageToolbar::copyImage);
+    connect(deleteAction, &QAction::triggered, this, &ImageToolbar::deleteImage);
+    connect(saveAction, &QAction::triggered, this, &ImageToolbar::saveImage);
+    connect(eraserAction, &QAction::triggered, this, &ImageToolbar::onEraserButtonClicked);
 
     layout->addWidget(toolbar);
     setLayout(layout);
 }
 
-
+void ImageToolbar::onEraserButtonClicked() {
+    bool toggled = eraserAction->isChecked();
+    emit toggleEraser(toggled);
+}

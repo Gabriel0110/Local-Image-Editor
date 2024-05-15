@@ -960,4 +960,12 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/cstdarg \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
-  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QSlider \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qslider.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractslider.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque
