@@ -102,6 +102,12 @@
 			null
 		],
 		[
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.h",
+			"MU",
+			"UVLADIE3JM/moc_MainWindow.cpp",
+			null
+		],
+		[
 			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h",
 			"MU",
 			"UVLADIE3JM/moc_MyOpenGLWidget.cpp",
@@ -170,6 +176,11 @@
 	[
 		[
 			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.cpp",
 			"MU",
 			null
 		],

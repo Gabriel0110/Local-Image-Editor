@@ -6,10 +6,12 @@
 #include <QMouseEvent>
 #include <QUrl>
 #include <QFileDialog>
-#include <algorithm>
+#include <QVBoxLayout>
 
 MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     setAcceptDrops(true);
+
+    // Initialize the toolbar
     toolbar = new ImageToolbar(this);
     toolbar->setVisible(false);
     connect(toolbar, &ImageToolbar::rotateImage, this, &MyOpenGLWidget::rotateSelectedImage);
@@ -19,6 +21,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::saveImage, this, &MyOpenGLWidget::saveSelectedImage);
     connect(toolbar, &ImageToolbar::toggleEraser, this, &MyOpenGLWidget::toggleEraserMode);
 
+    // Initialize the eraser size slider
     eraserSizeSlider = new QSlider(Qt::Horizontal, this);
     eraserSizeSlider->setRange(1, 100);
     eraserSizeSlider->setValue(10);
@@ -28,12 +31,9 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
 
     installEventFilter(this);
 
-    // Add undo and redo buttons
+    // Initialize undo and redo buttons
     undoButton = new QPushButton("Undo", this);
     redoButton = new QPushButton("Redo", this);
-    undoButton->setGeometry(10, height() - 40, 80, 30);
-    redoButton->setGeometry(100, height() - 40, 80, 30);
-
     connect(undoButton, &QPushButton::clicked, this, &MyOpenGLWidget::undo);
     connect(redoButton, &QPushButton::clicked, this, &MyOpenGLWidget::redo);
 }
@@ -89,6 +89,11 @@ void MyOpenGLWidget::dropEvent(QDropEvent* event) {
 }
 
 void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
+    if (eraserMode && selectedImage) {
+        eraseAt(event->pos());
+        return;
+    }
+
     QPoint pos = event->pos() - scrollPosition;
     bool imageClicked = false;
 
@@ -113,8 +118,6 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
         isDragging = true;
         selectedImage = nullptr;
         qDebug() << "Mouse pressed, selected image set to nullptr";
-    } else if (imageClicked && !eraserMode) {
-        saveState(); // Save state before making changes
     }
 
     lastMousePosition = event->pos();
@@ -166,6 +169,7 @@ void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
         return;
     }
     isDragging = false;
+    //selectedImage = nullptr;
     currentHandle = 0;
     update();
 }
@@ -283,5 +287,17 @@ void MyOpenGLWidget::redo() {
         images = redoStack.top();
         redoStack.pop();
         update();
+    }
+}
+
+void MyOpenGLWidget::uploadImage() {
+    QString fileName = QFileDialog::getOpenFileName(this, "Open Image", "", "Images (*.png *.xpm *.jpg)");
+    if (!fileName.isEmpty()) {
+        QImage image;
+        if (image.load(fileName)) {
+            saveState(); // Save state before making changes
+            images.emplace_back(image.scaled(QSize(150, 150), Qt::KeepAspectRatio), QPoint(width() / 2, height() / 2));
+            update();
+        }
     }
 }

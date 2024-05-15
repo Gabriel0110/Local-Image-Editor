@@ -20,7 +20,7 @@ find_package(OpenGL REQUIRED)  # Find the OpenGL package
 include_directories(${Qt5Widgets_INCLUDES} ${OpenCV_INCLUDE_DIRS})
 
 # Add executable
-add_executable(${PROJECT_NAME} src/main.cpp src/MyOpenGLWidget.cpp src/ImageToolbar.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/MyOpenGLWidget.cpp src/ImageToolbar.cpp src/MainWindow.cpp)
 
 # Use the Widgets module from Qt 5
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui Qt5::OpenGL ${OpenCV_LIBS} ${OPENGL_LIBRARIES})

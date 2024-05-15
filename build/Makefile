@@ -190,6 +190,30 @@ src/ImageToolbar.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.s
 .PHONY : src/ImageToolbar.cpp.s
 
+src/MainWindow.o: src/MainWindow.cpp.o
+.PHONY : src/MainWindow.o
+
+# target to build an object file
+src/MainWindow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o
+.PHONY : src/MainWindow.cpp.o
+
+src/MainWindow.i: src/MainWindow.cpp.i
+.PHONY : src/MainWindow.i
+
+# target to preprocess a source file
+src/MainWindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.i
+.PHONY : src/MainWindow.cpp.i
+
+src/MainWindow.s: src/MainWindow.cpp.s
+.PHONY : src/MainWindow.s
+
+# target to generate assembly for a file
+src/MainWindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.s
+.PHONY : src/MainWindow.cpp.s
+
 src/MyOpenGLWidget.o: src/MyOpenGLWidget.cpp.o
 .PHONY : src/MyOpenGLWidget.o
 
@@ -254,6 +278,9 @@ help:
 	@echo "... src/ImageToolbar.o"
 	@echo "... src/ImageToolbar.i"
 	@echo "... src/ImageToolbar.s"
+	@echo "... src/MainWindow.o"
+	@echo "... src/MainWindow.i"
+	@echo "... src/MainWindow.s"
 	@echo "... src/MyOpenGLWidget.o"
 	@echo "... src/MyOpenGLWidget.i"
 	@echo "... src/MyOpenGLWidget.s"

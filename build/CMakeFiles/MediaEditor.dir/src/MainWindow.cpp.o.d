@@ -1,7 +1,8 @@
-CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
-  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h \
+CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.cpp \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMainWindow \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmainwindow.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtguiglobal.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qglobal.h \
@@ -768,19 +769,20 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qversiontagging.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtgui-config.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtwidgets-config.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qwidget.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qwindowdefs.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qobjectdefs.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qnamespace.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qobjectdefs_impl.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qobject.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qstring.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qchar.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qbytearray.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qrefcount.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qnamespace.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qarraydata.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qstringliteral.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qstringalgorithms.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qstringview.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qobject.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qobjectdefs.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qobjectdefs_impl.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlist.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qalgorithms.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qiterator.h \
@@ -814,26 +816,11 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/map \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__tree \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qobject_impl.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qeventloop.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qwindowdefs.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qpoint.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qsize.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmargins.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qcursor.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qguiapplication.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qvariant.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmap.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qhash.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qshareddata.h \
-  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMainWindow \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmainwindow.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qwidget.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpaintdevice.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qrect.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qsize.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qpoint.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpalette.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qcolor.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qrgb.h \
@@ -850,11 +837,14 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpixelformat.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpixmap.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qsharedpointer.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qshareddata.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qhash.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qsharedpointer_impl.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qfont.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qfontmetrics.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qfontinfo.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qcursor.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qkeysequence.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtabwidget.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qicon.h \
@@ -878,6 +868,8 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QToolBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtoolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qaction.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qvariant.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmap.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qactiongroup.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QAction \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QHBoxLayout \
@@ -900,4 +892,16 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qfiledialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfile.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfiledevice.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qurl.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h

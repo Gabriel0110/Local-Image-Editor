@@ -6,6 +6,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o.d"
   "CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o"
   "CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o.d"
+  "CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o"
+  "CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o.d"
   "CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o"
   "CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o.d"
   "CMakeFiles/MediaEditor.dir/src/main.cpp.o"

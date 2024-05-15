@@ -911,4 +911,5 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qfiledialog.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QVBoxLayout

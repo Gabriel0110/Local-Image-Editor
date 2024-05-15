@@ -12,25 +12,10 @@
 class MyOpenGLWidget : public QOpenGLWidget {
     Q_OBJECT
 
-private:
-    std::vector<ImageObject> images;
-    QPoint scrollPosition;
-    QPoint lastMousePosition;
-    bool isDragging;
-    ImageObject* selectedImage = nullptr;
-    int currentHandle = 0;
-    ImageToolbar* toolbar;
-    QSlider* eraserSizeSlider;
-    QPushButton* undoButton;
-    QPushButton* redoButton;
-    bool eraserMode = false;
-    int eraserSize = 10;
-
-    std::stack<std::vector<ImageObject>> undoStack;
-    std::stack<std::vector<ImageObject>> redoStack;
-
 public:
     MyOpenGLWidget(QWidget* parent = nullptr);
+
+    void uploadImage();
 
 protected:
     void initializeGL() override;
@@ -56,6 +41,22 @@ private slots:
 private:
     void eraseAt(const QPoint& pos);
     void saveState();
+
+    std::vector<ImageObject> images;
+    QPoint scrollPosition;
+    QPoint lastMousePosition;
+    bool isDragging;
+    ImageObject* selectedImage = nullptr;
+    int currentHandle = 0;
+    ImageToolbar* toolbar;
+    QSlider* eraserSizeSlider;
+    QPushButton* undoButton;
+    QPushButton* redoButton;
+    bool eraserMode = false;
+    int eraserSize = 10;
+
+    std::stack<std::vector<ImageObject>> undoStack;
+    std::stack<std::vector<ImageObject>> redoStack;
 };
 
 #endif // MYOPENGLWIDGET_H
