@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QToolBar>
 
+// Constructor: Initialize the toolbar and its actions
 ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QHBoxLayout* layout = new QHBoxLayout(this);
 
@@ -12,8 +13,9 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QAction* deleteAction = toolbar->addAction(QIcon::fromTheme("edit-delete"), "Delete");
     QAction* saveAction = toolbar->addAction(QIcon::fromTheme("document-save"), "Save");
     eraserAction = toolbar->addAction(QIcon::fromTheme("edit-eraser"), "Eraser");
-    eraserAction->setCheckable(true);
+    eraserAction->setCheckable(true);  // Make the eraser action a toggle button
 
+    // Connect actions to signals
     connect(rotateAction, &QAction::triggered, this, &ImageToolbar::rotateImage);
     connect(mirrorAction, &QAction::triggered, this, &ImageToolbar::mirrorImage);
     connect(copyAction, &QAction::triggered, this, &ImageToolbar::copyImage);
@@ -25,6 +27,7 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     setLayout(layout);
 }
 
+// Slot for handling the eraser button click
 void ImageToolbar::onEraserButtonClicked() {
     bool toggled = eraserAction->isChecked();
     emit toggleEraser(toggled);

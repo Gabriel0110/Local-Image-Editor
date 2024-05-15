@@ -70,18 +70,21 @@
 #include <QRect>
 #include <QPainter>
 
+// Class representing an image object with handles for resizing and moving
 class ImageObject {
 public:
-    QImage image;
-    QRect boundingBox;
-    bool isSelected;
-    static const int HANDLE_SIZE = 10;
+    QImage image;  // The image data
+    QRect boundingBox;  // The bounding box of the image
+    bool isSelected;  // Whether the image is currently selected
+    static const int HANDLE_SIZE = 10;  // Size of the handles for resizing
 
+    // Constructor: Initialize the image object
     ImageObject(const QImage& img, const QPoint& pos) : image(img), isSelected(false) {
         boundingBox.setSize(img.size());
         boundingBox.moveCenter(pos);
     }
 
+    // Draw the image and its handles if selected
     void draw(QPainter& painter, const QPoint& scrollPosition) {
         QRect adjustedBox = boundingBox.translated(scrollPosition);
         painter.drawImage(adjustedBox, image);
@@ -92,6 +95,7 @@ public:
         }
     }
 
+    // Draw the handles for resizing the image
     void drawHandles(QPainter& painter, const QRect& rect) {
         painter.setBrush(Qt::white);
         painter.setPen(Qt::black);
@@ -102,10 +106,12 @@ public:
         painter.drawRect(QRect(rect.bottomRight() - QPoint(halfSize, halfSize), QSize(HANDLE_SIZE, HANDLE_SIZE)));
     }
 
+    // Check if a point is within the bounding box of the image
     bool contains(const QPoint& pos, const QPoint& scrollPosition) const {
         return boundingBox.translated(scrollPosition).contains(pos);
     }
 
+    // Check if a point is within any of the handles for resizing the image
     int handleAt(const QPoint& pos, const QPoint& scrollPosition) const {
         QRect adjustedBox = boundingBox.translated(scrollPosition);
         if (QRect(adjustedBox.topLeft() - QPoint(HANDLE_SIZE / 2, HANDLE_SIZE / 2), QSize(HANDLE_SIZE, HANDLE_SIZE)).contains(pos))
@@ -119,6 +125,7 @@ public:
         return 0;
     }
 
+    // Overload the equality operator to compare two ImageObject instances
     bool operator==(const ImageObject& other) const {
         return (this->image == other.image &&
                 this->boundingBox == other.boundingBox &&
@@ -127,3 +134,4 @@ public:
 };
 
 #endif // IMAGEOBJECT_H
+

@@ -885,9 +885,6 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/inttypes.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/inttypes.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QImage \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QRect \
@@ -2637,17 +2634,14 @@ CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: /Users/gtomberlin/Documents/Cod
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/inttypes.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/inttypes.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QToolBar \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtoolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qaction.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qvariant.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmap.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qactiongroup.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QAction \
-  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QToolBar \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtoolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QHBoxLayout \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qboxlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayout.h \
@@ -2669,6 +2663,9 @@ CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: /Users/gtomberlin/Documents/Cod
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qfiledialog.h \
@@ -3539,18 +3536,15 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/inttypes.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/inttypes.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qicon.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qaction.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qvariant.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmap.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qactiongroup.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QAction \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QToolBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtoolbar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qaction.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qvariant.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qmap.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qicon.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qactiongroup.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QAction \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QHBoxLayout \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qboxlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayout.h \
@@ -4472,15 +4466,12 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/inttypes.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/inttypes.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qaction.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qactiongroup.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QAction \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QToolBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtoolbar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qaction.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qactiongroup.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QAction \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QHBoxLayout \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qboxlayout.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlayout.h \
@@ -4534,6 +4525,10 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog:
 
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h:
+
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.cpp:
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h:
@@ -4548,19 +4543,15 @@ MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h:
 
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton:
+
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h:
 
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QImage:
 
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h:
-
-/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h:
-
-/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h:
-
-/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton:
-
-/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/inttypes.h:
 
