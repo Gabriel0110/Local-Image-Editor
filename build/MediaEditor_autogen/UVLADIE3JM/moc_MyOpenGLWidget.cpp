@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MyOpenGLWidget_t {
     QByteArrayData data[13];
-    char stringdata0[169];
+    char stringdata0[183];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,15 +43,15 @@ QT_MOC_LITERAL(7, 112, 16), // "toggleEraserMode"
 QT_MOC_LITERAL(8, 129, 7), // "enabled"
 QT_MOC_LITERAL(9, 137, 16), // "updateEraserSize"
 QT_MOC_LITERAL(10, 154, 4), // "size"
-QT_MOC_LITERAL(11, 159, 4), // "undo"
-QT_MOC_LITERAL(12, 164, 4) // "redo"
+QT_MOC_LITERAL(11, 159, 12), // "bringToFront"
+QT_MOC_LITERAL(12, 172, 10) // "pushToBack"
 
     },
     "MyOpenGLWidget\0rotateSelectedImage\0\0"
     "mirrorSelectedImage\0copySelectedImage\0"
     "deleteSelectedImage\0saveSelectedImage\0"
     "toggleEraserMode\0enabled\0updateEraserSize\0"
-    "size\0undo\0redo"
+    "size\0bringToFront\0pushToBack"
 };
 #undef QT_MOC_LITERAL
 
@@ -106,8 +106,8 @@ void MyOpenGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 4: _t->saveSelectedImage(); break;
         case 5: _t->toggleEraserMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 6: _t->updateEraserSize((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->undo(); break;
-        case 8: _t->redo(); break;
+        case 7: _t->bringToFront(); break;
+        case 8: _t->pushToBack(); break;
         default: ;
         }
     }

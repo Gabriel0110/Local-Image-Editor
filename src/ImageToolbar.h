@@ -8,6 +8,7 @@
 #include <QIcon>
 #include <QSlider>
 
+// Toolbar for image manipulation actions
 class ImageToolbar : public QWidget {
     Q_OBJECT
 
@@ -22,6 +23,8 @@ signals:
     void saveImage();
     void toggleEraser(bool enabled);
     void eraserSizeChanged(int size);
+    void bringToFront();
+    void pushToBack();
 
 private:
     QAction* eraserAction;

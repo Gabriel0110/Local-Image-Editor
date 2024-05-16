@@ -12,6 +12,8 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QAction* copyAction = toolbar->addAction(QIcon::fromTheme("edit-copy"), "Copy");
     QAction* deleteAction = toolbar->addAction(QIcon::fromTheme("edit-delete"), "Delete");
     QAction* saveAction = toolbar->addAction(QIcon::fromTheme("document-save"), "Save");
+    QAction* bringToFrontAction = toolbar->addAction(QIcon::fromTheme("go-top"), "Bring to Front");
+    QAction* pushToBackAction = toolbar->addAction(QIcon::fromTheme("go-bottom"), "Push to Back");
     eraserAction = toolbar->addAction(QIcon::fromTheme("edit-eraser"), "Eraser");
     eraserAction->setCheckable(true);  // Make the eraser action a toggle button
 
@@ -21,6 +23,8 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     connect(copyAction, &QAction::triggered, this, &ImageToolbar::copyImage);
     connect(deleteAction, &QAction::triggered, this, &ImageToolbar::deleteImage);
     connect(saveAction, &QAction::triggered, this, &ImageToolbar::saveImage);
+    connect(bringToFrontAction, &QAction::triggered, this, &ImageToolbar::bringToFront);
+    connect(pushToBackAction, &QAction::triggered, this, &ImageToolbar::pushToBack);
     connect(eraserAction, &QAction::triggered, this, &ImageToolbar::onEraserButtonClicked);
 
     layout->addWidget(toolbar);
@@ -30,5 +34,5 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
 // Slot for handling the eraser button click
 void ImageToolbar::onEraserButtonClicked() {
     bool toggled = eraserAction->isChecked();
-    emit toggleEraser(toggled);
+    emit toggleEraser(toggled);  // Emit a signal indicating the eraser mode status
 }
