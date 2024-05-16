@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ImageToolbar_t {
     QByteArrayData data[14];
-    char stringdata0[160];
+    char stringdata0[172];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,18 +41,18 @@ QT_MOC_LITERAL(5, 48, 11), // "deleteImage"
 QT_MOC_LITERAL(6, 60, 9), // "saveImage"
 QT_MOC_LITERAL(7, 70, 12), // "toggleEraser"
 QT_MOC_LITERAL(8, 83, 7), // "enabled"
-QT_MOC_LITERAL(9, 91, 17), // "eraserSizeChanged"
-QT_MOC_LITERAL(10, 109, 4), // "size"
-QT_MOC_LITERAL(11, 114, 12), // "bringToFront"
-QT_MOC_LITERAL(12, 127, 10), // "pushToBack"
-QT_MOC_LITERAL(13, 138, 21) // "onEraserButtonClicked"
+QT_MOC_LITERAL(9, 91, 12), // "bringToFront"
+QT_MOC_LITERAL(10, 104, 10), // "pushToBack"
+QT_MOC_LITERAL(11, 115, 14), // "toggleCropMode"
+QT_MOC_LITERAL(12, 130, 21), // "onEraserButtonClicked"
+QT_MOC_LITERAL(13, 152, 19) // "onCropButtonClicked"
 
     },
     "ImageToolbar\0rotateImage\0\0mirrorImage\0"
     "copyImage\0deleteImage\0saveImage\0"
-    "toggleEraser\0enabled\0eraserSizeChanged\0"
-    "size\0bringToFront\0pushToBack\0"
-    "onEraserButtonClicked"
+    "toggleEraser\0enabled\0bringToFront\0"
+    "pushToBack\0toggleCropMode\0"
+    "onEraserButtonClicked\0onCropButtonClicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,7 +62,7 @@ static const uint qt_meta_data_ImageToolbar[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -70,18 +70,19 @@ static const uint qt_meta_data_ImageToolbar[] = {
        9,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   64,    2, 0x06 /* Public */,
-       3,    0,   65,    2, 0x06 /* Public */,
-       4,    0,   66,    2, 0x06 /* Public */,
-       5,    0,   67,    2, 0x06 /* Public */,
-       6,    0,   68,    2, 0x06 /* Public */,
-       7,    1,   69,    2, 0x06 /* Public */,
-       9,    1,   72,    2, 0x06 /* Public */,
-      11,    0,   75,    2, 0x06 /* Public */,
-      12,    0,   76,    2, 0x06 /* Public */,
+       1,    0,   69,    2, 0x06 /* Public */,
+       3,    0,   70,    2, 0x06 /* Public */,
+       4,    0,   71,    2, 0x06 /* Public */,
+       5,    0,   72,    2, 0x06 /* Public */,
+       6,    0,   73,    2, 0x06 /* Public */,
+       7,    1,   74,    2, 0x06 /* Public */,
+       9,    0,   77,    2, 0x06 /* Public */,
+      10,    0,   78,    2, 0x06 /* Public */,
+      11,    1,   79,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      13,    0,   77,    2, 0x08 /* Private */,
+      12,    0,   82,    2, 0x08 /* Private */,
+      13,    0,   83,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -90,11 +91,12 @@ static const uint qt_meta_data_ImageToolbar[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,    8,
-    QMetaType::Void, QMetaType::Int,   10,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,    8,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -112,10 +114,11 @@ void ImageToolbar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 3: _t->deleteImage(); break;
         case 4: _t->saveImage(); break;
         case 5: _t->toggleEraser((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 6: _t->eraserSizeChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: _t->bringToFront(); break;
-        case 8: _t->pushToBack(); break;
+        case 6: _t->bringToFront(); break;
+        case 7: _t->pushToBack(); break;
+        case 8: _t->toggleCropMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 9: _t->onEraserButtonClicked(); break;
+        case 10: _t->onCropButtonClicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -163,22 +166,22 @@ void ImageToolbar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
             }
         }
         {
-            using _t = void (ImageToolbar::*)(int );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::eraserSizeChanged)) {
+            using _t = void (ImageToolbar::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::bringToFront)) {
                 *result = 6;
                 return;
             }
         }
         {
             using _t = void (ImageToolbar::*)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::bringToFront)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::pushToBack)) {
                 *result = 7;
                 return;
             }
         }
         {
-            using _t = void (ImageToolbar::*)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::pushToBack)) {
+            using _t = void (ImageToolbar::*)(bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::toggleCropMode)) {
                 *result = 8;
                 return;
             }
@@ -215,13 +218,13 @@ int ImageToolbar::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 10;
+        _id -= 11;
     }
     return _id;
 }
@@ -264,22 +267,22 @@ void ImageToolbar::toggleEraser(bool _t1)
 }
 
 // SIGNAL 6
-void ImageToolbar::eraserSizeChanged(int _t1)
+void ImageToolbar::bringToFront()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 6, _a);
+    QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
 }
 
 // SIGNAL 7
-void ImageToolbar::bringToFront()
+void ImageToolbar::pushToBack()
 {
     QMetaObject::activate(this, &staticMetaObject, 7, nullptr);
 }
 
 // SIGNAL 8
-void ImageToolbar::pushToBack()
+void ImageToolbar::toggleCropMode(bool _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 8, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

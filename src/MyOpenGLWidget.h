@@ -9,24 +9,27 @@
 #include <QPushButton>
 #include <stack>
 
+// MyOpenGLWidget class for handling image editing
 class MyOpenGLWidget : public QOpenGLWidget {
     Q_OBJECT
 
 private:
-    std::vector<ImageObject> images;
-    QPoint scrollPosition;
-    QPoint lastMousePosition;
-    bool isDragging;
-    ImageObject* selectedImage = nullptr;
-    int currentHandle = 0;
-    ImageToolbar* toolbar;
-    QSlider* eraserSizeSlider;
-    bool eraserMode = false;
-    int eraserSize = 10;
-    QPushButton* undoButton;
-    QPushButton* redoButton;
-    std::stack<std::vector<ImageObject>> undoStack;
-    std::stack<std::vector<ImageObject>> redoStack;
+    std::vector<ImageObject> images;  // List of images in the widget
+    QPoint scrollPosition;  // Current scroll position
+    QPoint lastMousePosition;  // Last mouse position
+    bool isDragging;  // Flag indicating if dragging is in progress
+    ImageObject* selectedImage = nullptr;  // Currently selected image
+    int currentHandle = 0;  // Current handle for resizing
+    ImageToolbar* toolbar;  // Toolbar for image actions
+    QSlider* eraserSizeSlider;  // Slider for eraser size
+    bool eraserMode = false;  // Flag indicating if eraser mode is enabled
+    int eraserSize = 10;  // Size of the eraser
+    QPushButton* undoButton;  // Undo button
+    QPushButton* redoButton;  // Redo button
+    std::stack<std::vector<ImageObject>> undoStack;  // Stack for undo actions
+    std::stack<std::vector<ImageObject>> redoStack;  // Stack for redo actions
+    bool cropMode = false;  // Flag indicating if crop mode is enabled
+    QRect cropBox;  // Crop box for cropping
 
 public:
     MyOpenGLWidget(QWidget* parent = nullptr);
@@ -52,12 +55,15 @@ private slots:
     void updateEraserSize(int size);
     void bringToFront();
     void pushToBack();
+    void toggleCropMode(bool enabled);
 
 private:
     void eraseAt(const QPoint& pos);
     void saveState();
     void undo();
     void redo();
+    void adjustCropBox(const QPoint& delta);
+    int cropHandleAt(const QPoint& pos) const;
 };
 
 #endif // MYOPENGLWIDGET_H

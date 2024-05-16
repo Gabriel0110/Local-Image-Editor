@@ -20,6 +20,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::deleteImage, this, &MyOpenGLWidget::deleteSelectedImage);
     connect(toolbar, &ImageToolbar::saveImage, this, &MyOpenGLWidget::saveSelectedImage);
     connect(toolbar, &ImageToolbar::toggleEraser, this, &MyOpenGLWidget::toggleEraserMode);
+    connect(toolbar, &ImageToolbar::toggleCropMode, this, &MyOpenGLWidget::toggleCropMode);
     connect(toolbar, &ImageToolbar::bringToFront, this, &MyOpenGLWidget::bringToFront);
     connect(toolbar, &ImageToolbar::pushToBack, this, &MyOpenGLWidget::pushToBack);
 
@@ -58,6 +59,29 @@ void MyOpenGLWidget::paintGL() {
         QPoint sliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - eraserSizeSlider->width()) / 2, 10);
         eraserSizeSlider->move(sliderPos);
         eraserSizeSlider->setVisible(eraserMode);
+
+        if (cropMode) {
+            painter.setPen(QPen(Qt::blue, 2, Qt::DashLine));
+            painter.drawRect(cropBox);
+
+            // Draw the crop handles
+            const int handleSize = 6;
+            painter.setBrush(Qt::white);
+            painter.setPen(Qt::black);
+            QRect cropHandles[] = {
+                QRect(cropBox.topLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(cropBox.topRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(cropBox.bottomLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(cropBox.bottomRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.top() - handleSize / 2, handleSize, handleSize),
+                QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.bottom() - handleSize / 2, handleSize, handleSize),
+                QRect(cropBox.left() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize),
+                QRect(cropBox.right() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize)
+            };
+            for (const QRect& handle : cropHandles) {
+                painter.drawRect(handle);
+            }
+        }
     } else {
         toolbar->setVisible(false);
         eraserSizeSlider->setVisible(false);
@@ -99,6 +123,16 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
     QPoint pos = event->pos() - scrollPosition;
     bool imageClicked = false;
 
+    if (cropMode && selectedImage) {
+        // Check if a crop handle was clicked
+        int handle = cropHandleAt(pos);
+        if (handle != 0) {
+            currentHandle = handle;
+            lastMousePosition = event->pos();
+            return;
+        }
+    }
+
     for (auto& img : images) {
         int handle = img.handleAt(pos, QPoint(0, 0));
         if (handle != 0) {
@@ -116,7 +150,7 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
         }
     }
 
-    if (!imageClicked && !eraserMode) {
+    if (!imageClicked && !eraserMode && !cropMode) {
         isDragging = true;
         selectedImage = nullptr;
         qDebug() << "Mouse pressed, selected image set to nullptr";
@@ -138,7 +172,12 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
         lastMousePosition = event->pos();
         update();
     } else if (event->buttons() & Qt::LeftButton && selectedImage) {
-        if (currentHandle != 0) {
+        if (cropMode && currentHandle != 0) {
+            QPoint delta = event->pos() - lastMousePosition;
+            adjustCropBox(delta);
+            lastMousePosition = event->pos();
+            update();
+        } else if (currentHandle != 0) {
             QPoint delta = event->pos() - lastMousePosition;
             QRect& rect = selectedImage->boundingBox;
             switch (currentHandle) {
@@ -154,10 +193,22 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
                 case 4:
                     rect.setBottomRight(rect.bottomRight() + delta);
                     break;
+                case 5:
+                    rect.setTop(rect.top() + delta.y());
+                    break;
+                case 6:
+                    rect.setBottom(rect.bottom() + delta.y());
+                    break;
+                case 7:
+                    rect.setLeft(rect.left() + delta.x());
+                    break;
+                case 8:
+                    rect.setRight(rect.right() + delta.x());
+                    break;
             }
             lastMousePosition = event->pos();
             update();
-        } else {
+        } else if (!cropMode) {
             QPoint delta = event->pos() - lastMousePosition;
             selectedImage->boundingBox.translate(delta);
             lastMousePosition = event->pos();
@@ -171,6 +222,7 @@ void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
         return;
     }
     isDragging = false;
+    //selectedImage = nullptr;
     currentHandle = 0;
     update();
 }
@@ -309,11 +361,8 @@ void MyOpenGLWidget::bringToFront() {
         auto it = std::find(images.begin(), images.end(), *selectedImage);
         if (it != images.end()) {
             std::rotate(it, it + 1, images.end());
-            selectedImage = &images.back();
-            update();
         }
-    } else {
-        qDebug() << "No image selected";
+        update();
     }
 }
 
@@ -321,12 +370,90 @@ void MyOpenGLWidget::pushToBack() {
     if (selectedImage) {
         saveState(); // Save state before making changes
         auto it = std::find(images.begin(), images.end(), *selectedImage);
-        if (it != images.end()) {
+        if (it != images.end() && it != images.begin()) {
             std::rotate(images.begin(), it, it + 1);
-            selectedImage = &images.front();
-            update();
         }
+        update();
+    }
+}
+
+void MyOpenGLWidget::toggleCropMode(bool enabled) {
+    cropMode = enabled;
+    if (enabled && selectedImage) {
+        selectedImage->disableBoundingBox();
+        cropBox = selectedImage->boundingBox;
+        setCursor(Qt::CrossCursor);
     } else {
-        qDebug() << "No image selected";
+        setCursor(Qt::ArrowCursor);
+        if (selectedImage) {
+            selectedImage->enableBoundingBox();
+            if (cropBox != selectedImage->boundingBox) {
+                saveState(); // Save state before making changes
+                selectedImage->image = selectedImage->image.copy(cropBox.translated(-selectedImage->boundingBox.topLeft()));
+                selectedImage->boundingBox.setSize(cropBox.size());
+            }
+        }
+    }
+    update();
+}
+
+
+int MyOpenGLWidget::cropHandleAt(const QPoint& pos) const {
+    const int handleSize = 6;
+    QRect cropHandles[] = {
+        QRect(cropBox.topLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+        QRect(cropBox.topRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+        QRect(cropBox.bottomLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+        QRect(cropBox.bottomRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+        QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.top() - handleSize / 2, handleSize, handleSize),
+        QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.bottom() - handleSize / 2, handleSize, handleSize),
+        QRect(cropBox.left() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize),
+        QRect(cropBox.right() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize)
+    };
+    for (int i = 0; i < 8; ++i) {
+        if (cropHandles[i].contains(pos)) {
+            return i + 1;
+        }
+    }
+    return 0;
+}
+
+void MyOpenGLWidget::adjustCropBox(const QPoint& delta) {
+    switch (currentHandle) {
+        case 1:
+            cropBox.setTopLeft(cropBox.topLeft() + delta);
+            break;
+        case 2:
+            cropBox.setTopRight(cropBox.topRight() + delta);
+            break;
+        case 3:
+            cropBox.setBottomLeft(cropBox.bottomLeft() + delta);
+            break;
+        case 4:
+            cropBox.setBottomRight(cropBox.bottomRight() + delta);
+            break;
+        case 5:
+            cropBox.setTop(cropBox.top() + delta.y());
+            break;
+        case 6:
+            cropBox.setBottom(cropBox.bottom() + delta.y());
+            break;
+        case 7:
+            cropBox.setLeft(cropBox.left() + delta.x());
+            break;
+        case 8:
+            cropBox.setRight(cropBox.right() + delta.x());
+            break;
+    }
+
+    // Ensure the crop box stays within the bounds of the image
+    cropBox = cropBox.intersected(selectedImage->boundingBox);
+
+    // Ensure the crop box maintains a minimum size
+    if (cropBox.width() < 10) {
+        cropBox.setWidth(10);
+    }
+    if (cropBox.height() < 10) {
+        cropBox.setHeight(10);
     }
 }
