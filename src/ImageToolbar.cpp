@@ -1,22 +1,62 @@
 #include "ImageToolbar.h"
 #include <QDebug>
 #include <QToolBar>
+#include <QDir>
 
 // Constructor: Initialize the toolbar and its actions
 ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QHBoxLayout* layout = new QHBoxLayout(this);
 
     QToolBar* toolbar = new QToolBar(this);
-    QAction* rotateAction = toolbar->addAction(QIcon::fromTheme("object-rotate-right"), "Rotate");
-    QAction* mirrorAction = toolbar->addAction(QIcon::fromTheme("object-flip-horizontal"), "Mirror");
-    QAction* copyAction = toolbar->addAction(QIcon::fromTheme("edit-copy"), "Copy");
-    QAction* deleteAction = toolbar->addAction(QIcon::fromTheme("edit-delete"), "Delete");
-    QAction* saveAction = toolbar->addAction(QIcon::fromTheme("document-save"), "Save");
-    QAction* bringToFrontAction = toolbar->addAction(QIcon::fromTheme("go-top"), "Bring to Front");
-    QAction* pushToBackAction = toolbar->addAction(QIcon::fromTheme("go-bottom"), "Push to Back");
-    eraserAction = toolbar->addAction(QIcon::fromTheme("edit-eraser"), "Eraser");
+
+    // Set the stylesheet for the toolbar and actions
+    toolbar->setStyleSheet(
+        "QToolBar { background-color: white; border: 1px solid lightgray; }"
+        "QToolButton { background-color: transparent; border: none; }"
+        "QToolButton:hover { background-color: lightgray; }"
+        "QToolButton:pressed { background-color: darkgray; }"
+    );
+    toolbar->setIconSize(QSize(24, 24));  // Set a consistent icon size
+    toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);  // Display only the icon
+
+    QString iconPath = QDir::currentPath() + "/resources/images/icons/";
+
+    // Icon Attribution: https://www.flaticon.com/free-icons/rotate title="rotate icons" Rotate icons created by adriansyah - Flaticon
+    QAction* rotateAction = toolbar->addAction(QIcon(iconPath + "rotate.png"), "Rotate");
+    rotateAction->setToolTip("Rotate");
+
+    // Icon Attribution: https://www.flaticon.com/free-icons/flip title="flip icons" Flip icons created by Freepik - Flaticon
+    QAction* mirrorAction = toolbar->addAction(QIcon(iconPath + "flip.png"), "Mirror");
+    mirrorAction->setToolTip("Mirror");
+
+    // Icon Attribution: "https://www.flaticon.com/free-icons/photo" title="photo icons" Photo icons created by Freepik - Flaticon
+    QAction* copyAction = toolbar->addAction(QIcon(iconPath + "copy.png"), "Copy");
+    copyAction->setToolTip("Copy");
+
+    // Icon Attribution: "https://www.flaticon.com/free-icons/edit-tools" title="edit tools icons" Edit tools icons created by srip - Flaticon
+    QAction* deleteAction = toolbar->addAction(QIcon(iconPath + "delete.png"), "Delete");
+    deleteAction->setToolTip("Delete");
+
+    // Icon Attribution: "https://www.flaticon.com/free-icons/save" title="save icons" Save icons created by Bharat Icons - Flaticon
+    QAction* saveAction = toolbar->addAction(QIcon(iconPath + "save.png"), "Save");
+    saveAction->setToolTip("Save");
+
+    // Icon Attribution: "https://www.flaticon.com/free-icons/bring" title="bring icons" Bring icons created by Icon Mela - Flaticon
+    QAction* bringToFrontAction = toolbar->addAction(QIcon(iconPath + "bring-to-front.png"), "Bring to Front");
+    bringToFrontAction->setToolTip("Bring to Front");
+
+    // Icon Attribution: "https://www.flaticon.com/free-icons/higher" title="higher icons" Higher icons created by icon wind - Flaticon
+    QAction* pushToBackAction = toolbar->addAction(QIcon(iconPath + "push-to-back.png"), "Push to Back");
+    pushToBackAction->setToolTip("Push to Back");
+
+    // Icon Attribution: "https://www.flaticon.com/free-icons/design-tools" title="design tools icons" Design tools icons created by Culmbio - Flaticon
+    eraserAction = toolbar->addAction(QIcon(iconPath + "eraser.png"), "Eraser");
+    eraserAction->setToolTip("Eraser");
     eraserAction->setCheckable(true);  // Make the eraser action a toggle button
-    cropAction = toolbar->addAction(QIcon::fromTheme("crop"), "Crop");
+
+    // Icon Attribution: "https://www.flaticon.com/free-icons/photo-editing" title="photo editing icons" Photo editing icons created by M.Z Vector - Flaticon
+    cropAction = toolbar->addAction(QIcon(iconPath + "crop.png"), "Crop");
+    cropAction->setToolTip("Crop");
     cropAction->setCheckable(true);  // Make the crop action a toggle button
 
     // Connect actions to signals

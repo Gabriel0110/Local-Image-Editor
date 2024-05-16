@@ -1767,7 +1767,12 @@ CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: /Users/gtomberlin/Documents/C
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qtextstream.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qset.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QDir \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfile.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfiledevice.h
 
 CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.cpp \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.h \
@@ -4517,12 +4522,6 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h:
 
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfile.h:
-
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h:
-
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h:
-
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h:
@@ -4530,6 +4529,12 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h:
 
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.cpp:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfile.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h:
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h:
 
@@ -6164,6 +6169,8 @@ MediaEditor_autogen/mocs_compilation.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/sys/_types/_pid_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__ranges/enable_borrowed_range.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QDir:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/mach/arm/_structs.h:
 

@@ -1,4 +1,5 @@
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor.dir
+/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/copy_resources.dir
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/edit_cache.dir
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/rebuild_cache.dir
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor_autogen.dir

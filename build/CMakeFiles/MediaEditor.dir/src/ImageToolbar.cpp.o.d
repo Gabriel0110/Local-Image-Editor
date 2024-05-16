@@ -867,4 +867,9 @@ CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qtextstream.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qset.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QDir \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfile.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfiledevice.h
