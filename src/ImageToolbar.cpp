@@ -59,6 +59,11 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     cropAction->setToolTip("Crop");
     cropAction->setCheckable(true);  // Make the crop action a toggle button
 
+    // Icon Attribution: "https://www.flaticon.com/free-icons/effect" title="effect icons" Effect icons created by Those Icons - Flaticon
+    inpaintAction = toolbar->addAction(QIcon(iconPath + "inpaint.png"), "Inpaint");
+    inpaintAction->setToolTip("Inpaint");
+    inpaintAction->setCheckable(true);
+
     // Connect actions to signals
     connect(rotateAction, &QAction::triggered, this, &ImageToolbar::rotateImage);
     connect(mirrorAction, &QAction::triggered, this, &ImageToolbar::mirrorImage);
@@ -69,6 +74,7 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     connect(pushToBackAction, &QAction::triggered, this, &ImageToolbar::pushToBack);
     connect(eraserAction, &QAction::triggered, this, &ImageToolbar::onEraserButtonClicked);
     connect(cropAction, &QAction::triggered, this, &ImageToolbar::onCropButtonClicked);
+    connect(inpaintAction, &QAction::triggered, this, &ImageToolbar::onInpaintButtonClicked);
 
     layout->addWidget(toolbar);
     setLayout(layout);
@@ -84,4 +90,14 @@ void ImageToolbar::onEraserButtonClicked() {
 void ImageToolbar::onCropButtonClicked() {
     bool toggled = cropAction->isChecked();
     emit toggleCropMode(toggled);  // Emit a signal indicating the crop mode status
+}
+
+// Slot to handle inpaint button click
+void ImageToolbar::onInpaintButtonClicked() {
+    bool toggled = inpaintAction->isChecked();
+    emit toggleInpaintMode(toggled);
+}
+
+void ImageToolbar::checkInpaintAction(bool checked) {
+    inpaintAction->setChecked(checked);
 }

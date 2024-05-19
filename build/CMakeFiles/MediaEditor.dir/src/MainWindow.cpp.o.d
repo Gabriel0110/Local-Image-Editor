@@ -891,8 +891,20 @@ CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QStack \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qstack.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLineEdit \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlineedit.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qframe.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextcursor.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextformat.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLabel \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlabel.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QProcess \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qprocess.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
@@ -903,5 +915,4 @@ CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfile.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfiledevice.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qurl.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qurl.h

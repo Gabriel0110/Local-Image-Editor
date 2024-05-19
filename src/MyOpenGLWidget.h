@@ -7,7 +7,12 @@
 #include <vector>
 #include <QSlider>
 #include <QPushButton>
-#include <stack>
+#include <QStack>
+#include <QLineEdit>
+#include <QWidget>
+#include <QLabel>
+#include <QProcess>
+#include <QProgressDialog>
 
 // MyOpenGLWidget class for handling image editing
 class MyOpenGLWidget : public QOpenGLWidget {
@@ -26,10 +31,22 @@ private:
     int eraserSize = 10;  // Size of the eraser
     QPushButton* undoButton;  // Undo button
     QPushButton* redoButton;  // Redo button
-    std::stack<std::vector<ImageObject>> undoStack;  // Stack for undo actions
-    std::stack<std::vector<ImageObject>> redoStack;  // Stack for redo actions
+    QStack<std::vector<ImageObject>> undoStack;  // Stack for undo actions
+    QStack<std::vector<ImageObject>> redoStack;  // Stack for redo actions
     bool cropMode = false;  // Flag indicating if crop mode is enabled
     QRect cropBox;  // Crop box for cropping
+    bool inpaintMode = false;  // Flag indicating if inpaint mode is enabled
+    QImage maskImage;  // Image for the inpainting mask
+    QProgressDialog* progressDialog; // Progress dialog for inpainting
+    QProcess* pythonProcess;
+
+    // Inpainting popup elements
+    QWidget* inpaintPopup;
+    QLabel* inpaintPromptLabel;
+    QLineEdit* inpaintTextBox;
+    QPushButton* confirmInpaintButton;
+    QPushButton* cancelInpaintButton;
+    QSlider* inpaintBrushSizeSlider;
 
 public:
     MyOpenGLWidget(QWidget* parent = nullptr);
@@ -52,10 +69,13 @@ private slots:
     void deleteSelectedImage();
     void saveSelectedImage();
     void toggleEraserMode(bool enabled);
-    void updateEraserSize(int size);
     void bringToFront();
     void pushToBack();
     void toggleCropMode(bool enabled);
+    void toggleInpaintMode(bool enabled);
+    void confirmInpaint();
+    void handleInpaintResult();
+    void handleInpaintError(QProcess::ProcessError error);
 
 private:
     void eraseAt(const QPoint& pos);
@@ -64,6 +84,7 @@ private:
     void redo();
     void adjustCropBox(const QPoint& delta);
     int cropHandleAt(const QPoint& pos) const;
+    void drawMaskAt(const QPoint& pos);
 };
 
 #endif // MYOPENGLWIDGET_H

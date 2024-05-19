@@ -139,13 +139,28 @@ CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.cpp -o CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.s
 
+CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: CMakeFiles/MediaEditor.dir/flags.make
+CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.cpp
+CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: CMakeFiles/MediaEditor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o -MF CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o.d -o CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o -c /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.cpp
+
+CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.cpp > CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.i
+
+CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.cpp -o CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.s
+
 # Object files for target MediaEditor
 MediaEditor_OBJECTS = \
 "CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/MediaEditor.dir/src/main.cpp.o" \
 "CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o" \
 "CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o" \
-"CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o"
+"CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o" \
+"CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o"
 
 # External object files for target MediaEditor
 MediaEditor_EXTERNAL_OBJECTS =
@@ -155,6 +170,7 @@ MediaEditor: CMakeFiles/MediaEditor.dir/src/main.cpp.o
 MediaEditor: CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o
 MediaEditor: CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o
 MediaEditor: CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o
+MediaEditor: CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o
 MediaEditor: CMakeFiles/MediaEditor.dir/build.make
 MediaEditor: /opt/homebrew/opt/qt@5/lib/QtOpenGL.framework/QtOpenGL
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_gapi.4.9.0.dylib
@@ -192,6 +208,7 @@ MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_wechat_qrcode.4.9
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_xfeatures2d.4.9.0.dylib
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_xobjdetect.4.9.0.dylib
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_xphoto.4.9.0.dylib
+MediaEditor: /Library/Frameworks/Python.framework/Versions/3.10/lib/libpython3.10.dylib
 MediaEditor: /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/QtWidgets
 MediaEditor: /opt/homebrew/opt/qt@5/lib/QtGui.framework/QtGui
 MediaEditor: /opt/homebrew/opt/qt@5/lib/QtCore.framework/QtCore
@@ -215,8 +232,9 @@ MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_flann.4.9.0.dylib
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_photo.4.9.0.dylib
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_imgproc.4.9.0.dylib
 MediaEditor: /opt/homebrew/Cellar/opencv/4.9.0_8/lib/libopencv_core.4.9.0.dylib
+MediaEditor: /Library/Frameworks/Python.framework/Versions/3.10/lib/libpython3.10.dylib
 MediaEditor: CMakeFiles/MediaEditor.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable MediaEditor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable MediaEditor"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MediaEditor.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

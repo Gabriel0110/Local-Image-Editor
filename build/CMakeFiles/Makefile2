@@ -85,12 +85,12 @@ CMakeFiles/MediaEditor.dir/all: CMakeFiles/copy_resources.dir/all
 CMakeFiles/MediaEditor.dir/all: CMakeFiles/MediaEditor_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target MediaEditor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target MediaEditor"
 .PHONY : CMakeFiles/MediaEditor.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MediaEditor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MediaEditor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles 0
 .PHONY : CMakeFiles/MediaEditor.dir/rule
@@ -137,7 +137,7 @@ CMakeFiles/copy_resources.dir/clean:
 CMakeFiles/MediaEditor_autogen.dir/all: CMakeFiles/copy_resources.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor_autogen.dir/build.make CMakeFiles/MediaEditor_autogen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor_autogen.dir/build.make CMakeFiles/MediaEditor_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=7 "Built target MediaEditor_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles --progress-num=8 "Built target MediaEditor_autogen"
 .PHONY : CMakeFiles/MediaEditor_autogen.dir/all
 
 # Build rule for subdir invocation for target.

@@ -4,7 +4,7 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB
 
-CXX_INCLUDES = -I/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/include -isystem /opt/homebrew/Cellar/opencv/4.9.0_8/include/opencv4 -iframework /opt/homebrew/opt/qt@5/lib -isystem /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers -isystem /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers -isystem /opt/homebrew/opt/qt@5/./mkspecs/macx-clang -isystem /opt/homebrew/opt/qt@5/lib/QtOpenGL.framework/Headers
+CXX_INCLUDES = -I/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/include -isystem /opt/homebrew/Cellar/opencv/4.9.0_8/include/opencv4 -isystem /opt/homebrew/Cellar/pybind11/2.12.0/include -isystem /opt/homebrew/Frameworks/Python.framework/Versions/3.12/include/python3.12 -iframework /opt/homebrew/opt/qt@5/lib -isystem /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers -isystem /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers -isystem /opt/homebrew/opt/qt@5/./mkspecs/macx-clang -isystem /opt/homebrew/opt/qt@5/lib/QtOpenGL.framework/Headers
 
 CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fPIC
 

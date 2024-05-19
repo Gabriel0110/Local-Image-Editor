@@ -14,6 +14,7 @@ class ImageToolbar : public QWidget {
 
 public:
     explicit ImageToolbar(QWidget* parent = nullptr);
+    void checkInpaintAction(bool checked);  // Method to enable/disable inpaint action
 
 signals:
     void rotateImage();  // Signal to rotate image
@@ -25,15 +26,18 @@ signals:
     void bringToFront();  // Signal to bring image to front
     void pushToBack();    // Signal to push image to back
     void toggleCropMode(bool enabled); // Signal to toggle crop mode
+    void toggleInpaintMode(bool enabled); // Signal to toggle inpaint mode
 
 private:
     QAction* eraserAction;
     QAction* cropAction;
+    QAction* inpaintAction;
     QSlider* eraserSizeSlider;
 
 private slots:
     void onEraserButtonClicked();  // Slot to handle eraser button click
     void onCropButtonClicked();  // Slot to handle crop button click
+    void onInpaintButtonClicked(); // Slot to handle inpaint button click
 };
 
 #endif // IMAGETOOLBAR_H

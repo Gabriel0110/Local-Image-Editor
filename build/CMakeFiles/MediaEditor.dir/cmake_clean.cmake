@@ -12,6 +12,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o.d"
   "CMakeFiles/MediaEditor.dir/src/main.cpp.o"
   "CMakeFiles/MediaEditor.dir/src/main.cpp.o.d"
+  "CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o"
+  "CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o.d"
   "MediaEditor"
   "MediaEditor.pdb"
 )

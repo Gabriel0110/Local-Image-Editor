@@ -36,6 +36,14 @@
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Platform/Apple-Clang-CXX.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Platform/Apple-Clang.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPythonInterp.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageMessage.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPythonLibs.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeFindFrameworks.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/SelectLibraryConfigurations.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageMessage.cmake",
 		"/opt/homebrew/opt/qt@5/lib/cmake/Qt5/Qt5ConfigVersion.cmake",
 		"/opt/homebrew/opt/qt@5/lib/cmake/Qt5/Qt5Config.cmake",
 		"/opt/homebrew/opt/qt@5/lib/cmake/Qt5/Qt5ModuleLocation.cmake",
@@ -88,7 +96,21 @@
 		"/opt/homebrew/Cellar/opencv/4.9.0_8/lib/cmake/opencv4/OpenCVModules-release.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindOpenGL.cmake",
 		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake",
-		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageMessage.cmake"
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/FindPackageMessage.cmake",
+		"/opt/homebrew/Cellar/pybind11/2.12.0/share/cmake/pybind11/pybind11ConfigVersion.cmake",
+		"/opt/homebrew/Cellar/pybind11/2.12.0/share/cmake/pybind11/pybind11Config.cmake",
+		"/opt/homebrew/Cellar/pybind11/2.12.0/share/cmake/pybind11/pybind11Targets.cmake",
+		"/opt/homebrew/Cellar/pybind11/2.12.0/share/cmake/pybind11/pybind11Common.cmake",
+		"/opt/homebrew/Cellar/pybind11/2.12.0/share/cmake/pybind11/pybind11Tools.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeParseArguments.cmake",
+		"/opt/homebrew/Cellar/pybind11/2.12.0/share/cmake/pybind11/FindPythonLibsNew.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CheckCXXCompilerFlag.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CheckCXXSourceCompiles.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Internal/CheckCompilerFlag.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Internal/CheckFlagCommonConfig.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake",
+		"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/cmake/data/share/cmake-3.26/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
 	],
 	"CMAKE_SOURCE_DIR" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor",
 	"DEP_FILE" : "",
@@ -135,6 +157,8 @@
 	"MOC_INCLUDES" : 
 	[
 		"/opt/homebrew/Cellar/opencv/4.9.0_8/include/opencv4",
+		"/opt/homebrew/Cellar/pybind11/2.12.0/include",
+		"/opt/homebrew/Frameworks/Python.framework/Versions/3.12/include/python3.12",
 		"/opt/homebrew/opt/qt@5/lib/QtWidgets.framework",
 		"/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers",
 		"/opt/homebrew/opt/qt@5/lib/QtGui.framework",
@@ -191,6 +215,11 @@
 		],
 		[
 			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.cpp",
 			"MU",
 			null
 		]

@@ -275,6 +275,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/pybind_wrapper.o: src/pybind_wrapper.cpp.o
+.PHONY : src/pybind_wrapper.o
+
+# target to build an object file
+src/pybind_wrapper.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o
+.PHONY : src/pybind_wrapper.cpp.o
+
+src/pybind_wrapper.i: src/pybind_wrapper.cpp.i
+.PHONY : src/pybind_wrapper.i
+
+# target to preprocess a source file
+src/pybind_wrapper.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.i
+.PHONY : src/pybind_wrapper.cpp.i
+
+src/pybind_wrapper.s: src/pybind_wrapper.cpp.s
+.PHONY : src/pybind_wrapper.s
+
+# target to generate assembly for a file
+src/pybind_wrapper.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.s
+.PHONY : src/pybind_wrapper.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -301,6 +325,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/pybind_wrapper.o"
+	@echo "... src/pybind_wrapper.i"
+	@echo "... src/pybind_wrapper.s"
 .PHONY : help
 
 

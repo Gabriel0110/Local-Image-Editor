@@ -231,6 +231,22 @@ OPENGL_glu_LIBRARY:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.
 //The directory containing a CMake configuration file for OpenCV.
 OpenCV_DIR:PATH=/opt/homebrew/Cellar/opencv/4.9.0_8/lib/cmake/opencv4
 
+//Overwrite cached values read from Python library (classic search).
+// Turn off if cross-compiling and manually setting these values.
+PYBIND11_PYTHONLIBS_OVERWRITE:BOOL=ON
+
+//Python version to use for compiling modules
+PYBIND11_PYTHON_VERSION:STRING=3.10
+
+//Path to a file.
+PYTHON_INCLUDE_DIR:PATH=/opt/homebrew/Frameworks/Python.framework/Versions/3.12/include/python3.12
+
+//Path to a library.
+PYTHON_LIBRARY:FILEPATH=/Library/Frameworks/Python.framework/Versions/3.10/lib/libpython3.10.dylib
+
+//Path to a library.
+PYTHON_LIBRARY_DEBUG:FILEPATH=PYTHON_LIBRARY_DEBUG-NOTFOUND
+
 //The directory containing a CMake configuration file for Qt5Core.
 Qt5Core_DIR:PATH=/opt/homebrew/opt/qt@5/lib/cmake/Qt5Core
 
@@ -246,14 +262,8 @@ Qt5Widgets_DIR:PATH=/opt/homebrew/opt/qt@5/lib/cmake/Qt5Widgets
 //The directory containing a CMake configuration file for Qt5.
 Qt5_DIR:PATH=/opt/homebrew/opt/qt@5/lib/cmake/Qt5
 
-//Value Computed by CMake
-QtOpenCVExample_BINARY_DIR:STATIC=/Users/gtomberlin/Documents/Code/Local-Image-Editor/build
-
-//Value Computed by CMake
-QtOpenCVExample_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-QtOpenCVExample_SOURCE_DIR:STATIC=/Users/gtomberlin/Documents/Code/Local-Image-Editor
+//The directory containing a CMake configuration file for pybind11.
+pybind11_DIR:PATH=/opt/homebrew/Cellar/pybind11/2.12.0/share/cmake/pybind11
 
 
 ########################
@@ -401,10 +411,39 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/opt/homebrew/Cellar/opencv/4.9.0_8][v4.9.0()]
 //Details about finding OpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework][/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework][c ][v()]
+//Details about finding PYTHON
+FIND_PACKAGE_MESSAGE_DETAILS_PYTHON:INTERNAL=/usr/local/bin/python3.103.10.9
+//Details about finding PythonInterp
+FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/local/bin/python3.10][v3.10.9(3.10)]
+//Details about finding PythonLibs
+FIND_PACKAGE_MESSAGE_DETAILS_PythonLibs:INTERNAL=[/Library/Frameworks/Python.framework/Versions/3.10/lib/libpython3.10.dylib][/opt/homebrew/Frameworks/Python.framework/Versions/3.12/include/python3.12][v3.12.3(3.10)]
+//Test HAS_FLTO
+HAS_FLTO:INTERNAL=1
+//Test HAS_FLTO_THIN
+HAS_FLTO_THIN:INTERNAL=
 //ADVANCED property for variable: OPENGL_INCLUDE_DIR
 OPENGL_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENGL_gl_LIBRARY
 OPENGL_gl_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENGL_glu_LIBRARY
 OPENGL_glu_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_INCLUDE_DIR
+PYTHON_INCLUDE_DIR-ADVANCED:INTERNAL=1
+PYTHON_INCLUDE_DIRS:INTERNAL=/opt/homebrew/Frameworks/Python.framework/Versions/3.12/include/python3.12
+PYTHON_IS_DEBUG:INTERNAL=0
+PYTHON_LIBRARIES:INTERNAL=/Library/Frameworks/Python.framework/Versions/3.10/lib/libpython3.10.dylib
+//ADVANCED property for variable: PYTHON_LIBRARY
+PYTHON_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_LIBRARY_DEBUG
+PYTHON_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+PYTHON_MODULE_DEBUG_POSTFIX:INTERNAL=
+PYTHON_MODULE_EXTENSION:INTERNAL=.cpython-310-darwin.so
+PYTHON_MODULE_PREFIX:INTERNAL=
+PYTHON_VERSION:INTERNAL=3.10.9
+PYTHON_VERSION_MAJOR:INTERNAL=3
+PYTHON_VERSION_MINOR:INTERNAL=10
+Python_ADDITIONAL_VERSIONS:INTERNAL=3.12;3.11;3.10;3.9;3.8;3.7;3.6
+_Python:INTERNAL=PYTHON
+//Directories where pybind11 and possibly Python headers are located
+pybind11_INCLUDE_DIRS:INTERNAL=/opt/homebrew/Cellar/pybind11/2.12.0/include;/opt/homebrew/Frameworks/Python.framework/Versions/3.12/include/python3.12
 

@@ -893,6 +893,18 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/stack \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QStack \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qstack.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLineEdit \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlineedit.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qframe.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextcursor.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextformat.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLabel \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlabel.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QProcess \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qprocess.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp
