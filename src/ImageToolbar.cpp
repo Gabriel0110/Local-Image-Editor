@@ -64,7 +64,8 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     inpaintAction->setToolTip("Inpaint");
     inpaintAction->setCheckable(true);
 
-    snipeAction = toolbar->addAction(QIcon::fromTheme("crosshairs"), "Snipe");  // Add this action
+    // Icon Attribution: "https://www.flaticon.com/free-icons/gun" title="gun icons" Gun icons created by photo3idea_studio - Flaticon
+    snipeAction = toolbar->addAction(QIcon(iconPath + "snipe.png"), "Snipe (Segment)");
     snipeAction->setCheckable(true);
 
     // Connect actions to signals
