@@ -51,6 +51,8 @@ private:
     QWidget* snipePopup;  // Popup widget for snipe mode
     QPushButton* confirmSnipeButton;  // Confirm snipe button
     QPushButton* clearSnipeButton;  // Clear snipe button
+    bool depthRemovalMode = false;
+    QSlider* depthRemovalSlider;
 
     // Inpainting popup elements
     QWidget* inpaintPopup;
@@ -92,6 +94,10 @@ private slots:
     void confirmSnipe();
     void clearSnipePoints();
     void handleSnipeResult();
+    void toggleDepthRemovalMode(bool enabled);
+    void adjustImage(int value);
+    void oneshotRemoval();
+    void handleOneshotRemovalResult();
 
 private:
     void eraseAt(const QPoint& pos);

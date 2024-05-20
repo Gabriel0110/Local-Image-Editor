@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ImageToolbar_t {
-    QByteArrayData data[18];
-    char stringdata0[250];
+    QByteArrayData data[21];
+    char stringdata0[312];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,19 +46,23 @@ QT_MOC_LITERAL(10, 104, 10), // "pushToBack"
 QT_MOC_LITERAL(11, 115, 14), // "toggleCropMode"
 QT_MOC_LITERAL(12, 130, 17), // "toggleInpaintMode"
 QT_MOC_LITERAL(13, 148, 15), // "toggleSnipeMode"
-QT_MOC_LITERAL(14, 164, 21), // "onEraserButtonClicked"
-QT_MOC_LITERAL(15, 186, 19), // "onCropButtonClicked"
-QT_MOC_LITERAL(16, 206, 22), // "onInpaintButtonClicked"
-QT_MOC_LITERAL(17, 229, 20) // "onSnipeButtonClicked"
+QT_MOC_LITERAL(14, 164, 18), // "toggleDepthRemoval"
+QT_MOC_LITERAL(15, 183, 14), // "oneshotRemoval"
+QT_MOC_LITERAL(16, 198, 21), // "onEraserButtonClicked"
+QT_MOC_LITERAL(17, 220, 19), // "onCropButtonClicked"
+QT_MOC_LITERAL(18, 240, 22), // "onInpaintButtonClicked"
+QT_MOC_LITERAL(19, 263, 20), // "onSnipeButtonClicked"
+QT_MOC_LITERAL(20, 284, 27) // "onDepthRemovalButtonClicked"
 
     },
     "ImageToolbar\0rotateImage\0\0mirrorImage\0"
     "copyImage\0deleteImage\0saveImage\0"
     "toggleEraser\0enabled\0bringToFront\0"
     "pushToBack\0toggleCropMode\0toggleInpaintMode\0"
-    "toggleSnipeMode\0onEraserButtonClicked\0"
+    "toggleSnipeMode\0toggleDepthRemoval\0"
+    "oneshotRemoval\0onEraserButtonClicked\0"
     "onCropButtonClicked\0onInpaintButtonClicked\0"
-    "onSnipeButtonClicked"
+    "onSnipeButtonClicked\0onDepthRemovalButtonClicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,31 +72,34 @@ static const uint qt_meta_data_ImageToolbar[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      11,       // signalCount
+      13,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   89,    2, 0x06 /* Public */,
-       3,    0,   90,    2, 0x06 /* Public */,
-       4,    0,   91,    2, 0x06 /* Public */,
-       5,    0,   92,    2, 0x06 /* Public */,
-       6,    0,   93,    2, 0x06 /* Public */,
-       7,    1,   94,    2, 0x06 /* Public */,
-       9,    0,   97,    2, 0x06 /* Public */,
-      10,    0,   98,    2, 0x06 /* Public */,
-      11,    1,   99,    2, 0x06 /* Public */,
-      12,    1,  102,    2, 0x06 /* Public */,
-      13,    1,  105,    2, 0x06 /* Public */,
+       1,    0,  104,    2, 0x06 /* Public */,
+       3,    0,  105,    2, 0x06 /* Public */,
+       4,    0,  106,    2, 0x06 /* Public */,
+       5,    0,  107,    2, 0x06 /* Public */,
+       6,    0,  108,    2, 0x06 /* Public */,
+       7,    1,  109,    2, 0x06 /* Public */,
+       9,    0,  112,    2, 0x06 /* Public */,
+      10,    0,  113,    2, 0x06 /* Public */,
+      11,    1,  114,    2, 0x06 /* Public */,
+      12,    1,  117,    2, 0x06 /* Public */,
+      13,    1,  120,    2, 0x06 /* Public */,
+      14,    1,  123,    2, 0x06 /* Public */,
+      15,    0,  126,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    0,  108,    2, 0x08 /* Private */,
-      15,    0,  109,    2, 0x08 /* Private */,
-      16,    0,  110,    2, 0x08 /* Private */,
-      17,    0,  111,    2, 0x08 /* Private */,
+      16,    0,  127,    2, 0x08 /* Private */,
+      17,    0,  128,    2, 0x08 /* Private */,
+      18,    0,  129,    2, 0x08 /* Private */,
+      19,    0,  130,    2, 0x08 /* Private */,
+      20,    0,  131,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -106,8 +113,11 @@ static const uint qt_meta_data_ImageToolbar[] = {
     QMetaType::Void, QMetaType::Bool,    8,
     QMetaType::Void, QMetaType::Bool,    8,
     QMetaType::Void, QMetaType::Bool,    8,
+    QMetaType::Void, QMetaType::Bool,    8,
+    QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -133,10 +143,13 @@ void ImageToolbar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 8: _t->toggleCropMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 9: _t->toggleInpaintMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 10: _t->toggleSnipeMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 11: _t->onEraserButtonClicked(); break;
-        case 12: _t->onCropButtonClicked(); break;
-        case 13: _t->onInpaintButtonClicked(); break;
-        case 14: _t->onSnipeButtonClicked(); break;
+        case 11: _t->toggleDepthRemoval((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 12: _t->oneshotRemoval(); break;
+        case 13: _t->onEraserButtonClicked(); break;
+        case 14: _t->onCropButtonClicked(); break;
+        case 15: _t->onInpaintButtonClicked(); break;
+        case 16: _t->onSnipeButtonClicked(); break;
+        case 17: _t->onDepthRemovalButtonClicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -218,6 +231,20 @@ void ImageToolbar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
                 return;
             }
         }
+        {
+            using _t = void (ImageToolbar::*)(bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::toggleDepthRemoval)) {
+                *result = 11;
+                return;
+            }
+        }
+        {
+            using _t = void (ImageToolbar::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::oneshotRemoval)) {
+                *result = 12;
+                return;
+            }
+        }
     }
 }
 
@@ -250,13 +277,13 @@ int ImageToolbar::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 18;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 18)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 15;
+        _id -= 18;
     }
     return _id;
 }
@@ -329,6 +356,19 @@ void ImageToolbar::toggleSnipeMode(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 10, _a);
+}
+
+// SIGNAL 11
+void ImageToolbar::toggleDepthRemoval(bool _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 11, _a);
+}
+
+// SIGNAL 12
+void ImageToolbar::oneshotRemoval()
+{
+    QMetaObject::activate(this, &staticMetaObject, 12, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

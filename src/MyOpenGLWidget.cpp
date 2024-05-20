@@ -1,6 +1,7 @@
 #include "pybind_wrapper.h"
 #include "MyOpenGLWidget.h"
 #include "CustomConfirmationDialog.h"
+#include <cmath>
 #include <fstream>
 #include <sstream>
 #include <QMimeData>
@@ -36,6 +37,8 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::pushToBack, this, &MyOpenGLWidget::pushToBack);
     connect(toolbar, &ImageToolbar::toggleInpaintMode, this, &MyOpenGLWidget::toggleInpaintMode);
     connect(toolbar, &ImageToolbar::toggleSnipeMode, this, &MyOpenGLWidget::toggleSnipeMode);
+    connect(toolbar, &ImageToolbar::toggleDepthRemoval, this, &MyOpenGLWidget::toggleDepthRemovalMode);
+    connect(toolbar, &ImageToolbar::oneshotRemoval, this, &MyOpenGLWidget::oneshotRemoval);
 
     // Initialize the eraser size slider
     eraserSizeSlider = new QSlider(Qt::Horizontal, this);
@@ -78,6 +81,14 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(confirmSnipeButton, &QPushButton::clicked, this, &MyOpenGLWidget::confirmSnipe);
     connect(clearSnipeButton, &QPushButton::clicked, this, &MyOpenGLWidget::clearSnipePoints);
 
+    // Initialize depth removal slider
+    depthRemovalSlider = new QSlider(Qt::Horizontal, this);
+    depthRemovalSlider->setRange(0, 1000);
+    depthRemovalSlider->setValue(0);
+    depthRemovalSlider->setVisible(false);
+    depthRemovalSlider->setFixedWidth(200);
+    connect(depthRemovalSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::adjustImage); // Connect depth removal slider
+
     installEventFilter(this);
 
     // Initialize undo and redo buttons
@@ -102,9 +113,13 @@ void MyOpenGLWidget::paintGL() {
         toolbar->move(toolbarPos);
         toolbar->setVisible(true);
 
-        QPoint sliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - eraserSizeSlider->width()) / 2, 10);
-        eraserSizeSlider->move(sliderPos);
+        QPoint eraserSliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - eraserSizeSlider->width()) / 2, 10);
+        eraserSizeSlider->move(eraserSliderPos);
         eraserSizeSlider->setVisible(eraserMode);
+
+        QPoint depthSliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - depthRemovalSlider->width()) / 2, 10);
+        depthRemovalSlider->move(depthSliderPos);
+        depthRemovalSlider->setVisible(depthRemovalMode);
 
         if (cropMode) {
             painter.setPen(QPen(Qt::blue, 2, Qt::DashLine));
@@ -146,6 +161,7 @@ void MyOpenGLWidget::paintGL() {
         toolbar->setVisible(false);
         eraserSizeSlider->setVisible(false);
         snipePopup->setVisible(false);
+        depthRemovalSlider->setVisible(false);
     }
 
     // Ensure undo and redo buttons are always at the bottom right
@@ -950,4 +966,137 @@ void MyOpenGLWidget::drawMaskAt(const QPoint& pos) {
     painter.setPen(Qt::NoPen);
     painter.drawEllipse(imgPos, inpaintBrushSizeSlider->value() / 2, inpaintBrushSizeSlider->value() / 2);
     update();
+}
+
+void MyOpenGLWidget::toggleDepthRemovalMode(bool enabled) {
+    depthRemovalMode = enabled;
+    if (enabled) {
+        setCursor(Qt::CrossCursor);
+        if (selectedImage) {
+            originalImage = selectedImage->image;  // Save the original image
+        }
+    } else {
+        setCursor(Qt::ArrowCursor);
+    }
+    update();
+}
+
+void MyOpenGLWidget::adjustImage(int value) {
+    if (!depthRemovalMode || !selectedImage) return;
+
+    QImage grayscale = originalImage.convertToFormat(QImage::Format_Grayscale8);
+    std::vector<std::pair<int, int>> pixels;
+
+    for (int y = 0; y < grayscale.height(); ++y) {
+        for (int x = 0; x < grayscale.width(); ++x) {
+            int brightness = qGray(grayscale.pixel(x, y));
+            pixels.emplace_back(brightness, y * grayscale.width() + x);
+        }
+    }
+
+    std::sort(pixels.begin(), pixels.end(), [](const std::pair<int, int>& a, const std::pair<int, int>& b) {
+        return a.first < b.first;
+    });
+
+    int numPixelsToRemove = static_cast<int>(pixels.size() * (value / 1000.0));
+    QImage mask(originalImage.size(), QImage::Format_ARGB32);
+    mask.fill(Qt::black);
+
+    for (int i = 0; i < numPixelsToRemove; ++i) {
+        int index = pixels[i].second;
+        int x = index % grayscale.width();
+        int y = index / grayscale.width();
+        mask.setPixelColor(x, y, Qt::white);
+    }
+
+    QImage tempImage = originalImage;
+    for (int y = 0; y < tempImage.height(); ++y) {
+        for (int x = 0; x < tempImage.width(); ++x) {
+            if (mask.pixelColor(x, y) == Qt::white) {
+                tempImage.setPixelColor(x, y, Qt::transparent);
+            }
+        }
+    }
+
+    selectedImage->image = tempImage;
+    selectedImage->boundingBox.setSize(tempImage.size());
+    update();
+}
+
+void MyOpenGLWidget::oneshotRemoval() {
+    if (!selectedImage) return;
+
+    QImage originalImage = selectedImage->image;
+    QByteArray originalByteArray;
+    QBuffer originalBuffer(&originalByteArray);
+    originalImage.save(&originalBuffer, "PNG");
+    QString originalBase64 = originalByteArray.toBase64();
+
+    // Create JSON object to send to Python script
+    QJsonObject json;
+    json["original_image"] = QString::fromStdString(originalBase64.toStdString());
+
+    progressDialog = new QProgressDialog("Removing background...", "Cancel", 0, 0, this);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setCancelButton(nullptr);
+    progressDialog->show();
+
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson(QJsonDocument::Compact);
+
+    pythonProcess = new QProcess(this);
+    connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleOneshotRemovalResult);
+
+    // Set working directory if needed
+    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
+
+    pythonProcess->start("python3.10", QStringList() << "oneshot-background-removal.py");
+    pythonProcess->write(data);
+    pythonProcess->closeWriteChannel();
+}
+
+void MyOpenGLWidget::handleOneshotRemovalResult() {
+    if (!selectedImage) return;
+
+    // Get the size of the selected image
+    QSize originalSize = selectedImage->image.size();
+
+    std::ifstream file("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/oneshot_removal_result.txt", std::ios::binary);
+    if (!file.is_open()) {
+        qDebug() << "Failed to open oneshot removal result file.";
+        return;
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string resultBase64 = buffer.str();
+    file.close();
+
+    QByteArray resultByteArray = QByteArray::fromBase64(QString::fromStdString(resultBase64).toUtf8());
+
+    // Load the image from the QByteArray
+    QPixmap resultImage;
+    if (!resultImage.loadFromData(resultByteArray)) {
+        qDebug() << "Failed to decode the image.";
+        QMessageBox::critical(this, "Error", "Failed to decode the oneshot removal image.");
+        return;
+    }
+
+    // Convert the QPixmap to QImage
+    QImage resultQImage = resultImage.toImage();
+
+    // Set the size of the inpainted image to the original size
+    resultQImage = resultQImage.scaled(originalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+    // Replace the selected image with the result image
+    selectedImage->image = resultQImage;
+    selectedImage->boundingBox.setSize(resultQImage.size());
+
+    progressDialog->hide();
+    delete progressDialog;
+
+    update();
+
+    // Delete the result file
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/oneshot_removal_result.txt");
 }

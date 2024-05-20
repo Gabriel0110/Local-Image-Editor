@@ -68,6 +68,15 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     snipeAction = toolbar->addAction(QIcon(iconPath + "snipe.png"), "Snipe (Segment)");
     snipeAction->setCheckable(true);
 
+    // Icon Attribution: "https://www.flaticon.com/free-icons/depth-perception" title="depth perception icons" Depth perception icons created by Freepik - Flaticon
+    depthRemovalAction = toolbar->addAction(QIcon(iconPath + "depthwise-background-removal.png"), "Depthwise Background Removal"); // Add depth removal button
+    depthRemovalAction->setToolTip("Depthwise Background Removal");
+    depthRemovalAction->setCheckable(true);
+
+    // Icon Attribution: "https://www.flaticon.com/free-icons/remove-user" title="remove user icons" Remove user icons created by Tempo_doloe - Flaticon
+    QAction* oneshotRemovalAction = toolbar->addAction(QIcon(iconPath + "oneshot-background-removal.png"), "Oneshot Background Removal"); // Add oneshot removal button
+    oneshotRemovalAction->setToolTip("Oneshot Background Removal");
+
     // Connect actions to signals
     connect(rotateAction, &QAction::triggered, this, &ImageToolbar::rotateImage);
     connect(mirrorAction, &QAction::triggered, this, &ImageToolbar::mirrorImage);
@@ -80,6 +89,8 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     connect(cropAction, &QAction::triggered, this, &ImageToolbar::onCropButtonClicked);
     connect(inpaintAction, &QAction::triggered, this, &ImageToolbar::onInpaintButtonClicked);
     connect(snipeAction, &QAction::triggered, this, &ImageToolbar::onSnipeButtonClicked);
+    connect(depthRemovalAction, &QAction::triggered, this, &ImageToolbar::onDepthRemovalButtonClicked); // Connect depth removal button
+    connect(oneshotRemovalAction, &QAction::triggered, this, &ImageToolbar::oneshotRemoval); // Connect oneshot removal button
 
     layout->addWidget(toolbar);
     setLayout(layout);
@@ -110,4 +121,9 @@ void ImageToolbar::checkInpaintAction(bool checked) {
 void ImageToolbar::onSnipeButtonClicked() {
     bool toggled = snipeAction->isChecked();
     emit toggleSnipeMode(toggled);  // Add this slot
+}
+
+void ImageToolbar::onDepthRemovalButtonClicked() {
+    bool toggled = depthRemovalAction->isChecked();
+    emit toggleDepthRemoval(toggled);
 }

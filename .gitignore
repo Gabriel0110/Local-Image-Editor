@@ -1,3 +1,5 @@
 .vscode
-*.log
+**/*.log
 **/resources/models/
+**/resources/scripts/inference/*.png
+**/resources/scripts/inference/*.txt

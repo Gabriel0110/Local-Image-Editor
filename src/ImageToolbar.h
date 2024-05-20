@@ -28,6 +28,8 @@ signals:
     void toggleCropMode(bool enabled); // Signal to toggle crop mode
     void toggleInpaintMode(bool enabled); // Signal to toggle inpaint mode
     void toggleSnipeMode(bool enabled);
+    void toggleDepthRemoval(bool enabled); // Signal for depth-wise background removal
+    void oneshotRemoval(); // Signal for oneshot background removal
 
 private:
     QAction* eraserAction;
@@ -35,12 +37,14 @@ private:
     QAction* inpaintAction;
     QSlider* eraserSizeSlider;
     QAction* snipeAction;
+    QAction* depthRemovalAction;
 
 private slots:
     void onEraserButtonClicked();  // Slot to handle eraser button click
     void onCropButtonClicked();  // Slot to handle crop button click
     void onInpaintButtonClicked(); // Slot to handle inpaint button click
     void onSnipeButtonClicked();
+    void onDepthRemovalButtonClicked();
 };
 
 #endif // IMAGETOOLBAR_H
