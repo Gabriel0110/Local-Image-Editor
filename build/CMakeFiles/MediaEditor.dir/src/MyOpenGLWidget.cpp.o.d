@@ -885,23 +885,27 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpainter.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextoption.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/CustomConfirmationDialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QVBoxLayout \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLabel \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlabel.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qframe.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QStack \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qstack.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLineEdit \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlineedit.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qframe.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextcursor.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextformat.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLabel \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlabel.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QProcess \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qprocess.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__locale \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/locale.h \
@@ -994,7 +998,6 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qfiledialog.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfileinfo.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QVBoxLayout \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QBuffer \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qbuffer.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QJsonDocument \
@@ -1007,6 +1010,8 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/quuid.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QJsonObject \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qjsonobject.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QJsonArray \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qjsonarray.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMessageBox \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmessagebox.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPixmap

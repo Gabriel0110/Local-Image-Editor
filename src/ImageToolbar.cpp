@@ -64,6 +64,9 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     inpaintAction->setToolTip("Inpaint");
     inpaintAction->setCheckable(true);
 
+    snipeAction = toolbar->addAction(QIcon::fromTheme("crosshairs"), "Snipe");  // Add this action
+    snipeAction->setCheckable(true);
+
     // Connect actions to signals
     connect(rotateAction, &QAction::triggered, this, &ImageToolbar::rotateImage);
     connect(mirrorAction, &QAction::triggered, this, &ImageToolbar::mirrorImage);
@@ -75,6 +78,7 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     connect(eraserAction, &QAction::triggered, this, &ImageToolbar::onEraserButtonClicked);
     connect(cropAction, &QAction::triggered, this, &ImageToolbar::onCropButtonClicked);
     connect(inpaintAction, &QAction::triggered, this, &ImageToolbar::onInpaintButtonClicked);
+    connect(snipeAction, &QAction::triggered, this, &ImageToolbar::onSnipeButtonClicked);
 
     layout->addWidget(toolbar);
     setLayout(layout);
@@ -100,4 +104,9 @@ void ImageToolbar::onInpaintButtonClicked() {
 
 void ImageToolbar::checkInpaintAction(bool checked) {
     inpaintAction->setChecked(checked);
+}
+
+void ImageToolbar::onSnipeButtonClicked() {
+    bool toggled = snipeAction->isChecked();
+    emit toggleSnipeMode(toggled);  // Add this slot
 }

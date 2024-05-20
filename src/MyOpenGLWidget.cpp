@@ -1,5 +1,6 @@
 #include "pybind_wrapper.h"
 #include "MyOpenGLWidget.h"
+#include "CustomConfirmationDialog.h"
 #include <fstream>
 #include <sstream>
 #include <QMimeData>
@@ -14,6 +15,7 @@
 #include <QBuffer>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QMessageBox>
 #include <QPixmap>
 
@@ -33,6 +35,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::bringToFront, this, &MyOpenGLWidget::bringToFront);
     connect(toolbar, &ImageToolbar::pushToBack, this, &MyOpenGLWidget::pushToBack);
     connect(toolbar, &ImageToolbar::toggleInpaintMode, this, &MyOpenGLWidget::toggleInpaintMode);
+    connect(toolbar, &ImageToolbar::toggleSnipeMode, this, &MyOpenGLWidget::toggleSnipeMode);
 
     // Initialize the eraser size slider
     eraserSizeSlider = new QSlider(Qt::Horizontal, this);
@@ -61,6 +64,19 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
 
     connect(confirmInpaintButton, &QPushButton::clicked, this, &MyOpenGLWidget::confirmInpaint);
     connect(cancelInpaintButton, &QPushButton::clicked, this, [this]() { toggleInpaintMode(false); });
+
+    // Initialize the snipe popup
+    snipePopup = new QWidget(this);
+    snipePopup->setVisible(false);
+    QVBoxLayout* snipeLayout = new QVBoxLayout(snipePopup);
+    confirmSnipeButton = new QPushButton("Confirm Points", snipePopup);
+    clearSnipeButton = new QPushButton("Clear Points", snipePopup);
+    snipeLayout->addWidget(confirmSnipeButton);
+    snipeLayout->addWidget(clearSnipeButton);
+    snipePopup->setLayout(snipeLayout);
+
+    connect(confirmSnipeButton, &QPushButton::clicked, this, &MyOpenGLWidget::confirmSnipe);
+    connect(clearSnipeButton, &QPushButton::clicked, this, &MyOpenGLWidget::clearSnipePoints);
 
     installEventFilter(this);
 
@@ -117,9 +133,19 @@ void MyOpenGLWidget::paintGL() {
             painter.setPen(QPen(Qt::red, 2, Qt::DashLine));
             painter.drawImage(selectedImage->boundingBox.topLeft() + scrollPosition, maskImage);
         }
+
+        if (snipeMode) {
+            drawSnipePoints(painter, scrollPosition);
+            QPoint popupPos = selectedImage->boundingBox.topRight() + scrollPosition + QPoint(10, 0);
+            snipePopup->move(popupPos);
+            snipePopup->setVisible(true);
+        } else {
+            snipePopup->setVisible(false);
+        }
     } else {
         toolbar->setVisible(false);
         eraserSizeSlider->setVisible(false);
+        snipePopup->setVisible(false);
     }
 
     // Ensure undo and redo buttons are always at the bottom right
@@ -134,6 +160,17 @@ void MyOpenGLWidget::dragEnterEvent(QDragEnterEvent* event) {
     }
 }
 
+void scaleImage(QImage& image, int maxWidth, int maxHeight) {
+    QSize originalSize = image.size();
+    QSize scaledSize = originalSize;
+
+    if (originalSize.width() > maxWidth || originalSize.height() > maxHeight) {
+        scaledSize = originalSize.scaled(maxWidth, maxHeight, Qt::KeepAspectRatio);
+    }
+
+    image = image.scaled(scaledSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+}
+
 void MyOpenGLWidget::dropEvent(QDropEvent* event) {
     saveState(); // Save state before making changes
     const QMimeData* mimeData = event->mimeData();
@@ -142,7 +179,22 @@ void MyOpenGLWidget::dropEvent(QDropEvent* event) {
         if (!urls.isEmpty()) {
             QImage image;
             if (image.load(urls.first().toLocalFile())) {
-                images.emplace_back(image.scaled(QSize(150, 150), Qt::KeepAspectRatio), event->pos());
+                // images.emplace_back(image.scaled(QSize(UPLOADED_IMAGE_WIDTH, UPLOADED_IMAGE_HEIGHT), Qt::KeepAspectRatio), event->pos());
+                // Scale the image to fit within the maximum dimensions while preserving aspect ratio
+                // QSize originalSize = image.size();
+                // QSize scaledSize = originalSize;
+
+                // int MAX_IMAGE_WIDTH = 384;
+                // int MAX_IMAGE_HEIGHT = 384;
+
+                // if (originalSize.width() > MAX_IMAGE_WIDTH || originalSize.height() > MAX_IMAGE_HEIGHT) {
+                //     scaledSize = originalSize.scaled(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, Qt::KeepAspectRatio);
+                // }
+
+                // image = image.scaled(scaledSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+
+                images.emplace_back(image, event->pos());
                 update();
             }
         }
@@ -157,6 +209,30 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
 
     if (inpaintMode && selectedImage) {
         drawMaskAt(event->pos());
+        return;
+    }
+
+    if (snipeMode && selectedImage) {
+        QPoint pos = event->pos() - scrollPosition;
+        QPoint relativePos = pos - selectedImage->boundingBox.topLeft();
+
+        // Calculate the relative position in terms of the original image size
+        qreal relativeX = static_cast<qreal>(relativePos.x()) / selectedImage->boundingBox.width() * selectedImage->image.width();
+        qreal relativeY = static_cast<qreal>(relativePos.y()) / selectedImage->boundingBox.height() * selectedImage->image.height();
+        QPointF scaledPos(relativeX, relativeY);
+
+        if (event->button() == Qt::LeftButton) {
+            // Only add points within the image bounds
+            if (scaledPos.x() >= 0 && scaledPos.x() < selectedImage->image.width() && scaledPos.y() >= 0 && scaledPos.y() < selectedImage->image.height()) {
+                positivePoints.push_back(scaledPos);
+            }
+        } else if (event->button() == Qt::RightButton) {
+            if (scaledPos.x() >= 0 && scaledPos.x() < selectedImage->image.width() && scaledPos.y() >= 0 && scaledPos.y() < selectedImage->image.height()) {
+                negativePoints.push_back(scaledPos);
+            }
+        }
+
+        update();
         return;
     }
 
@@ -190,7 +266,7 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
         }
     }
 
-    if (!imageClicked && !eraserMode && !cropMode && !inpaintMode) {
+    if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode) {
         isDragging = true;
         selectedImage = nullptr;
         qDebug() << "Mouse pressed, selected image set to nullptr";
@@ -253,7 +329,7 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
             }
             lastMousePosition = event->pos();
             update();
-        } else if (!cropMode) {
+        } else if (!cropMode && !snipeMode) {
             QPoint delta = event->pos() - lastMousePosition;
             selectedImage->boundingBox.translate(delta);
             lastMousePosition = event->pos();
@@ -263,7 +339,7 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
 }
 
 void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
-    if (eraserMode || inpaintMode) {
+    if (eraserMode || inpaintMode || snipeMode) {
         return;
     }
     isDragging = false;
@@ -389,7 +465,8 @@ void MyOpenGLWidget::uploadImage() {
         QImage image;
         if (image.load(fileName)) {
             saveState(); // Save state before making changes
-            images.emplace_back(image.scaled(QSize(150, 150), Qt::KeepAspectRatio), QPoint(width() / 2, height() / 2));
+            scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+            images.emplace_back(image, QPoint(0, 0));
             update();
         }
     }
@@ -556,7 +633,7 @@ void MyOpenGLWidget::confirmInpaint() {
 void MyOpenGLWidget::handleInpaintResult() {
     if (!selectedImage) return;
 
-    // Get the current size of the selectedImage
+    // Get the size of the selected image
     QSize originalSize = selectedImage->image.size();
 
     std::ifstream file("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/inpainting_result.txt", std::ios::binary);
@@ -583,8 +660,11 @@ void MyOpenGLWidget::handleInpaintResult() {
     // Convert the QPixmap to QImage
     QImage resultQImage = resultImage.toImage();
 
+    // Set the size of the inpainted image to the original size
+    resultQImage = resultQImage.scaled(originalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
     // Resize the image to the original size
-    resultQImage = resultQImage.scaled(originalSize, Qt::KeepAspectRatio);
+    //scaleImage(resultQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
 
     // Replace the selected image with the inpainted image
     selectedImage->image = resultQImage;
@@ -606,6 +686,199 @@ void MyOpenGLWidget::handleInpaintError(QProcess::ProcessError error) {
     toggleInpaintMode(false);
     progressDialog->hide();
     delete progressDialog;
+}
+
+void MyOpenGLWidget::toggleSnipeMode(bool enabled) {
+    snipeMode = enabled;
+    if (enabled) {
+        positivePoints.clear();
+        negativePoints.clear();
+        setCursor(Qt::CrossCursor);
+    } else {
+        setCursor(Qt::ArrowCursor);
+    }
+    update();
+}
+
+void MyOpenGLWidget::confirmSnipe() {
+    if (!selectedImage || positivePoints.empty()) return;
+
+    QImage originalImage = selectedImage->image;
+    QByteArray originalByteArray;
+    QBuffer originalBuffer(&originalByteArray);
+    originalImage.save(&originalBuffer, "PNG");
+    QString originalBase64 = originalByteArray.toBase64();
+
+    // Create JSON object to send to Python script
+    QJsonObject json;
+    QJsonArray positiveArray;
+    QJsonArray negativeArray;
+
+    json["original_image"] = QString::fromStdString(originalBase64.toStdString());
+
+    for (const auto& point : positivePoints) {
+        QJsonObject pointJson;
+        pointJson["x"] = point.x();
+        pointJson["y"] = point.y();
+        positiveArray.append(pointJson);
+    }
+
+    for (const auto& point : negativePoints) {
+        QJsonObject pointJson;
+        pointJson["x"] = point.x();
+        pointJson["y"] = point.y();
+        negativeArray.append(pointJson);
+    }
+
+    qDebug() << "Positive points: " << positiveArray;
+    qDebug() << "Negative points: " << negativeArray;
+
+    json["positive_points"] = positiveArray;
+    json["negative_points"] = negativeArray;
+
+    progressDialog = new QProgressDialog("Sniping...", "Cancel", 0, 0, this);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setCancelButton(nullptr);
+    progressDialog->show();
+
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson(QJsonDocument::Compact);
+
+    pythonProcess = new QProcess(this);
+    connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleSnipeResult);
+    //connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleSnipeError);
+
+    // Set working directory if needed
+    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
+
+    pythonProcess->start("python3.10", QStringList() << "sam.py");
+    pythonProcess->write(data);
+    pythonProcess->closeWriteChannel();
+}
+
+void MyOpenGLWidget::handleSnipeResult() {
+    if (!selectedImage) return;
+
+    // Three files we need to convert to QImages: image_hole.txt, image_object.txt, image_with_mask.txt
+
+    std::ifstream fileHole("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_hole.txt", std::ios::binary);
+    if (!fileHole.is_open()) {
+        qDebug() << "Failed to open image hole file.";
+        return;
+    }
+
+    std::stringstream bufferHole;
+    bufferHole << fileHole.rdbuf();
+    std::string resultBase64 = bufferHole.str();
+    fileHole.close();
+
+    std::ifstream fileObject("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_object.txt", std::ios::binary);
+    if (!fileObject.is_open()) {
+        qDebug() << "Failed to open image object file.";
+        return;
+    }
+
+    std::stringstream bufferObject;
+    bufferObject << fileObject.rdbuf();
+    std::string resultObjectBase64 = bufferObject.str();
+    fileObject.close();
+
+    std::ifstream fileMask("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_with_mask.txt", std::ios::binary);
+    if (!fileMask.is_open()) {
+        qDebug() << "Failed to open image with mask file.";
+        return;
+    }
+
+    std::stringstream bufferMask;
+    bufferMask << fileMask.rdbuf();
+    std::string resultMaskBase64 = bufferMask.str();
+    fileMask.close();
+
+    QByteArray imageHoleByteArray = QByteArray::fromBase64(QString::fromStdString(resultBase64).toUtf8());
+    QByteArray imageObjectByteArray = QByteArray::fromBase64(QString::fromStdString(resultObjectBase64).toUtf8());
+    QByteArray imageWithMaskByteArray = QByteArray::fromBase64(QString::fromStdString(resultMaskBase64).toUtf8());
+
+    QPixmap imageHole;
+    QPixmap imageObject;
+    QPixmap imageWithMask;
+
+    if (!imageHole.loadFromData(imageHoleByteArray) || !imageObject.loadFromData(imageObjectByteArray) || !imageWithMask.loadFromData(imageWithMaskByteArray)) {
+        qDebug() << "Failed to decode the images.";
+        QMessageBox::critical(this, "Error", "Failed to decode the snipe images.");
+        return;
+    }
+
+    // Convert the QPixmap to QImage
+    QImage imageHoleQImage = imageHole.toImage();
+    QImage imageObjectQImage = imageObject.toImage();
+    QImage imageWithMaskQImage = imageWithMask.toImage();
+
+    // Scale
+    // scaleImage(imageHoleQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+    // scaleImage(imageObjectQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+    // scaleImage(imageWithMaskQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+
+    // Store the original image before replacing it with the mask image
+    QImage originalImage = selectedImage->image;
+
+    progressDialog->hide();
+    delete progressDialog;
+
+    // Replace the selected image with the image with mask and popup a confirmation dialog to confirm or deny the selected mask
+    selectedImage->image = imageWithMaskQImage;
+    selectedImage->boundingBox.setSize(imageWithMaskQImage.size());
+
+    // Create and show the custom confirmation dialog
+    confirmationDialog = new CustomConfirmationDialog(this);
+    confirmationDialog->setImage(imageWithMaskQImage);
+    connect(confirmationDialog, &CustomConfirmationDialog::confirmed, this, [this, imageHoleQImage, imageObjectQImage]() {
+        // Replace the image with the hole and add the object image
+        selectedImage->image = imageHoleQImage;
+        selectedImage->boundingBox.setSize(imageHoleQImage.size());
+
+        ImageObject newObjectImage(imageObjectQImage, selectedImage->boundingBox.topLeft());
+        newObjectImage.isSelected = true;
+        images.push_back(newObjectImage);
+        selectedImage = &images.back();
+
+        toggleSnipeMode(false);
+        update();
+    });
+    connect(confirmationDialog, &CustomConfirmationDialog::denied, this, [this, originalImage]() {
+        // Revert to the original image
+        selectedImage->image = originalImage;
+        selectedImage->boundingBox.setSize(originalImage.size());
+
+        toggleSnipeMode(false);
+        update();
+    });
+    confirmationDialog->show();
+
+    // Delete the result files
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_hole.txt");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_object.txt");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_with_mask.txt");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/mask.png");
+}
+
+void MyOpenGLWidget::clearSnipePoints() {
+    positivePoints.clear();
+    negativePoints.clear();
+    update();
+}
+
+void MyOpenGLWidget::drawSnipePoints(QPainter& painter, const QPoint& scrollPosition) {
+    painter.setPen(QPen(Qt::white, 2));
+    for (const auto& point : positivePoints) {
+        painter.setBrush(Qt::yellow);
+        QPoint drawPoint = point.toPoint() + selectedImage->boundingBox.topLeft() + scrollPosition;
+        painter.drawEllipse(drawPoint, 5, 5);
+    }
+    for (const auto& point : negativePoints) {
+        painter.setBrush(Qt::red);
+        QPoint drawPoint = point.toPoint() + selectedImage->boundingBox.topLeft() + scrollPosition;
+        painter.drawEllipse(drawPoint, 5, 5);
+    }
 }
 
 void MyOpenGLWidget::adjustCropBox(const QPoint& delta) {

@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/mocs_compilation.cpp" "CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o.d"
+  "/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/CustomConfirmationDialog.cpp" "CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.o" "gcc" "CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.o.d"
   "/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp" "CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o" "gcc" "CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o.d"
   "/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.cpp" "CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o" "gcc" "CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o.d"
   "/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.cpp" "CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o" "gcc" "CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o.d"

@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "MediaEditor_autogen"
   "CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o"
   "CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.o"
+  "CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.o.d"
   "CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o"
   "CMakeFiles/MediaEditor.dir/src/ImageToolbar.cpp.o.d"
   "CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o"

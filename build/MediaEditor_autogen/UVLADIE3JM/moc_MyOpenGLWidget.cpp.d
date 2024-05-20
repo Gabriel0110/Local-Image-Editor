@@ -694,8 +694,10 @@
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/sys/qos.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/time.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/CustomConfirmationDialog.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageObject.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/QPointF \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/QProcess \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/QRect \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/QStack \
@@ -792,6 +794,7 @@
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qtransform.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qwindowdefs.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QAction \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
@@ -800,6 +803,7 @@
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QSlider \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QToolBar \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qabstractbutton.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qabstractslider.h \

@@ -33,7 +33,7 @@ include_directories(${Qt5Widgets_INCLUDES} ${OpenCV_INCLUDE_DIRS} ${pybind11_INC
 set(RESOURCES_DIR "${CMAKE_SOURCE_DIR}/resources")
 
 # Add executable
-add_executable(${PROJECT_NAME} src/main.cpp src/MyOpenGLWidget.cpp src/ImageToolbar.cpp src/MainWindow.cpp src/pybind_wrapper.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/MyOpenGLWidget.cpp src/ImageToolbar.cpp src/MainWindow.cpp src/pybind_wrapper.cpp src/CustomConfirmationDialog.cpp)
 
 # Link libraries (has to come after adding the executable)
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui Qt5::OpenGL ${OpenCV_LIBS} ${OPENGL_LIBRARIES} pybind11::embed ${PYTHON_LIBRARIES})

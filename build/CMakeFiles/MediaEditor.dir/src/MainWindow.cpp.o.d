@@ -888,23 +888,27 @@ CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpainter.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextoption.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qpen.h \
+  /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/CustomConfirmationDialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QPushButton \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qpushbutton.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QVBoxLayout \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLabel \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlabel.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qframe.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QStack \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qstack.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLineEdit \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlineedit.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qframe.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextcursor.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qtextformat.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QLabel \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qlabel.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QProcess \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qprocess.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qdialog.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \

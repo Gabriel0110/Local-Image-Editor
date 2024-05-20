@@ -118,6 +118,12 @@
 	"HEADERS" : 
 	[
 		[
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/CustomConfirmationDialog.h",
+			"MU",
+			"UVLADIE3JM/moc_CustomConfirmationDialog.cpp",
+			null
+		],
+		[
 			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.h",
 			"MU",
 			"UVLADIE3JM/moc_ImageToolbar.cpp",
@@ -133,6 +139,12 @@
 			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MyOpenGLWidget.h",
 			"MU",
 			"UVLADIE3JM/moc_MyOpenGLWidget.cpp",
+			null
+		],
+		[
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.h",
+			"MU",
+			"UVLADIE3JM/moc_pybind_wrapper.cpp",
 			null
 		]
 	],
@@ -198,6 +210,11 @@
 	"SETTINGS_FILE" : "/Users/gtomberlin/Documents/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[
+			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/CustomConfirmationDialog.cpp",
+			"MU",
+			null
+		],
 		[
 			"/Users/gtomberlin/Documents/Code/Local-Image-Editor/src/ImageToolbar.cpp",
 			"MU",

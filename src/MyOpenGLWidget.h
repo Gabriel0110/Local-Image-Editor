@@ -4,6 +4,7 @@
 #include <QOpenGLWidget>
 #include "ImageToolbar.h"
 #include "ImageObject.h"
+#include "CustomConfirmationDialog.h"
 #include <vector>
 #include <QSlider>
 #include <QPushButton>
@@ -13,12 +14,15 @@
 #include <QLabel>
 #include <QProcess>
 #include <QProgressDialog>
+#include <QPointF>
 
 // MyOpenGLWidget class for handling image editing
 class MyOpenGLWidget : public QOpenGLWidget {
     Q_OBJECT
 
 private:
+    const int MAX_IMAGE_WIDTH = 512;
+    const int MAX_IMAGE_HEIGHT = 512;
     std::vector<ImageObject> images;  // List of images in the widget
     QPoint scrollPosition;  // Current scroll position
     QPoint lastMousePosition;  // Last mouse position
@@ -39,6 +43,14 @@ private:
     QImage maskImage;  // Image for the inpainting mask
     QProgressDialog* progressDialog; // Progress dialog for inpainting
     QProcess* pythonProcess;
+    QImage originalImage;
+    CustomConfirmationDialog* confirmationDialog;
+    bool snipeMode = false;  // Flag indicating if snipe mode is enabled
+    std::vector<QPointF> positivePoints;  // Positive points for snipe mode
+    std::vector<QPointF> negativePoints;  // Negative points for snipe mode
+    QWidget* snipePopup;  // Popup widget for snipe mode
+    QPushButton* confirmSnipeButton;  // Confirm snipe button
+    QPushButton* clearSnipeButton;  // Clear snipe button
 
     // Inpainting popup elements
     QWidget* inpaintPopup;
@@ -76,6 +88,10 @@ private slots:
     void confirmInpaint();
     void handleInpaintResult();
     void handleInpaintError(QProcess::ProcessError error);
+    void toggleSnipeMode(bool enabled);
+    void confirmSnipe();
+    void clearSnipePoints();
+    void handleSnipeResult();
 
 private:
     void eraseAt(const QPoint& pos);
@@ -85,6 +101,7 @@ private:
     void adjustCropBox(const QPoint& delta);
     int cropHandleAt(const QPoint& pos) const;
     void drawMaskAt(const QPoint& pos);
+    void drawSnipePoints(QPainter& painter, const QPoint& scrollPosition);
 };
 
 #endif // MYOPENGLWIDGET_H

@@ -27,17 +27,20 @@ signals:
     void pushToBack();    // Signal to push image to back
     void toggleCropMode(bool enabled); // Signal to toggle crop mode
     void toggleInpaintMode(bool enabled); // Signal to toggle inpaint mode
+    void toggleSnipeMode(bool enabled);
 
 private:
     QAction* eraserAction;
     QAction* cropAction;
     QAction* inpaintAction;
     QSlider* eraserSizeSlider;
+    QAction* snipeAction;
 
 private slots:
     void onEraserButtonClicked();  // Slot to handle eraser button click
     void onCropButtonClicked();  // Slot to handle crop button click
     void onInpaintButtonClicked(); // Slot to handle inpaint button click
+    void onSnipeButtonClicked();
 };
 
 #endif // IMAGETOOLBAR_H

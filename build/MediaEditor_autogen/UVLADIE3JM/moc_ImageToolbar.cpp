@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ImageToolbar_t {
-    QByteArrayData data[16];
-    char stringdata0[213];
+    QByteArrayData data[18];
+    char stringdata0[250];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -45,17 +45,20 @@ QT_MOC_LITERAL(9, 91, 12), // "bringToFront"
 QT_MOC_LITERAL(10, 104, 10), // "pushToBack"
 QT_MOC_LITERAL(11, 115, 14), // "toggleCropMode"
 QT_MOC_LITERAL(12, 130, 17), // "toggleInpaintMode"
-QT_MOC_LITERAL(13, 148, 21), // "onEraserButtonClicked"
-QT_MOC_LITERAL(14, 170, 19), // "onCropButtonClicked"
-QT_MOC_LITERAL(15, 190, 22) // "onInpaintButtonClicked"
+QT_MOC_LITERAL(13, 148, 15), // "toggleSnipeMode"
+QT_MOC_LITERAL(14, 164, 21), // "onEraserButtonClicked"
+QT_MOC_LITERAL(15, 186, 19), // "onCropButtonClicked"
+QT_MOC_LITERAL(16, 206, 22), // "onInpaintButtonClicked"
+QT_MOC_LITERAL(17, 229, 20) // "onSnipeButtonClicked"
 
     },
     "ImageToolbar\0rotateImage\0\0mirrorImage\0"
     "copyImage\0deleteImage\0saveImage\0"
     "toggleEraser\0enabled\0bringToFront\0"
     "pushToBack\0toggleCropMode\0toggleInpaintMode\0"
-    "onEraserButtonClicked\0onCropButtonClicked\0"
-    "onInpaintButtonClicked"
+    "toggleSnipeMode\0onEraserButtonClicked\0"
+    "onCropButtonClicked\0onInpaintButtonClicked\0"
+    "onSnipeButtonClicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,29 +68,31 @@ static const uint qt_meta_data_ImageToolbar[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      10,       // signalCount
+      11,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   79,    2, 0x06 /* Public */,
-       3,    0,   80,    2, 0x06 /* Public */,
-       4,    0,   81,    2, 0x06 /* Public */,
-       5,    0,   82,    2, 0x06 /* Public */,
-       6,    0,   83,    2, 0x06 /* Public */,
-       7,    1,   84,    2, 0x06 /* Public */,
-       9,    0,   87,    2, 0x06 /* Public */,
-      10,    0,   88,    2, 0x06 /* Public */,
-      11,    1,   89,    2, 0x06 /* Public */,
-      12,    1,   92,    2, 0x06 /* Public */,
+       1,    0,   89,    2, 0x06 /* Public */,
+       3,    0,   90,    2, 0x06 /* Public */,
+       4,    0,   91,    2, 0x06 /* Public */,
+       5,    0,   92,    2, 0x06 /* Public */,
+       6,    0,   93,    2, 0x06 /* Public */,
+       7,    1,   94,    2, 0x06 /* Public */,
+       9,    0,   97,    2, 0x06 /* Public */,
+      10,    0,   98,    2, 0x06 /* Public */,
+      11,    1,   99,    2, 0x06 /* Public */,
+      12,    1,  102,    2, 0x06 /* Public */,
+      13,    1,  105,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      13,    0,   95,    2, 0x08 /* Private */,
-      14,    0,   96,    2, 0x08 /* Private */,
-      15,    0,   97,    2, 0x08 /* Private */,
+      14,    0,  108,    2, 0x08 /* Private */,
+      15,    0,  109,    2, 0x08 /* Private */,
+      16,    0,  110,    2, 0x08 /* Private */,
+      17,    0,  111,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -100,8 +105,10 @@ static const uint qt_meta_data_ImageToolbar[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,    8,
     QMetaType::Void, QMetaType::Bool,    8,
+    QMetaType::Void, QMetaType::Bool,    8,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -125,9 +132,11 @@ void ImageToolbar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 7: _t->pushToBack(); break;
         case 8: _t->toggleCropMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 9: _t->toggleInpaintMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: _t->onEraserButtonClicked(); break;
-        case 11: _t->onCropButtonClicked(); break;
-        case 12: _t->onInpaintButtonClicked(); break;
+        case 10: _t->toggleSnipeMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 11: _t->onEraserButtonClicked(); break;
+        case 12: _t->onCropButtonClicked(); break;
+        case 13: _t->onInpaintButtonClicked(); break;
+        case 14: _t->onSnipeButtonClicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -202,6 +211,13 @@ void ImageToolbar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
                 return;
             }
         }
+        {
+            using _t = void (ImageToolbar::*)(bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ImageToolbar::toggleSnipeMode)) {
+                *result = 10;
+                return;
+            }
+        }
     }
 }
 
@@ -234,13 +250,13 @@ int ImageToolbar::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 15;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 15)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 15;
     }
     return _id;
 }
@@ -306,6 +322,13 @@ void ImageToolbar::toggleInpaintMode(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 9, _a);
+}
+
+// SIGNAL 10
+void ImageToolbar::toggleSnipeMode(bool _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 10, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

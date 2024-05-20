@@ -179,6 +179,30 @@ MediaEditor_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.s
 .PHONY : MediaEditor_autogen/mocs_compilation.cpp.s
 
+src/CustomConfirmationDialog.o: src/CustomConfirmationDialog.cpp.o
+.PHONY : src/CustomConfirmationDialog.o
+
+# target to build an object file
+src/CustomConfirmationDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.o
+.PHONY : src/CustomConfirmationDialog.cpp.o
+
+src/CustomConfirmationDialog.i: src/CustomConfirmationDialog.cpp.i
+.PHONY : src/CustomConfirmationDialog.i
+
+# target to preprocess a source file
+src/CustomConfirmationDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.i
+.PHONY : src/CustomConfirmationDialog.cpp.i
+
+src/CustomConfirmationDialog.s: src/CustomConfirmationDialog.cpp.s
+.PHONY : src/CustomConfirmationDialog.s
+
+# target to generate assembly for a file
+src/CustomConfirmationDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MediaEditor.dir/build.make CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.s
+.PHONY : src/CustomConfirmationDialog.cpp.s
+
 src/ImageToolbar.o: src/ImageToolbar.cpp.o
 .PHONY : src/ImageToolbar.o
 
@@ -313,6 +337,9 @@ help:
 	@echo "... MediaEditor_autogen/mocs_compilation.o"
 	@echo "... MediaEditor_autogen/mocs_compilation.i"
 	@echo "... MediaEditor_autogen/mocs_compilation.s"
+	@echo "... src/CustomConfirmationDialog.o"
+	@echo "... src/CustomConfirmationDialog.i"
+	@echo "... src/CustomConfirmationDialog.s"
 	@echo "... src/ImageToolbar.o"
 	@echo "... src/ImageToolbar.i"
 	@echo "... src/ImageToolbar.s"
