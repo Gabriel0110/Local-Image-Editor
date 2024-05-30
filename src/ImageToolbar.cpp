@@ -24,6 +24,7 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     // Icon Attribution: https://www.flaticon.com/free-icons/rotate title="rotate icons" Rotate icons created by adriansyah - Flaticon
     QAction* rotateAction = toolbar->addAction(QIcon(iconPath + "rotate.png"), "Rotate");
     rotateAction->setToolTip("Rotate");
+    rotateAction->setCheckable(true);
 
     // Icon Attribution: https://www.flaticon.com/free-icons/flip title="flip icons" Flip icons created by Freepik - Flaticon
     QAction* mirrorAction = toolbar->addAction(QIcon(iconPath + "flip.png"), "Mirror");
@@ -94,6 +95,12 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
 
     layout->addWidget(toolbar);
     setLayout(layout);
+}
+
+// Slot for handling rotate button click
+void ImageToolbar::onRotateButtonClicked() {
+    bool toggled = rotateAction->isChecked();
+    emit toggleRotationMode(toggled);  // Emit a signal indicating the rotate mode status
 }
 
 // Slot for handling the eraser button click

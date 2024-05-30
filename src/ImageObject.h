@@ -9,13 +9,14 @@
 class ImageObject {
 public:
     QImage image;
+    QImage originalImage; // Store the original image to prevent loss of quality during resizing
     QRect boundingBox;
     bool isSelected;
     bool boundingBoxEnabled;
     static const int HANDLE_SIZE = 10;
 
     // Constructor: Initialize the image object with an image and its position
-    ImageObject(const QImage& img, const QPoint& pos) : image(img), isSelected(false), boundingBoxEnabled(true) {
+    ImageObject(const QImage& img, const QPoint& pos) : image(img), originalImage(img), isSelected(false), boundingBoxEnabled(true) {
         boundingBox.setSize(img.size());
         boundingBox.moveCenter(pos);
     }

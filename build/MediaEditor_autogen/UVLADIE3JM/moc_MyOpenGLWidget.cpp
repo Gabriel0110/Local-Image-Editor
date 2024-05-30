@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MyOpenGLWidget_t {
-    QByteArrayData data[27];
-    char stringdata0[424];
+    QByteArrayData data[29];
+    char stringdata0[449];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,39 +33,42 @@ struct qt_meta_stringdata_MyOpenGLWidget_t {
 static const qt_meta_stringdata_MyOpenGLWidget_t qt_meta_stringdata_MyOpenGLWidget = {
     {
 QT_MOC_LITERAL(0, 0, 14), // "MyOpenGLWidget"
-QT_MOC_LITERAL(1, 15, 19), // "rotateSelectedImage"
-QT_MOC_LITERAL(2, 35, 0), // ""
-QT_MOC_LITERAL(3, 36, 19), // "mirrorSelectedImage"
-QT_MOC_LITERAL(4, 56, 17), // "copySelectedImage"
-QT_MOC_LITERAL(5, 74, 19), // "deleteSelectedImage"
-QT_MOC_LITERAL(6, 94, 17), // "saveSelectedImage"
-QT_MOC_LITERAL(7, 112, 16), // "toggleEraserMode"
-QT_MOC_LITERAL(8, 129, 7), // "enabled"
-QT_MOC_LITERAL(9, 137, 12), // "bringToFront"
-QT_MOC_LITERAL(10, 150, 10), // "pushToBack"
-QT_MOC_LITERAL(11, 161, 14), // "toggleCropMode"
-QT_MOC_LITERAL(12, 176, 17), // "toggleInpaintMode"
-QT_MOC_LITERAL(13, 194, 14), // "confirmInpaint"
-QT_MOC_LITERAL(14, 209, 19), // "handleInpaintResult"
-QT_MOC_LITERAL(15, 229, 18), // "handleInpaintError"
-QT_MOC_LITERAL(16, 248, 22), // "QProcess::ProcessError"
-QT_MOC_LITERAL(17, 271, 5), // "error"
-QT_MOC_LITERAL(18, 277, 15), // "toggleSnipeMode"
-QT_MOC_LITERAL(19, 293, 12), // "confirmSnipe"
-QT_MOC_LITERAL(20, 306, 16), // "clearSnipePoints"
-QT_MOC_LITERAL(21, 323, 17), // "handleSnipeResult"
-QT_MOC_LITERAL(22, 341, 22), // "toggleDepthRemovalMode"
-QT_MOC_LITERAL(23, 364, 11), // "adjustImage"
-QT_MOC_LITERAL(24, 376, 5), // "value"
-QT_MOC_LITERAL(25, 382, 14), // "oneshotRemoval"
-QT_MOC_LITERAL(26, 397, 26) // "handleOneshotRemovalResult"
+QT_MOC_LITERAL(1, 15, 18), // "toggleRotationMode"
+QT_MOC_LITERAL(2, 34, 0), // ""
+QT_MOC_LITERAL(3, 35, 7), // "enabled"
+QT_MOC_LITERAL(4, 43, 19), // "rotateSelectedImage"
+QT_MOC_LITERAL(5, 63, 5), // "angle"
+QT_MOC_LITERAL(6, 69, 19), // "mirrorSelectedImage"
+QT_MOC_LITERAL(7, 89, 17), // "copySelectedImage"
+QT_MOC_LITERAL(8, 107, 19), // "deleteSelectedImage"
+QT_MOC_LITERAL(9, 127, 17), // "saveSelectedImage"
+QT_MOC_LITERAL(10, 145, 16), // "toggleEraserMode"
+QT_MOC_LITERAL(11, 162, 12), // "bringToFront"
+QT_MOC_LITERAL(12, 175, 10), // "pushToBack"
+QT_MOC_LITERAL(13, 186, 14), // "toggleCropMode"
+QT_MOC_LITERAL(14, 201, 17), // "toggleInpaintMode"
+QT_MOC_LITERAL(15, 219, 14), // "confirmInpaint"
+QT_MOC_LITERAL(16, 234, 19), // "handleInpaintResult"
+QT_MOC_LITERAL(17, 254, 18), // "handleInpaintError"
+QT_MOC_LITERAL(18, 273, 22), // "QProcess::ProcessError"
+QT_MOC_LITERAL(19, 296, 5), // "error"
+QT_MOC_LITERAL(20, 302, 15), // "toggleSnipeMode"
+QT_MOC_LITERAL(21, 318, 12), // "confirmSnipe"
+QT_MOC_LITERAL(22, 331, 16), // "clearSnipePoints"
+QT_MOC_LITERAL(23, 348, 17), // "handleSnipeResult"
+QT_MOC_LITERAL(24, 366, 22), // "toggleDepthRemovalMode"
+QT_MOC_LITERAL(25, 389, 11), // "adjustImage"
+QT_MOC_LITERAL(26, 401, 5), // "value"
+QT_MOC_LITERAL(27, 407, 14), // "oneshotRemoval"
+QT_MOC_LITERAL(28, 422, 26) // "handleOneshotRemovalResult"
 
     },
-    "MyOpenGLWidget\0rotateSelectedImage\0\0"
+    "MyOpenGLWidget\0toggleRotationMode\0\0"
+    "enabled\0rotateSelectedImage\0angle\0"
     "mirrorSelectedImage\0copySelectedImage\0"
     "deleteSelectedImage\0saveSelectedImage\0"
-    "toggleEraserMode\0enabled\0bringToFront\0"
-    "pushToBack\0toggleCropMode\0toggleInpaintMode\0"
+    "toggleEraserMode\0bringToFront\0pushToBack\0"
+    "toggleCropMode\0toggleInpaintMode\0"
     "confirmInpaint\0handleInpaintResult\0"
     "handleInpaintError\0QProcess::ProcessError\0"
     "error\0toggleSnipeMode\0confirmSnipe\0"
@@ -81,7 +84,7 @@ static const uint qt_meta_data_MyOpenGLWidget[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -89,48 +92,50 @@ static const uint qt_meta_data_MyOpenGLWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  119,    2, 0x08 /* Private */,
-       3,    0,  120,    2, 0x08 /* Private */,
-       4,    0,  121,    2, 0x08 /* Private */,
-       5,    0,  122,    2, 0x08 /* Private */,
-       6,    0,  123,    2, 0x08 /* Private */,
-       7,    1,  124,    2, 0x08 /* Private */,
-       9,    0,  127,    2, 0x08 /* Private */,
-      10,    0,  128,    2, 0x08 /* Private */,
-      11,    1,  129,    2, 0x08 /* Private */,
-      12,    1,  132,    2, 0x08 /* Private */,
-      13,    0,  135,    2, 0x08 /* Private */,
-      14,    0,  136,    2, 0x08 /* Private */,
-      15,    1,  137,    2, 0x08 /* Private */,
-      18,    1,  140,    2, 0x08 /* Private */,
-      19,    0,  143,    2, 0x08 /* Private */,
-      20,    0,  144,    2, 0x08 /* Private */,
-      21,    0,  145,    2, 0x08 /* Private */,
-      22,    1,  146,    2, 0x08 /* Private */,
-      23,    1,  149,    2, 0x08 /* Private */,
-      25,    0,  152,    2, 0x08 /* Private */,
-      26,    0,  153,    2, 0x08 /* Private */,
+       1,    1,  124,    2, 0x08 /* Private */,
+       4,    1,  127,    2, 0x08 /* Private */,
+       6,    0,  130,    2, 0x08 /* Private */,
+       7,    0,  131,    2, 0x08 /* Private */,
+       8,    0,  132,    2, 0x08 /* Private */,
+       9,    0,  133,    2, 0x08 /* Private */,
+      10,    1,  134,    2, 0x08 /* Private */,
+      11,    0,  137,    2, 0x08 /* Private */,
+      12,    0,  138,    2, 0x08 /* Private */,
+      13,    1,  139,    2, 0x08 /* Private */,
+      14,    1,  142,    2, 0x08 /* Private */,
+      15,    0,  145,    2, 0x08 /* Private */,
+      16,    0,  146,    2, 0x08 /* Private */,
+      17,    1,  147,    2, 0x08 /* Private */,
+      20,    1,  150,    2, 0x08 /* Private */,
+      21,    0,  153,    2, 0x08 /* Private */,
+      22,    0,  154,    2, 0x08 /* Private */,
+      23,    0,  155,    2, 0x08 /* Private */,
+      24,    1,  156,    2, 0x08 /* Private */,
+      25,    1,  159,    2, 0x08 /* Private */,
+      27,    0,  162,    2, 0x08 /* Private */,
+      28,    0,  163,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void, QMetaType::Bool,    3,
+    QMetaType::Void, QMetaType::Int,    5,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,    8,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,    8,
-    QMetaType::Void, QMetaType::Bool,    8,
+    QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 16,   17,
-    QMetaType::Void, QMetaType::Bool,    8,
+    QMetaType::Void, QMetaType::Bool,    3,
+    QMetaType::Void, QMetaType::Bool,    3,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 18,   19,
+    QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,    8,
-    QMetaType::Void, QMetaType::Int,   24,
+    QMetaType::Void, QMetaType::Bool,    3,
+    QMetaType::Void, QMetaType::Int,   26,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -143,27 +148,28 @@ void MyOpenGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         auto *_t = static_cast<MyOpenGLWidget *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->rotateSelectedImage(); break;
-        case 1: _t->mirrorSelectedImage(); break;
-        case 2: _t->copySelectedImage(); break;
-        case 3: _t->deleteSelectedImage(); break;
-        case 4: _t->saveSelectedImage(); break;
-        case 5: _t->toggleEraserMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 6: _t->bringToFront(); break;
-        case 7: _t->pushToBack(); break;
-        case 8: _t->toggleCropMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 9: _t->toggleInpaintMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: _t->confirmInpaint(); break;
-        case 11: _t->handleInpaintResult(); break;
-        case 12: _t->handleInpaintError((*reinterpret_cast< QProcess::ProcessError(*)>(_a[1]))); break;
-        case 13: _t->toggleSnipeMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 14: _t->confirmSnipe(); break;
-        case 15: _t->clearSnipePoints(); break;
-        case 16: _t->handleSnipeResult(); break;
-        case 17: _t->toggleDepthRemovalMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 18: _t->adjustImage((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 19: _t->oneshotRemoval(); break;
-        case 20: _t->handleOneshotRemovalResult(); break;
+        case 0: _t->toggleRotationMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 1: _t->rotateSelectedImage((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 2: _t->mirrorSelectedImage(); break;
+        case 3: _t->copySelectedImage(); break;
+        case 4: _t->deleteSelectedImage(); break;
+        case 5: _t->saveSelectedImage(); break;
+        case 6: _t->toggleEraserMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 7: _t->bringToFront(); break;
+        case 8: _t->pushToBack(); break;
+        case 9: _t->toggleCropMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: _t->toggleInpaintMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 11: _t->confirmInpaint(); break;
+        case 12: _t->handleInpaintResult(); break;
+        case 13: _t->handleInpaintError((*reinterpret_cast< QProcess::ProcessError(*)>(_a[1]))); break;
+        case 14: _t->toggleSnipeMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 15: _t->confirmSnipe(); break;
+        case 16: _t->clearSnipePoints(); break;
+        case 17: _t->handleSnipeResult(); break;
+        case 18: _t->toggleDepthRemovalMode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 19: _t->adjustImage((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 20: _t->oneshotRemoval(); break;
+        case 21: _t->handleOneshotRemovalResult(); break;
         default: ;
         }
     }
@@ -198,13 +204,13 @@ int MyOpenGLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }

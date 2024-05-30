@@ -26,7 +26,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     // Initialize the toolbar
     toolbar = new ImageToolbar(this);
     toolbar->setVisible(false);
-    connect(toolbar, &ImageToolbar::rotateImage, this, &MyOpenGLWidget::rotateSelectedImage);
+    connect(toolbar, &ImageToolbar::rotateImage, this, &MyOpenGLWidget::toggleRotationMode);
     connect(toolbar, &ImageToolbar::mirrorImage, this, &MyOpenGLWidget::mirrorSelectedImage);
     connect(toolbar, &ImageToolbar::copyImage, this, &MyOpenGLWidget::copySelectedImage);
     connect(toolbar, &ImageToolbar::deleteImage, this, &MyOpenGLWidget::deleteSelectedImage);
@@ -39,6 +39,14 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::toggleSnipeMode, this, &MyOpenGLWidget::toggleSnipeMode);
     connect(toolbar, &ImageToolbar::toggleDepthRemoval, this, &MyOpenGLWidget::toggleDepthRemovalMode);
     connect(toolbar, &ImageToolbar::oneshotRemoval, this, &MyOpenGLWidget::oneshotRemoval);
+
+    // Initialize the rotation slider
+    rotationSlider = new QSlider(Qt::Horizontal, this);
+    rotationSlider->setRange(0, 360);
+    rotationSlider->setValue(0);
+    rotationSlider->setVisible(false);
+    rotationSlider->setFixedWidth(200);
+    connect(rotationSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::rotateSelectedImage); // Connect rotation slider
 
     // Initialize the eraser size slider
     eraserSizeSlider = new QSlider(Qt::Horizontal, this);
@@ -104,6 +112,13 @@ void MyOpenGLWidget::initializeGL() {
 
 void MyOpenGLWidget::paintGL() {
     QPainter painter(this);
+
+    // Anti-aliasing for smoother rendering
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    // Smooth scaling for better image quality
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+
     for (auto& img : images) {
         img.draw(painter, scrollPosition);
     }
@@ -112,6 +127,10 @@ void MyOpenGLWidget::paintGL() {
         QPoint toolbarPos = selectedImage->boundingBox.topLeft() + scrollPosition - QPoint(0, toolbar->height());
         toolbar->move(toolbarPos);
         toolbar->setVisible(true);
+
+        QPoint rotationSliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - rotationSlider->width()) / 2, 10);
+        rotationSlider->move(rotationSliderPos);
+        rotationSlider->setVisible(rotationMode);
 
         QPoint eraserSliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - eraserSizeSlider->width()) / 2, 10);
         eraserSizeSlider->move(eraserSliderPos);
@@ -159,6 +178,7 @@ void MyOpenGLWidget::paintGL() {
         }
     } else {
         toolbar->setVisible(false);
+        rotationSlider->setVisible(false);
         eraserSizeSlider->setVisible(false);
         snipePopup->setVisible(false);
         depthRemovalSlider->setVisible(false);
@@ -282,7 +302,7 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
         }
     }
 
-    if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode) {
+    if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode && !depthRemovalMode && !rotationMode && event->button() == Qt::LeftButton) {
         isDragging = true;
         selectedImage = nullptr;
         qDebug() << "Mouse pressed, selected image set to nullptr";
@@ -316,7 +336,7 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
             update();
         } else if (currentHandle != 0) {
             QPoint delta = event->pos() - lastMousePosition;
-            QRect& rect = selectedImage->boundingBox;
+            QRect rect = selectedImage->boundingBox;
             switch (currentHandle) {
                 case 1:
                     rect.setTopLeft(rect.topLeft() + delta);
@@ -343,6 +363,12 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
                     rect.setRight(rect.right() + delta.x());
                     break;
             }
+            rect = rect.normalized();
+            selectedImage->boundingBox = rect;
+
+            // Resize the image from the original image to prevent loss of quality
+            selectedImage->image = selectedImage->originalImage.scaled(selectedImage->boundingBox.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
             lastMousePosition = event->pos();
             update();
         } else if (!cropMode && !snipeMode) {
@@ -354,6 +380,9 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
     }
 }
 
+
+
+
 void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
     if (eraserMode || inpaintMode || snipeMode) {
         return;
@@ -363,17 +392,63 @@ void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
     update();
 }
 
-void MyOpenGLWidget::rotateSelectedImage() {
+// void MyOpenGLWidget::rotateSelectedImage() {
+//     if (selectedImage) {
+//         saveState(); // Save state before making changes
+//         QTransform transform;
+//         transform.rotate(90);
+//         selectedImage->image = selectedImage->image.transformed(transform);
+//         selectedImage->boundingBox.setSize(selectedImage->image.size());
+//         update();
+//     } else {
+//         qDebug() << "No image selected";
+//     }
+// }
+
+void MyOpenGLWidget::rotateSelectedImage(int angle) {
     if (selectedImage) {
+        qDebug() << "Rotating image by" << angle;
+        
         saveState(); // Save state before making changes
+
+        if (originalImageBeforeRotation.isNull()) {
+            originalImageBeforeRotation = selectedImage->image;
+        }
+
+        // Calculate the center of the image
+        QPoint center = selectedImage->boundingBox.center();
+
+        // Apply the rotation transformation around the center for image
         QTransform transform;
-        transform.rotate(90);
-        selectedImage->image = selectedImage->image.transformed(transform);
-        selectedImage->boundingBox.setSize(selectedImage->image.size());
+        transform.translate(center.x(), center.y());
+        transform.rotate(angle);
+        transform.translate(-center.x(), -center.y());
+
+        // Transform the image
+        QImage rotatedImage = originalImageBeforeRotation.transformed(transform, Qt::SmoothTransformation);
+
+        // Calculate the new bounding box to fit the rotated image
+        QRect newBoundingBox = QRect(center - QPoint(rotatedImage.width() / 2, rotatedImage.height() / 2), rotatedImage.size());
+
+        // Update the selected image and bounding box
+        selectedImage->image = rotatedImage;
+        selectedImage->boundingBox = newBoundingBox;
+
         update();
     } else {
         qDebug() << "No image selected";
     }
+}
+
+
+void MyOpenGLWidget::toggleRotationMode(bool enabled) {
+    rotationMode = enabled;
+    if (enabled) {
+        rotationSlider->setVisible(true);
+    } else {
+        rotationSlider->setVisible(false);
+    }
+    update();
 }
 
 void MyOpenGLWidget::mirrorSelectedImage() {

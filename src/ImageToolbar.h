@@ -17,7 +17,8 @@ public:
     void checkInpaintAction(bool checked);  // Method to enable/disable inpaint action
 
 signals:
-    void rotateImage();  // Signal to rotate image
+    void toggleRotationMode(bool enabled);  // Signal to toggle rotation mode
+    void rotateImage(int angle);  // Signal to rotate image
     void mirrorImage();  // Signal to mirror image
     void copyImage();    // Signal to copy image
     void deleteImage();  // Signal to delete image
@@ -32,6 +33,7 @@ signals:
     void oneshotRemoval(); // Signal for oneshot background removal
 
 private:
+    QAction* rotateAction;
     QAction* eraserAction;
     QAction* cropAction;
     QAction* inpaintAction;
@@ -40,6 +42,7 @@ private:
     QAction* depthRemovalAction;
 
 private slots:
+    void onRotateButtonClicked();  // Slot to handle rotate button click
     void onEraserButtonClicked();  // Slot to handle eraser button click
     void onCropButtonClicked();  // Slot to handle crop button click
     void onInpaintButtonClicked(); // Slot to handle inpaint button click

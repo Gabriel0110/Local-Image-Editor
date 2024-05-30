@@ -10,3 +10,5 @@
 2024-05-19 21:58:22,898 - ERROR - Error in main function: Sizes of tensors must match except in dimension 1. Expected size 64 but got size 512 for tensor number 2 in the list.
 2024-05-19 22:03:32,380 - ERROR - Error processing images: Sizes of tensors must match except in dimension 1. Expected size 64 but got size 512 for tensor number 2 in the list.
 2024-05-19 22:03:32,381 - ERROR - Error in main function: Sizes of tensors must match except in dimension 1. Expected size 64 but got size 512 for tensor number 2 in the list.
+2024-05-20 15:41:50,718 - ERROR - Error processing images: Sizes of tensors must match except in dimension 1. Expected size 64 but got size 512 for tensor number 2 in the list.
+2024-05-20 15:41:50,719 - ERROR - Error in main function: Sizes of tensors must match except in dimension 1. Expected size 64 but got size 512 for tensor number 2 in the list.

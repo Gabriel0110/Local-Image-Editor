@@ -44,6 +44,7 @@ private:
     QProgressDialog* progressDialog; // Progress dialog for inpainting
     QProcess* pythonProcess;
     QImage originalImage;
+    QImage originalImageBeforeRotation;
     CustomConfirmationDialog* confirmationDialog;
     bool snipeMode = false;  // Flag indicating if snipe mode is enabled
     std::vector<QPointF> positivePoints;  // Positive points for snipe mode
@@ -53,6 +54,8 @@ private:
     QPushButton* clearSnipeButton;  // Clear snipe button
     bool depthRemovalMode = false;
     QSlider* depthRemovalSlider;
+    bool rotationMode = false;  // Flag indicating if rotation mode is enabled
+    QSlider* rotationSlider;  // Slider for rotation
 
     // Inpainting popup elements
     QWidget* inpaintPopup;
@@ -77,7 +80,9 @@ protected:
     bool eventFilter(QObject* obj, QEvent* event) override;
 
 private slots:
-    void rotateSelectedImage();
+    // void rotateSelectedImage();
+    void toggleRotationMode(bool enabled);
+    void rotateSelectedImage(int angle);
     void mirrorSelectedImage();
     void copySelectedImage();
     void deleteSelectedImage();
