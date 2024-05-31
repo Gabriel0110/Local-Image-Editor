@@ -15,6 +15,9 @@
 #include <QProcess>
 #include <QProgressDialog>
 #include <QPointF>
+#include <QClipboard>
+#include <QApplication>
+#include <QMenu>
 
 // MyOpenGLWidget class for handling image editing
 class MyOpenGLWidget : public QOpenGLWidget {
@@ -77,7 +80,9 @@ protected:
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
     bool eventFilter(QObject* obj, QEvent* event) override;
+    void contextMenuEvent(QContextMenuEvent* event) override;
 
 private slots:
     // void rotateSelectedImage();
@@ -103,6 +108,8 @@ private slots:
     void adjustImage(int value);
     void oneshotRemoval();
     void handleOneshotRemovalResult();
+    void copyImageToClipboard();
+    void pasteImageFromClipboard();
 
 private:
     void eraseAt(const QPoint& pos);

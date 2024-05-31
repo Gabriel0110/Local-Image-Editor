@@ -906,6 +906,18 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qeventloop.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qguiapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__locale \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/locale.h \
@@ -981,12 +993,10 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QDebug \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdebug.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qtextstream.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qset.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QDropEvent \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qevent.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qurl.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfile.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfiledevice.h \

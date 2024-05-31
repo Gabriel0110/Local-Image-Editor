@@ -914,6 +914,18 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qeventloop.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qguiapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
   MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp
 
 CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/CustomConfirmationDialog.cpp \
@@ -3561,10 +3573,20 @@ CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: /Users/gtomberlin/Documents/Cod
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qeventloop.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qguiapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qfiledialog.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdir.h \
@@ -4480,6 +4502,18 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qeventloop.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qguiapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__locale \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/locale.h \
@@ -4555,12 +4589,10 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QDebug \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdebug.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qtextstream.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qset.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcontiguouscache.h \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QDropEvent \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qevent.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qurl.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfile.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qfiledevice.h \
@@ -5507,7 +5539,11 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qprocess.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h
 
 CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.cpp \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.h \
@@ -6619,14 +6655,6 @@ CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents
 
 /opt/homebrew/Cellar/pybind11/2.12.0/include/pybind11/pybind11.h:
 
-/opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h:
-
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qeventloop.h:
-
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreapplication.h:
-
-/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication:
-
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMessageBox:
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qjsonarray.h:
@@ -6761,8 +6789,6 @@ CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog:
 
-/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h:
-
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h:
 
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/MainWindow.cpp:
@@ -6780,6 +6806,18 @@ CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qset.h:
 
 MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h:
+
+/opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qeventloop.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreapplication.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication:
+
+/opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h:
 
@@ -7285,9 +7323,9 @@ MediaEditor_autogen/UVLADIE3JM/moc_ImageToolbar.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/ranges_max_element.h:
 
-/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h:
-
 /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__random/is_valid.h:
 
@@ -7308,6 +7346,8 @@ MediaEditor_autogen/UVLADIE3JM/moc_ImageToolbar.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/ranges_is_heap.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/ranges_inplace_merge.h:
+
+/opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h:
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qpoint.h:
 
@@ -7427,9 +7467,9 @@ MediaEditor_autogen/UVLADIE3JM/moc_ImageToolbar.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/lexicographical_compare.h:
 
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__filesystem/path_iterator.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__concepts/same_as.h:
 

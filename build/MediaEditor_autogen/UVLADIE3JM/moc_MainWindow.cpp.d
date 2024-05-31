@@ -713,7 +713,10 @@
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qconfig.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qcontainerfwd.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qcontainertools_impl.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qcoreapplication.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qcoreevent.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qdatastream.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qeventloop.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qflags.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qglobal.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qglobalstatic.h \
@@ -723,6 +726,7 @@
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qiterator.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qline.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qlist.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qlocale.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qlogging.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qmap.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qmargins.h \
@@ -761,18 +765,22 @@
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qvarlengtharray.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qvector.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Versions/5/Headers/qversiontagging.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/QClipboard \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/QIcon \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/QImage \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/QPainter \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/QSurfaceFormat \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qbrush.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qclipboard.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qcolor.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qcursor.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qfont.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qfontinfo.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qfontmetrics.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qguiapplication.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qicon.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qimage.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qinputmethod.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qkeysequence.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qmatrix.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qopengl.h \
@@ -795,11 +803,13 @@
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qtransform.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Versions/5/Headers/qwindowdefs.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QAction \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QMenu \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QOpenGLWidget \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QProgressDialog \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
@@ -811,6 +821,7 @@
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qabstractslider.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qaction.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qactiongroup.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qframe.h \
@@ -820,6 +831,7 @@
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qlayoutitem.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
+  /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qmenu.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qopenglwidget.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qprogressdialog.h \
   /opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \

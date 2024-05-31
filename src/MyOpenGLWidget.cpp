@@ -22,6 +22,7 @@
 
 MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     setAcceptDrops(true);
+    setFocusPolicy(Qt::StrongFocus); // Ensure the widget can receive keyboard focus
 
     // Initialize the toolbar
     toolbar = new ImageToolbar(this);
@@ -237,6 +238,25 @@ void MyOpenGLWidget::dropEvent(QDropEvent* event) {
     }
 }
 
+void MyOpenGLWidget::contextMenuEvent(QContextMenuEvent* event) {
+    QMenu contextMenu(this);
+    QAction pasteAction("Paste", this);
+    connect(&pasteAction, &QAction::triggered, this, &MyOpenGLWidget::pasteImageFromClipboard);
+    contextMenu.addAction(&pasteAction);
+
+    contextMenu.exec(event->globalPos());
+}
+
+void MyOpenGLWidget::keyPressEvent(QKeyEvent* event) {
+    if (event->matches(QKeySequence::Copy)) {
+        copyImageToClipboard();
+    } else if (event->matches(QKeySequence::Paste)) {
+        pasteImageFromClipboard();
+    } else {
+        QOpenGLWidget::keyPressEvent(event);
+    }
+}
+
 void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
     if (eraserMode && selectedImage) {
         eraseAt(event->pos());
@@ -380,9 +400,6 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
     }
 }
 
-
-
-
 void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
     if (eraserMode || inpaintMode || snipeMode) {
         return;
@@ -391,6 +408,90 @@ void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
     currentHandle = 0;
     update();
 }
+
+void MyOpenGLWidget::copyImageToClipboard() {
+    if (selectedImage) {
+        QClipboard* clipboard = QApplication::clipboard();
+        clipboard->setImage(selectedImage->image);
+    } else {
+        qDebug() << "No image selected to copy";
+    }
+}
+
+void MyOpenGLWidget::pasteImageFromClipboard() {
+    QClipboard* clipboard = QApplication::clipboard();
+    const QMimeData* mimeData = clipboard->mimeData();
+
+    qDebug() << "Available MIME types in clipboard:" << mimeData->formats();
+
+    if (mimeData->hasUrls()) {
+        QList<QUrl> urlList = mimeData->urls();
+        qDebug() << "Clipboard contains URLs:" << urlList;
+        for (const QUrl &url : urlList) {
+            if (url.isLocalFile()) {
+                QImage image(url.toLocalFile());
+                if (!image.isNull()) {
+                    qDebug() << "Loading image from URL:" << url.toLocalFile();
+                    saveState(); // Save state before making changes
+                    images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
+                    update();
+                    return;
+                } else {
+                    qDebug() << "Failed to load image from file URL";
+                }
+            }
+        }
+    }
+
+    if (mimeData->hasFormat(QString("application/x-qt-image"))) {
+        QByteArray imageData = mimeData->data("application/x-qt-image");
+        QImage image = QImage::fromData(imageData);
+        if (!image.isNull()) {
+            qDebug() << "Clipboard contains application/x-qt-image and successfully retrieved the image";
+            saveState(); // Save state before making changes
+            images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
+            update();
+            return;
+        } else {
+            qDebug() << "Failed to retrieve image from clipboard for application/x-qt-image";
+        }
+    }
+
+    if (mimeData->hasImage()) {
+        QImage image = qvariant_cast<QImage>(mimeData->imageData());
+        if (!image.isNull()) {
+            qDebug() << "Clipboard contains valid image data";
+            saveState(); // Save state before making changes
+            images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
+            update();
+            return;
+        } else {
+            qDebug() << "Failed to retrieve valid image from clipboard despite hasImage()";
+        }
+    }
+
+    if (mimeData->hasFormat("text/uri-list")) {
+        QList<QUrl> urlList = mimeData->urls();
+        qDebug() << "Clipboard contains text/uri-list URLs:" << urlList;
+        for (const QUrl &url : urlList) {
+            if (url.isLocalFile()) {
+                QImage image(url.toLocalFile());
+                if (!image.isNull()) {
+                    qDebug() << "Loading image from URL:" << url.toLocalFile();
+                    saveState(); // Save state before making changes
+                    images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
+                    update();
+                    return;
+                } else {
+                    qDebug() << "Failed to load image from file URL";
+                }
+            }
+        }
+    }
+
+    qDebug() << "No valid image data found in clipboard";
+}
+
 
 // void MyOpenGLWidget::rotateSelectedImage() {
 //     if (selectedImage) {

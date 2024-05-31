@@ -912,4 +912,16 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcoreevent.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qeventloop.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qguiapplication.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp

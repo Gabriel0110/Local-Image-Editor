@@ -916,4 +916,8 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qprocess.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QProgressDialog \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qprogressdialog.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QPointF \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h
