@@ -124,20 +124,27 @@ void MyOpenGLWidget::paintGL() {
         img.draw(painter, scrollPosition);
     }
 
-    if (selectedImage) {
-        QPoint toolbarPos = selectedImage->boundingBox.topLeft() + scrollPosition - QPoint(0, toolbar->height());
+    if (!selectedImages.empty()) {
+        // Disable the bounding box for the selected images before drawing the combined bounding box
+        for (auto& img : selectedImages) {
+            img->disableBoundingBox();
+        }
+
+        // Compute combined bounding box for all selected images
+        QRect combinedBoundingBox = computeBoundingBoxForSelectedImages();
+        QPoint toolbarPos = combinedBoundingBox.topLeft() + scrollPosition - QPoint(0, toolbar->height());
         toolbar->move(toolbarPos);
         toolbar->setVisible(true);
 
-        QPoint rotationSliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - rotationSlider->width()) / 2, 10);
+        QPoint rotationSliderPos = combinedBoundingBox.bottomLeft() + scrollPosition + QPoint((combinedBoundingBox.width() - rotationSlider->width()) / 2, 10);
         rotationSlider->move(rotationSliderPos);
         rotationSlider->setVisible(rotationMode);
 
-        QPoint eraserSliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - eraserSizeSlider->width()) / 2, 10);
+        QPoint eraserSliderPos = combinedBoundingBox.bottomLeft() + scrollPosition + QPoint((combinedBoundingBox.width() - eraserSizeSlider->width()) / 2, 10);
         eraserSizeSlider->move(eraserSliderPos);
         eraserSizeSlider->setVisible(eraserMode);
 
-        QPoint depthSliderPos = selectedImage->boundingBox.bottomLeft() + scrollPosition + QPoint((selectedImage->boundingBox.width() - depthRemovalSlider->width()) / 2, 10);
+        QPoint depthSliderPos = combinedBoundingBox.bottomLeft() + scrollPosition + QPoint((combinedBoundingBox.width() - depthRemovalSlider->width()) / 2, 10);
         depthRemovalSlider->move(depthSliderPos);
         depthRemovalSlider->setVisible(depthRemovalMode);
 
@@ -166,12 +173,76 @@ void MyOpenGLWidget::paintGL() {
 
         if (inpaintMode) {
             painter.setPen(QPen(Qt::red, 2, Qt::DashLine));
-            painter.drawImage(selectedImage->boundingBox.topLeft() + scrollPosition, maskImage);
+            painter.drawImage(combinedBoundingBox.topLeft() + scrollPosition, maskImage);
         }
 
         if (snipeMode) {
             drawSnipePoints(painter, scrollPosition);
-            QPoint popupPos = selectedImage->boundingBox.topRight() + scrollPosition + QPoint(10, 0);
+            QPoint popupPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, 0);
+            snipePopup->move(popupPos);
+            snipePopup->setVisible(true);
+        } else {
+            snipePopup->setVisible(false);
+        }
+
+        // Disable the bounding box for the selected images before drawing the combined bounding box
+        for (auto& img : selectedImages) {
+            img->disableBoundingBox();
+        }
+
+        // Draw the combined bounding box around all selected images
+        painter.setPen(QPen(Qt::magenta, 2, Qt::DashLine));
+        painter.drawRect(combinedBoundingBox.translated(scrollPosition));
+
+    } else if (selectedImage) {
+        QRect boundingBox = selectedImage->boundingBox;
+        QPoint toolbarPos = boundingBox.topLeft() + scrollPosition - QPoint(0, toolbar->height());
+        toolbar->move(toolbarPos);
+        toolbar->setVisible(true);
+
+        QPoint rotationSliderPos = boundingBox.bottomLeft() + scrollPosition + QPoint((boundingBox.width() - rotationSlider->width()) / 2, 10);
+        rotationSlider->move(rotationSliderPos);
+        rotationSlider->setVisible(rotationMode);
+
+        QPoint eraserSliderPos = boundingBox.bottomLeft() + scrollPosition + QPoint((boundingBox.width() - eraserSizeSlider->width()) / 2, 10);
+        eraserSizeSlider->move(eraserSliderPos);
+        eraserSizeSlider->setVisible(eraserMode);
+
+        QPoint depthSliderPos = boundingBox.bottomLeft() + scrollPosition + QPoint((boundingBox.width() - depthRemovalSlider->width()) / 2, 10);
+        depthRemovalSlider->move(depthSliderPos);
+        depthRemovalSlider->setVisible(depthRemovalMode);
+
+        if (cropMode) {
+            painter.setPen(QPen(Qt::blue, 2, Qt::DashLine));
+            painter.drawRect(cropBox);
+
+            // Draw the crop handles
+            const int handleSize = 6;
+            painter.setBrush(Qt::white);
+            painter.setPen(Qt::black);
+            QRect cropHandles[] = {
+                QRect(cropBox.topLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(cropBox.topRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(cropBox.bottomLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(cropBox.bottomRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.top() - handleSize / 2, handleSize, handleSize),
+                QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.bottom() - handleSize / 2, handleSize, handleSize),
+                QRect(cropBox.left() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize),
+                QRect(cropBox.right() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize)
+            };
+            for (const QRect& handle : cropHandles) {
+                painter.drawRect(handle);
+            }
+        }
+
+        if (inpaintMode) {
+            painter.setPen(QPen(Qt::red, 2, Qt::DashLine));
+            painter.drawImage(boundingBox.topLeft() + scrollPosition, maskImage);
+        }
+
+        if (snipeMode) {
+            drawSnipePoints(painter, scrollPosition);
+            QPoint popupPos = boundingBox.topRight() + scrollPosition + QPoint(10, 0);
             snipePopup->move(popupPos);
             snipePopup->setVisible(true);
         } else {
@@ -185,10 +256,19 @@ void MyOpenGLWidget::paintGL() {
         depthRemovalSlider->setVisible(false);
     }
 
+    // Draw the selection box
+    if (isSelecting) {
+        painter.setPen(QPen(Qt::blue, 2, Qt::DashLine));
+        painter.setBrush(Qt::NoBrush);
+        painter.drawRect(QRect(selectionStartPoint + scrollPosition, selectionEndPoint + scrollPosition));
+    }
+
     // Ensure undo and redo buttons are always at the bottom right
     undoButton->move(width() - 180, height() - 40);
     redoButton->move(width() - 90, height() - 40);
 }
+
+
 
 void MyOpenGLWidget::dragEnterEvent(QDragEnterEvent* event) {
     qDebug() << "Drag entered with MIME types:" << event->mimeData()->formats();
@@ -216,22 +296,8 @@ void MyOpenGLWidget::dropEvent(QDropEvent* event) {
         if (!urls.isEmpty()) {
             QImage image;
             if (image.load(urls.first().toLocalFile())) {
-                // images.emplace_back(image.scaled(QSize(UPLOADED_IMAGE_WIDTH, UPLOADED_IMAGE_HEIGHT), Qt::KeepAspectRatio), event->pos());
-                // Scale the image to fit within the maximum dimensions while preserving aspect ratio
-                // QSize originalSize = image.size();
-                // QSize scaledSize = originalSize;
-
-                // int MAX_IMAGE_WIDTH = 384;
-                // int MAX_IMAGE_HEIGHT = 384;
-
-                // if (originalSize.width() > MAX_IMAGE_WIDTH || originalSize.height() > MAX_IMAGE_HEIGHT) {
-                //     scaledSize = originalSize.scaled(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, Qt::KeepAspectRatio);
-                // }
-
-                // image = image.scaled(scaledSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
                 scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-
-                images.emplace_back(image, event->pos());
+                images.emplace_back(image, event->pos() - scrollPosition);
                 update();
             }
         }
@@ -255,6 +321,13 @@ void MyOpenGLWidget::keyPressEvent(QKeyEvent* event) {
     } else {
         QOpenGLWidget::keyPressEvent(event);
     }
+}
+
+void MyOpenGLWidget::keyReleaseEvent(QKeyEvent* event) {
+    if (event->key() == Qt::Key_Control || event->key() == Qt::Key_Meta) {
+        clearFocus();
+    }
+    QOpenGLWidget::keyReleaseEvent(event);
 }
 
 void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
@@ -292,7 +365,7 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
         return;
     }
 
-    QPoint pos = event->pos() - scrollPosition;
+    QPoint pos = event->pos() - scrollPosition; // Adjust for scroll position
     bool imageClicked = false;
 
     if (cropMode && selectedImage) {
@@ -305,27 +378,129 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
         }
     }
 
-    for (auto& img : images) {
-        int handle = img.handleAt(pos, QPoint(0, 0));
-        if (handle != 0) {
-            currentHandle = handle;
-            selectedImage = &img;
-            img.isSelected = true;
-            imageClicked = true;
-            break;
-        } else if (img.contains(pos, QPoint(0, 0))) {
-            selectedImage = &img;
-            img.isSelected = true;
-            imageClicked = true;
-        } else {
-            img.isSelected = false;
-        }
-    }
+    if (event->button() == Qt::LeftButton) {
+        if (event->modifiers() & Qt::ControlModifier || event->modifiers() & Qt::MetaModifier) {
+            // Handle multi-select with ctrl/cmd click
+            for (auto& img : images) {
+                if (img.contains(pos, QPoint(0, 0))) {
+                    auto it = std::find(selectedImages.begin(), selectedImages.end(), &img);
+                    if (it != selectedImages.end()) {
+                        // Image is already selected, unselect it
+                        qDebug() << "Image unselected";
+                        selectedImages.erase(it);
+                        img.isSelected = false;
 
-    if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode && !depthRemovalMode && !rotationMode && event->button() == Qt::LeftButton) {
-        isDragging = true;
-        selectedImage = nullptr;
-        qDebug() << "Mouse pressed, selected image set to nullptr";
+                        // If it was the last selected image, set selectedImage to nullptr
+                        if (selectedImage == &img) {
+                            qDebug() << "Selected image set to nullptr";
+                            selectedImage = nullptr;
+                        }
+                    } else {
+                        // Image is not selected, add it to selectedImages
+                        if (selectedImage && std::find(selectedImages.begin(), selectedImages.end(), selectedImage) == selectedImages.end()) {
+                            // If there is already a selected image, add it to selectedImages first
+                            selectedImages.push_back(selectedImage);
+                            selectedImage->isSelected = true;
+                            selectedImage->disableBoundingBox();
+                        }
+                        selectedImages.push_back(&img);
+                        img.isSelected = true;
+                        img.disableBoundingBox();
+
+                        // If the clicked image is the only image selected, set selectedImage to it
+                        if (selectedImages.size() == 1) {
+                            selectedImage = &img;
+
+                            // Disable the bounding box for the selected image since any image added to selectedImages will have its bounding box drawn
+                            selectedImage->disableBoundingBox();
+                        }
+                    }
+                    imageClicked = true;
+                    break;
+                }
+            }
+
+            if (!imageClicked) {
+                // If no image was clicked, start a selection box
+                isSelecting = true;
+                selectionStartPoint = event->pos() - scrollPosition; // Set the start point of the selection box considering scroll position
+                selectionEndPoint = selectionStartPoint;
+                isDragging = false; // Ensure dragging is reset
+                currentHandle = 0; // Ensure handle is reset
+            } else if (!selectedImages.empty() && selectedImages.size() > 1) {
+                // Compute bounding box for selected images
+                QRect combinedBoundingBox = computeBoundingBoxForSelectedImages();
+                if (combinedBoundingBox.contains(pos)) {
+                    isDragging = true;
+                    selectedImage = nullptr;
+                }
+            }
+            
+        } else {
+            // Iterate over images in reverse order to select the topmost image
+            for (auto it = images.rbegin(); it != images.rend(); ++it) {
+                ImageObject& img = *it;
+                int handle = img.handleAt(pos, QPoint(0, 0));
+                if (handle != 0) {
+                    currentHandle = handle;
+                    if (selectedImage != &img) {
+                        if (selectedImage) {
+                            selectedImage->isSelected = false;
+                        }
+                        selectedImage = &img;
+                    }
+                    img.isSelected = true;
+                    imageClicked = true;
+                    break;
+                } else if (img.contains(pos, QPoint(0, 0))) {
+                    if (selectedImage != &img) {
+                        if (selectedImage) {
+                            selectedImage->isSelected = false;
+                        }
+                        selectedImage = &img;
+                    }
+                    img.isSelected = true;
+                    imageClicked = true;
+                    break;
+                } else {
+                    img.isSelected = false;
+                }
+            }
+            // for (auto& img : images){
+            //     int handle = img.handleAt(pos, QPoint(0, 0));
+            //     if (handle != 0) {
+            //         currentHandle = handle;
+            //         selectedImage = &img;
+            //         img.isSelected = true;
+            //         imageClicked = true;
+            //         break;
+            //     } else if (img.contains(pos, QPoint(0, 0))) {
+            //         selectedImage = &img;
+            //         img.isSelected = true;
+            //         imageClicked = true;
+            //         break;
+            //     } else {
+            //         img.isSelected = false;
+            //     }
+            // }
+
+            if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode && !depthRemovalMode && !rotationMode) {
+                // Check if click is inside combined bounding box of selected images
+                QRect combinedBoundingBox = computeBoundingBoxForSelectedImages();
+                if (combinedBoundingBox.contains(pos)) {
+                    isDragging = true;
+                } else {
+                    isDragging = true;
+                    selectedImage = nullptr;
+                    clearSelection();
+                    qDebug() << "Mouse pressed, selected image set to nullptr";
+                }
+            } else if (imageClicked && !selectedImages.empty()) {
+                // Start dragging the combined selection
+                isDragging = true;
+                selectedImage = nullptr;
+            }
+        }
     }
 
     lastMousePosition = event->pos();
@@ -345,7 +520,13 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
 
     if (isDragging && !selectedImage) {
         QPoint delta = event->pos() - lastMousePosition;
-        scrollPosition += delta;
+        if (!selectedImages.empty()) {
+            for (auto& img : selectedImages) {
+                img->boundingBox.translate(delta);
+            }
+        } else {
+            scrollPosition += delta;
+        }
         lastMousePosition = event->pos();
         update();
     } else if (event->buttons() & Qt::LeftButton && selectedImage) {
@@ -397,6 +578,9 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
             lastMousePosition = event->pos();
             update();
         }
+    } else if (isSelecting) {
+        selectionEndPoint = event->pos() - scrollPosition; // Update the end point relative to the scroll position
+        update();
     }
 }
 
@@ -406,6 +590,13 @@ void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
     }
     isDragging = false;
     currentHandle = 0;
+
+    if (isSelecting) {
+        isSelecting = false;
+        QRect selectionBox = QRect(selectionStartPoint, selectionEndPoint).normalized();
+        selectImagesInBox(selectionBox.translated(scrollPosition)); // Translate selection box coordinates back to original
+    }
+
     update();
 }
 
@@ -492,22 +683,31 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
     qDebug() << "No valid image data found in clipboard";
 }
 
-
-// void MyOpenGLWidget::rotateSelectedImage() {
-//     if (selectedImage) {
-//         saveState(); // Save state before making changes
-//         QTransform transform;
-//         transform.rotate(90);
-//         selectedImage->image = selectedImage->image.transformed(transform);
-//         selectedImage->boundingBox.setSize(selectedImage->image.size());
-//         update();
-//     } else {
-//         qDebug() << "No image selected";
-//     }
-// }
-
 void MyOpenGLWidget::rotateSelectedImage(int angle) {
-    if (selectedImage) {
+    if (!selectedImages.empty()) {
+        saveState(); // Save state before making changes
+        for (auto& img : selectedImages) {
+            // Calculate the center of the image
+            QPoint center = img->boundingBox.center();
+
+            // Apply the rotation transformation around the center for image
+            QTransform transform;
+            transform.translate(center.x(), center.y());
+            transform.rotate(angle);
+            transform.translate(-center.x(), -center.y());
+
+            // Transform the image
+            QImage rotatedImage = img->originalImage.transformed(transform, Qt::SmoothTransformation);
+
+            // Calculate the new bounding box to fit the rotated image
+            QRect newBoundingBox = QRect(center - QPoint(rotatedImage.width() / 2, rotatedImage.height() / 2), rotatedImage.size());
+
+            // Update the selected image and bounding box
+            img->image = rotatedImage;
+            img->boundingBox = newBoundingBox;
+        }
+        update();
+    } else if (selectedImage) {
         qDebug() << "Rotating image by" << angle;
         
         saveState(); // Save state before making changes
@@ -541,7 +741,6 @@ void MyOpenGLWidget::rotateSelectedImage(int angle) {
     }
 }
 
-
 void MyOpenGLWidget::toggleRotationMode(bool enabled) {
     rotationMode = enabled;
     if (enabled) {
@@ -553,7 +752,13 @@ void MyOpenGLWidget::toggleRotationMode(bool enabled) {
 }
 
 void MyOpenGLWidget::mirrorSelectedImage() {
-    if (selectedImage) {
+    if (!selectedImages.empty()) {
+        saveState(); // Save state before making changes
+        for (auto& img : selectedImages) {
+            img->image = img->image.mirrored(true, false);
+        }
+        update();
+    } else if (selectedImage) {
         saveState(); // Save state before making changes
         selectedImage->image = selectedImage->image.mirrored(true, false);
         update();
@@ -808,18 +1013,11 @@ void MyOpenGLWidget::confirmInpaint() {
     connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleInpaintError);
     
     // Set working directory if needed
-    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
+    pythonProcess->setWorkingDirectory("/resources/scripts/inference");
 
     pythonProcess->start("python3.10", QStringList() << "inpainting.py");
     pythonProcess->write(data);
     pythonProcess->closeWriteChannel();
-
-    // saveState(); // Save state before making changes
-    // selectedImage->image = resultImage;
-    // selectedImage->boundingBox.setSize(selectedImage->image.size());
-
-    // toggleInpaintMode(false); // Exit inpaint mode
-    // update();
 }
 
 void MyOpenGLWidget::handleInpaintResult() {
@@ -828,7 +1026,7 @@ void MyOpenGLWidget::handleInpaintResult() {
     // Get the size of the selected image
     QSize originalSize = selectedImage->image.size();
 
-    std::ifstream file("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/inpainting_result.txt", std::ios::binary);
+    std::ifstream file("/resources/scripts/inference/inpainting_result.txt", std::ios::binary);
     if (!file.is_open()) {
         qDebug() << "Failed to open inpainting result file.";
         return;
@@ -855,9 +1053,6 @@ void MyOpenGLWidget::handleInpaintResult() {
     // Set the size of the inpainted image to the original size
     resultQImage = resultQImage.scaled(originalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    // Resize the image to the original size
-    //scaleImage(resultQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-
     // Replace the selected image with the inpainted image
     selectedImage->image = resultQImage;
     selectedImage->boundingBox.setSize(resultQImage.size());
@@ -869,7 +1064,7 @@ void MyOpenGLWidget::handleInpaintResult() {
     update();
 
     // Delete the result file
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/inpainting_result.txt");
+    std::remove("/resources/scripts/inference/inpainting_result.txt");
 }
 
 void MyOpenGLWidget::handleInpaintError(QProcess::ProcessError error) {
@@ -941,7 +1136,7 @@ void MyOpenGLWidget::confirmSnipe() {
     //connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleSnipeError);
 
     // Set working directory if needed
-    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
+    pythonProcess->setWorkingDirectory("/resources/scripts/inference");
 
     pythonProcess->start("python3.10", QStringList() << "sam.py");
     pythonProcess->write(data);
@@ -953,7 +1148,7 @@ void MyOpenGLWidget::handleSnipeResult() {
 
     // Three files we need to convert to QImages: image_hole.txt, image_object.txt, image_with_mask.txt
 
-    std::ifstream fileHole("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_hole.txt", std::ios::binary);
+    std::ifstream fileHole("/resources/scripts/inference/image_hole.txt", std::ios::binary);
     if (!fileHole.is_open()) {
         qDebug() << "Failed to open image hole file.";
         return;
@@ -964,7 +1159,7 @@ void MyOpenGLWidget::handleSnipeResult() {
     std::string resultBase64 = bufferHole.str();
     fileHole.close();
 
-    std::ifstream fileObject("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_object.txt", std::ios::binary);
+    std::ifstream fileObject("/resources/scripts/inference/image_object.txt", std::ios::binary);
     if (!fileObject.is_open()) {
         qDebug() << "Failed to open image object file.";
         return;
@@ -975,7 +1170,7 @@ void MyOpenGLWidget::handleSnipeResult() {
     std::string resultObjectBase64 = bufferObject.str();
     fileObject.close();
 
-    std::ifstream fileMask("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_with_mask.txt", std::ios::binary);
+    std::ifstream fileMask("/resources/scripts/inference/image_with_mask.txt", std::ios::binary);
     if (!fileMask.is_open()) {
         qDebug() << "Failed to open image with mask file.";
         return;
@@ -1047,10 +1242,10 @@ void MyOpenGLWidget::handleSnipeResult() {
     confirmationDialog->show();
 
     // Delete the result files
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_hole.txt");
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_object.txt");
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_with_mask.txt");
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/mask.png");
+    std::remove("/resources/scripts/inference/image_hole.txt");
+    std::remove("/resources/scripts/inference/image_object.txt");
+    std::remove("/resources/scripts/inference/image_with_mask.txt");
+    std::remove("/resources/scripts/inference/mask.png");
 }
 
 void MyOpenGLWidget::clearSnipePoints() {
@@ -1224,7 +1419,12 @@ void MyOpenGLWidget::oneshotRemoval() {
     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleOneshotRemovalResult);
 
     // Set working directory if needed
-    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
+    try {
+        pythonProcess->setWorkingDirectory("/resources/scripts/inference");
+    } catch (std::exception& e) {
+        qDebug() << "Failed to set working directory: " << e.what();
+    }
+    // pythonProcess->setWorkingDirectory("/resources/scripts/inference");
 
     pythonProcess->start("python3.10", QStringList() << "oneshot-background-removal.py");
     pythonProcess->write(data);
@@ -1237,9 +1437,10 @@ void MyOpenGLWidget::handleOneshotRemovalResult() {
     // Get the size of the selected image
     QSize originalSize = selectedImage->image.size();
 
-    std::ifstream file("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/oneshot_removal_result.txt", std::ios::binary);
+    std::ifstream file("/resources/scripts/inference/oneshot_removal_result.txt", std::ios::binary);
     if (!file.is_open()) {
         qDebug() << "Failed to open oneshot removal result file.";
+        QMessageBox::critical(this, "Error", "Failed to open the oneshot removal result file.");
         return;
     }
 
@@ -1274,5 +1475,47 @@ void MyOpenGLWidget::handleOneshotRemovalResult() {
     update();
 
     // Delete the result file
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/oneshot_removal_result.txt");
+    std::remove("/resources/scripts/inference/oneshot_removal_result.txt");
+}
+
+QRect MyOpenGLWidget::computeBoundingBoxForSelectedImages() {
+    if (selectedImages.empty()) return QRect();
+
+    QRect combinedBoundingBox = selectedImages.front()->boundingBox;
+    for (const auto& img : selectedImages) {
+        combinedBoundingBox = combinedBoundingBox.united(img->boundingBox);
+    }
+    return combinedBoundingBox;
+}
+
+void MyOpenGLWidget::clearSelection() {
+    for (auto& img : images) {
+        img.isSelected = false;
+        img.enableBoundingBox();
+    }
+    selectedImages.clear();
+    selectedImage = nullptr;
+    update();
+}
+
+
+void MyOpenGLWidget::selectImagesInBox(const QRect& box) {
+    selectedImages.clear();
+    for (auto& img : images) {
+        if (box.intersects(img.boundingBox)) {
+            img.isSelected = true;
+            selectedImages.push_back(&img);
+        } else {
+            img.isSelected = false;
+        }
+    }
+    if (!selectedImages.empty()) {
+        selectedImage = nullptr;
+        for (auto& img : selectedImages) {
+            img->disableBoundingBox();
+        }
+    } else {
+        selectedImage = nullptr;
+    }
+    update();
 }

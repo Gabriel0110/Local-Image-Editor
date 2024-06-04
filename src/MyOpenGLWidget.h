@@ -31,6 +31,11 @@ private:
     QPoint lastMousePosition;  // Last mouse position
     bool isDragging;  // Flag indicating if dragging is in progress
     ImageObject* selectedImage = nullptr;  // Currently selected image
+    std::vector<ImageObject*> selectedImages; // Multi-selected images
+    QRect selectionBox; // Selection box for click-and-drag multi-select
+    bool isSelecting = false; // Flag indicating if selection box is being drawn
+    QPoint selectionStartPoint; // Start point for selection box
+    QPoint selectionEndPoint; // End point for selection box
     int currentHandle = 0;  // Current handle for resizing
     ImageToolbar* toolbar;  // Toolbar for image actions
     QSlider* eraserSizeSlider;  // Slider for eraser size
@@ -81,11 +86,11 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
     bool eventFilter(QObject* obj, QEvent* event) override;
     void contextMenuEvent(QContextMenuEvent* event) override;
 
 private slots:
-    // void rotateSelectedImage();
     void toggleRotationMode(bool enabled);
     void rotateSelectedImage(int angle);
     void mirrorSelectedImage();
@@ -120,6 +125,10 @@ private:
     int cropHandleAt(const QPoint& pos) const;
     void drawMaskAt(const QPoint& pos);
     void drawSnipePoints(QPainter& painter, const QPoint& scrollPosition);
+    QRect computeBoundingBoxForSelectedImages();
+    void selectImagesInBox(const QRect& box);
+    void clearSelection();
+    
 };
 
 #endif // MYOPENGLWIDGET_H
