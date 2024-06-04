@@ -78,8 +78,8 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QAction* oneshotRemovalAction = toolbar->addAction(QIcon(iconPath + "oneshot-background-removal.png"), "Oneshot Background Removal"); // Add oneshot removal button
     oneshotRemovalAction->setToolTip("Oneshot Background Removal");
 
-    // Icon Attribution: "https://www.flaticon.com/free-icons/merge" title="merge icons" Merge icons created by Freepik - Flaticon
-    mergeAction = toolbar->addAction(QIcon(iconPath + "merge.png"), "Merge");
+    // Icon Attribution: "https://www.flaticon.com/free-icons/consolidate" title="consolidate icons" Consolidate icons created by Freepik - Flaticon
+    mergeAction = toolbar->addAction(QIcon(iconPath + "merge.png"), "Merge Images");
     mergeAction->setToolTip("Merge");
     mergeAction->setVisible(false);  // Initially invisible
 

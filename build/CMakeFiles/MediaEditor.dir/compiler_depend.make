@@ -4620,7 +4620,8 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qjsonarray.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMessageBox \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmessagebox.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPixmap
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPixmap \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QHash
 
 CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
@@ -6654,6 +6655,8 @@ CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents
 /opt/homebrew/Cellar/pybind11/2.12.0/include/pybind11/detail/common.h:
 
 /opt/homebrew/Cellar/pybind11/2.12.0/include/pybind11/pybind11.h:
+
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QHash:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMessageBox:
 
