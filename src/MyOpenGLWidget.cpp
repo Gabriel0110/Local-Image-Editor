@@ -1013,7 +1013,7 @@ void MyOpenGLWidget::confirmInpaint() {
     connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleInpaintError);
     
     // Set working directory if needed
-    pythonProcess->setWorkingDirectory("/resources/scripts/inference");
+    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
 
     pythonProcess->start("python3.10", QStringList() << "inpainting.py");
     pythonProcess->write(data);
@@ -1026,7 +1026,7 @@ void MyOpenGLWidget::handleInpaintResult() {
     // Get the size of the selected image
     QSize originalSize = selectedImage->image.size();
 
-    std::ifstream file("/resources/scripts/inference/inpainting_result.txt", std::ios::binary);
+    std::ifstream file("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/inpainting_result.txt", std::ios::binary);
     if (!file.is_open()) {
         qDebug() << "Failed to open inpainting result file.";
         return;
@@ -1064,7 +1064,7 @@ void MyOpenGLWidget::handleInpaintResult() {
     update();
 
     // Delete the result file
-    std::remove("/resources/scripts/inference/inpainting_result.txt");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/inpainting_result.txt");
 }
 
 void MyOpenGLWidget::handleInpaintError(QProcess::ProcessError error) {
@@ -1136,7 +1136,7 @@ void MyOpenGLWidget::confirmSnipe() {
     //connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleSnipeError);
 
     // Set working directory if needed
-    pythonProcess->setWorkingDirectory("/resources/scripts/inference");
+    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
 
     pythonProcess->start("python3.10", QStringList() << "sam.py");
     pythonProcess->write(data);
@@ -1148,7 +1148,7 @@ void MyOpenGLWidget::handleSnipeResult() {
 
     // Three files we need to convert to QImages: image_hole.txt, image_object.txt, image_with_mask.txt
 
-    std::ifstream fileHole("/resources/scripts/inference/image_hole.txt", std::ios::binary);
+    std::ifstream fileHole("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_hole.txt", std::ios::binary);
     if (!fileHole.is_open()) {
         qDebug() << "Failed to open image hole file.";
         return;
@@ -1159,7 +1159,7 @@ void MyOpenGLWidget::handleSnipeResult() {
     std::string resultBase64 = bufferHole.str();
     fileHole.close();
 
-    std::ifstream fileObject("/resources/scripts/inference/image_object.txt", std::ios::binary);
+    std::ifstream fileObject("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_object.txt", std::ios::binary);
     if (!fileObject.is_open()) {
         qDebug() << "Failed to open image object file.";
         return;
@@ -1170,7 +1170,7 @@ void MyOpenGLWidget::handleSnipeResult() {
     std::string resultObjectBase64 = bufferObject.str();
     fileObject.close();
 
-    std::ifstream fileMask("/resources/scripts/inference/image_with_mask.txt", std::ios::binary);
+    std::ifstream fileMask("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_with_mask.txt", std::ios::binary);
     if (!fileMask.is_open()) {
         qDebug() << "Failed to open image with mask file.";
         return;
@@ -1242,10 +1242,10 @@ void MyOpenGLWidget::handleSnipeResult() {
     confirmationDialog->show();
 
     // Delete the result files
-    std::remove("/resources/scripts/inference/image_hole.txt");
-    std::remove("/resources/scripts/inference/image_object.txt");
-    std::remove("/resources/scripts/inference/image_with_mask.txt");
-    std::remove("/resources/scripts/inference/mask.png");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_hole.txt");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_object.txt");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_with_mask.txt");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/mask.png");
 }
 
 void MyOpenGLWidget::clearSnipePoints() {
@@ -1420,7 +1420,7 @@ void MyOpenGLWidget::oneshotRemoval() {
 
     // Set working directory if needed
     try {
-        pythonProcess->setWorkingDirectory("/resources/scripts/inference");
+        pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
     } catch (std::exception& e) {
         qDebug() << "Failed to set working directory: " << e.what();
     }
@@ -1437,7 +1437,7 @@ void MyOpenGLWidget::handleOneshotRemovalResult() {
     // Get the size of the selected image
     QSize originalSize = selectedImage->image.size();
 
-    std::ifstream file("/resources/scripts/inference/oneshot_removal_result.txt", std::ios::binary);
+    std::ifstream file("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/oneshot_removal_result.txt", std::ios::binary);
     if (!file.is_open()) {
         qDebug() << "Failed to open oneshot removal result file.";
         QMessageBox::critical(this, "Error", "Failed to open the oneshot removal result file.");
@@ -1475,7 +1475,7 @@ void MyOpenGLWidget::handleOneshotRemovalResult() {
     update();
 
     // Delete the result file
-    std::remove("/resources/scripts/inference/oneshot_removal_result.txt");
+    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/oneshot_removal_result.txt");
 }
 
 QRect MyOpenGLWidget::computeBoundingBoxForSelectedImages() {
