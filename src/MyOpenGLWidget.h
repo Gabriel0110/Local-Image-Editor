@@ -115,6 +115,7 @@ private slots:
     void handleOneshotRemovalResult();
     void copyImageToClipboard();
     void pasteImageFromClipboard();
+    void mergeSelectedImages(); // Slot to handle merge action
 
 private:
     void eraseAt(const QPoint& pos);
@@ -128,7 +129,6 @@ private:
     QRect computeBoundingBoxForSelectedImages();
     void selectImagesInBox(const QRect& box);
     void clearSelection();
-    
 };
 
 #endif // MYOPENGLWIDGET_H

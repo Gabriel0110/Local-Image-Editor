@@ -22,6 +22,12 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
         init_image = Image.open(BytesIO(init_image_data))
         mask_image = Image.open(BytesIO(mask_image_data))
 
+        # Convert to RGB if not already
+        if init_image.mode != "RGB":
+            init_image = init_image.convert("RGB")
+        if mask_image.mode != "RGB":
+            mask_image = mask_image.convert("RGB")
+
         # Load the inpainting pipeline
         pipe = AutoPipelineForInpainting.from_pretrained(
             "/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/models/stable-diffusion-inpainting",

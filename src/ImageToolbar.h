@@ -15,6 +15,7 @@ class ImageToolbar : public QWidget {
 public:
     explicit ImageToolbar(QWidget* parent = nullptr);
     void checkInpaintAction(bool checked);  // Method to enable/disable inpaint action
+    void setMergeActionVisible(bool visible); // Method to set merge action visibility
 
 signals:
     void toggleRotationMode(bool enabled);  // Signal to toggle rotation mode
@@ -31,6 +32,7 @@ signals:
     void toggleSnipeMode(bool enabled);
     void toggleDepthRemoval(bool enabled); // Signal for depth-wise background removal
     void oneshotRemoval(); // Signal for oneshot background removal
+    void mergeImages(); // Signal to merge images
 
 private:
     QAction* rotateAction;
@@ -40,6 +42,7 @@ private:
     QSlider* eraserSizeSlider;
     QAction* snipeAction;
     QAction* depthRemovalAction;
+    QAction* mergeAction; // Merge action
 
 private slots:
     void onRotateButtonClicked();  // Slot to handle rotate button click
@@ -48,6 +51,7 @@ private slots:
     void onInpaintButtonClicked(); // Slot to handle inpaint button click
     void onSnipeButtonClicked();
     void onDepthRemovalButtonClicked();
+    void onMergeButtonClicked(); // Slot to handle merge button click
 };
 
 #endif // IMAGETOOLBAR_H

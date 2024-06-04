@@ -40,6 +40,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::toggleSnipeMode, this, &MyOpenGLWidget::toggleSnipeMode);
     connect(toolbar, &ImageToolbar::toggleDepthRemoval, this, &MyOpenGLWidget::toggleDepthRemovalMode);
     connect(toolbar, &ImageToolbar::oneshotRemoval, this, &MyOpenGLWidget::oneshotRemoval);
+    connect(toolbar, &ImageToolbar::mergeImages, this, &MyOpenGLWidget::mergeSelectedImages); // Connect merge action
 
     // Initialize the rotation slider
     rotationSlider = new QSlider(Qt::Horizontal, this);
@@ -193,6 +194,9 @@ void MyOpenGLWidget::paintGL() {
         // Draw the combined bounding box around all selected images
         painter.setPen(QPen(Qt::magenta, 2, Qt::DashLine));
         painter.drawRect(combinedBoundingBox.translated(scrollPosition));
+
+        // Show merge button if multiple images are selected
+        toolbar->setMergeActionVisible(selectedImages.size() > 1);
 
     } else if (selectedImage) {
         QRect boundingBox = selectedImage->boundingBox;
@@ -1517,5 +1521,46 @@ void MyOpenGLWidget::selectImagesInBox(const QRect& box) {
     } else {
         selectedImage = nullptr;
     }
+    update();
+}
+
+
+void MyOpenGLWidget::mergeSelectedImages() {
+    if (selectedImages.size() < 2) return;
+
+    // Save the current state before making changes
+    saveState();
+
+    // Compute the bounding box that encompasses all selected images
+    QRect boundingBox = computeBoundingBoxForSelectedImages();
+    QImage mergedImage(boundingBox.size(), QImage::Format_ARGB32);
+    mergedImage.fill(Qt::transparent);
+
+    // Draw the selected images onto the merged image, adjusted to their relative positions
+    QPainter painter(&mergedImage);
+    for (auto& img : selectedImages) {
+        QRect targetRect = img->boundingBox.translated(-boundingBox.topLeft());
+        painter.drawImage(targetRect, img->image);
+    }
+
+    // Create a new ImageObject for the merged image
+    ImageObject newMergedImage(mergedImage, boundingBox.topLeft() + QPoint(boundingBox.width()/2, boundingBox.height()/2));
+
+    // Remove the selected images from the images list
+    for (auto it = images.begin(); it != images.end(); ) {
+        if (std::find(selectedImages.begin(), selectedImages.end(), &(*it)) != selectedImages.end()) {
+            it = images.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+    // Add the new merged image to the images list and select it
+    images.push_back(newMergedImage);
+    clearSelection();
+    selectedImage = &images.back();
+    selectedImage->isSelected = true;
+
+    // Update the widget to reflect the changes
     update();
 }
