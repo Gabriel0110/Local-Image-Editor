@@ -926,6 +926,19 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: MediaEdit
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QComboBox \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcombobox.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyleoption.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qvalidator.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qregularexpression.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyle.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtabbar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qrubberband.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QColorDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcolordialog.h \
   MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp
 
 CMakeFiles/MediaEditor.dir/src/CustomConfirmationDialog.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/CustomConfirmationDialog.cpp \
@@ -3585,6 +3598,19 @@ CMakeFiles/MediaEditor.dir/src/MainWindow.cpp.o: /Users/gtomberlin/Documents/Cod
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QComboBox \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcombobox.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyleoption.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qvalidator.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qregularexpression.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyle.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtabbar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qrubberband.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QColorDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcolordialog.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenuBar \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenubar.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QFileDialog \
@@ -4514,6 +4540,20 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QComboBox \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcombobox.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyleoption.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qvalidator.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qregularexpression.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyle.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtabbar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtabwidget.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qrubberband.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QColorDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcolordialog.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__locale \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/locale.h \
@@ -4612,7 +4652,6 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcborvalue.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qdatetime.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qcborcommon.h \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qregularexpression.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/quuid.h \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QJsonObject \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qjsonobject.h \
@@ -4620,8 +4659,7 @@ CMakeFiles/MediaEditor.dir/src/MyOpenGLWidget.cpp.o: /Users/gtomberlin/Documents
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qjsonarray.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMessageBox \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmessagebox.h \
-  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPixmap \
-  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QHash
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QPixmap
 
 CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/main.cpp \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QApplication \
@@ -5544,7 +5582,20 @@ CMakeFiles/MediaEditor.dir/src/main.cpp.o: /Users/gtomberlin/Documents/Code/Loca
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/QClipboard \
   /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qclipboard.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
-  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QComboBox \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcombobox.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyleoption.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qvalidator.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qregularexpression.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyle.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtabbar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qrubberband.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QColorDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcolordialog.h
 
 CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.cpp \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/src/pybind_wrapper.h \
@@ -6656,8 +6707,6 @@ CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents
 
 /opt/homebrew/Cellar/pybind11/2.12.0/include/pybind11/pybind11.h:
 
-/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/QHash:
-
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMessageBox:
 
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qjsonarray.h:
@@ -6810,6 +6859,22 @@ CMakeFiles/MediaEditor.dir/src/pybind_wrapper.cpp.o: /Users/gtomberlin/Documents
 
 MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp:
 
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qrubberband.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtabbar.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyle.h:
+
+/opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qvalidator.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractspinbox.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyleoption.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcombobox.h:
+
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h:
 
 /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qinputmethod.h:
@@ -6887,6 +6952,8 @@ MediaEditor_autogen/UVLADIE3JM/moc_MainWindow.cpp:
 /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qvariant.h:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtoolbar.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QComboBox:
 
 /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qactiongroup.h:
 
@@ -7489,6 +7556,8 @@ MediaEditor_autogen/UVLADIE3JM/moc_ImageToolbar.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__algorithm/is_heap.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__memory/destruct_n.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QColorDialog:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__numeric/transform_inclusive_scan.h:
 
@@ -8280,6 +8349,8 @@ MediaEditor_autogen/UVLADIE3JM/moc_CustomConfirmationDialog.cpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__type_traits/is_trivially_copy_assignable.h:
 
+/opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qabstractitemmodel.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__tree:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__type_traits/is_trivially_constructible.h:
@@ -8589,6 +8660,8 @@ MediaEditor_autogen/mocs_compilation.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/machine/_mcontext.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/stdlib.h:
+
+/opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcolordialog.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__type_traits/is_null_pointer.h:
 

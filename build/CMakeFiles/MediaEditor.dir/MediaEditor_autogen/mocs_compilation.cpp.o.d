@@ -924,4 +924,17 @@ CMakeFiles/MediaEditor.dir/MediaEditor_autogen/mocs_compilation.cpp.o: \
   /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qlocale.h \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QMenu \
   /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qmenu.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QComboBox \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcombobox.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyleoption.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+  /opt/homebrew/opt/qt@5/lib/QtGui.framework/Headers/qvalidator.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qregularexpression.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qstyle.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qtabbar.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qrubberband.h \
+  /opt/homebrew/opt/qt@5/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/QColorDialog \
+  /opt/homebrew/opt/qt@5/lib/QtWidgets.framework/Headers/qcolordialog.h \
   /Users/gtomberlin/Documents/Code/Local-Image-Editor/build/MediaEditor_autogen/UVLADIE3JM/moc_MyOpenGLWidget.cpp

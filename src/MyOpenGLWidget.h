@@ -18,6 +18,9 @@
 #include <QClipboard>
 #include <QApplication>
 #include <QMenu>
+#include <QComboBox>
+#include <QColorDialog>
+#include <QDialog>
 
 // MyOpenGLWidget class for handling image editing
 class MyOpenGLWidget : public QOpenGLWidget {
@@ -73,6 +76,16 @@ private:
     QPushButton* cancelInpaintButton;
     QSlider* inpaintBrushSizeSlider;
 
+    // Shape menu elements
+    QDialog* shapeMenu;
+    QPushButton* addShapeButton;
+    QLabel* shapeLabel;
+    QComboBox* shapeSelector;
+    QPushButton* colorButton;
+    QColorDialog* colorDialog;
+    QPushButton* createShapeButton;
+    QColor selectedColor;
+
 public:
     MyOpenGLWidget(QWidget* parent = nullptr);
     void uploadImage();
@@ -116,6 +129,11 @@ private slots:
     void copyImageToClipboard();
     void pasteImageFromClipboard();
     void mergeSelectedImages(); // Slot to handle merge action
+
+    // Slots for shape menu
+    void openShapeMenu();
+    void openColorDialog();
+    void createShape();
 
 private:
     void eraseAt(const QPoint& pos);

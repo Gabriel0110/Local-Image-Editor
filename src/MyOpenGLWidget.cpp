@@ -12,6 +12,7 @@
 #include <QUrl>
 #include <QFileDialog>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QProcess>
 #include <QBuffer>
 #include <QJsonDocument>
@@ -19,6 +20,9 @@
 #include <QJsonArray>
 #include <QMessageBox>
 #include <QPixmap>
+#include <QComboBox>
+#include <QPushButton>
+#include <QColorDialog>
 
 MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     setAcceptDrops(true);
@@ -98,6 +102,43 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     depthRemovalSlider->setVisible(false);
     depthRemovalSlider->setFixedWidth(200);
     connect(depthRemovalSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::adjustImage); // Connect depth removal slider
+
+    // Initialize shape menu
+    shapeMenu = new QDialog(this);
+    shapeMenu->setWindowTitle("Add Shape");
+    shapeMenu->setFixedSize(200, 200);
+    shapeMenu->setStyleSheet("background-color: black;");
+    QVBoxLayout* shapeLayout = new QVBoxLayout(shapeMenu);
+
+    shapeLabel = new QLabel("Select Shape", shapeMenu);
+    shapeLabel->setFixedHeight(15);
+    shapeLabel->setStyleSheet("color: white;");
+    shapeLayout->addWidget(shapeLabel, 0, Qt::AlignHCenter);
+
+    shapeSelector = new QComboBox(shapeMenu);
+    shapeSelector->setFixedSize(100, 25);
+    shapeSelector->addItem("Square");
+    shapeSelector->setStyleSheet("background-color: gray;");
+    shapeLayout->addWidget(shapeSelector, 0, Qt::AlignHCenter);
+
+    colorButton = new QPushButton("Select Color", shapeMenu);
+    colorButton->setFixedWidth(100);
+    colorButton->setStyleSheet("background-color: gray;");
+    shapeLayout->addWidget(colorButton, 0, Qt::AlignHCenter);
+    connect(colorButton, &QPushButton::clicked, this, &MyOpenGLWidget::openColorDialog);
+
+    createShapeButton = new QPushButton("Create", shapeMenu);
+    createShapeButton->setFixedWidth(50);
+    createShapeButton->setStyleSheet("background-color: gray;");
+    shapeLayout->addWidget(createShapeButton, 0, Qt::AlignHCenter);
+    connect(createShapeButton, &QPushButton::clicked, this, &MyOpenGLWidget::createShape);
+
+    addShapeButton = new QPushButton("Add Shape", this);
+    addShapeButton->move(width() - 60, 10);
+    addShapeButton->resize(125, 30);
+    connect(addShapeButton, &QPushButton::clicked, this, &MyOpenGLWidget::openShapeMenu);
+
+    colorDialog = new QColorDialog(this);
 
     installEventFilter(this);
 
@@ -270,8 +311,13 @@ void MyOpenGLWidget::paintGL() {
     // Ensure undo and redo buttons are always at the bottom right
     undoButton->move(width() - 180, height() - 40);
     redoButton->move(width() - 90, height() - 40);
-}
 
+    // Ensure addShapeButton and shapeMenu are always at the top right
+    addShapeButton->move(width() - 180, 10);
+    if (shapeMenu->isVisible()) {
+        shapeMenu->move(addShapeButton->pos() + QPoint(0, addShapeButton->height()));
+    }
+}
 
 
 void MyOpenGLWidget::dragEnterEvent(QDragEnterEvent* event) {
@@ -315,6 +361,36 @@ void MyOpenGLWidget::contextMenuEvent(QContextMenuEvent* event) {
     contextMenu.addAction(&pasteAction);
 
     contextMenu.exec(event->globalPos());
+}
+
+void MyOpenGLWidget::openShapeMenu() {
+    shapeMenu->exec();
+}
+
+void MyOpenGLWidget::openColorDialog() {
+    colorDialog->setCurrentColor(selectedColor);
+    connect(colorDialog, &QColorDialog::colorSelected, this, [this](const QColor& color) {
+        selectedColor = color;
+    });
+    colorDialog->open();
+}
+
+void MyOpenGLWidget::createShape() {
+    QString selectedShape = shapeSelector->currentText();
+    QColor fillColor = selectedColor;
+
+    if (selectedShape == "Square") {
+        int defaultSize = 100;
+        QImage shapeImage(defaultSize, defaultSize, QImage::Format_ARGB32);
+        shapeImage.fill(fillColor);
+
+        saveState();
+        images.emplace_back(shapeImage, QPoint(width() / 2, height() / 2));
+        update();
+    }
+
+    shapeMenu->close();
+    colorDialog->close();
 }
 
 void MyOpenGLWidget::keyPressEvent(QKeyEvent* event) {
