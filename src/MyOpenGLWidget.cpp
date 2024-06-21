@@ -925,6 +925,12 @@ void MyOpenGLWidget::undo() {
         redoStack.push(images);
         images = undoStack.top();
         undoStack.pop();
+
+        if (selectedImage && std::find(images.begin(), images.end(), *selectedImage) == images.end()) {
+            selectedImage = nullptr;
+            toolbar->setVisible(false);
+        }
+
         update();
     }
 }
@@ -934,6 +940,12 @@ void MyOpenGLWidget::redo() {
         undoStack.push(images);
         images = redoStack.top();
         redoStack.pop();
+
+        if (selectedImage && std::find(images.begin(), images.end(), *selectedImage) == images.end()) {
+            selectedImage = nullptr;
+            toolbar->setVisible(false);
+        }
+        
         update();
     }
 }
