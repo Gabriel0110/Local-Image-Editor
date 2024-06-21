@@ -706,6 +706,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
                 if (!image.isNull()) {
                     qDebug() << "Loading image from URL:" << url.toLocalFile();
                     saveState(); // Save state before making changes
+                    scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
                     images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
                     update();
                     return;
@@ -722,6 +723,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
         if (!image.isNull()) {
             qDebug() << "Clipboard contains application/x-qt-image and successfully retrieved the image";
             saveState(); // Save state before making changes
+            scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
             images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
             update();
             return;
@@ -735,6 +737,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
         if (!image.isNull()) {
             qDebug() << "Clipboard contains valid image data";
             saveState(); // Save state before making changes
+            scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
             images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
             update();
             return;
@@ -752,6 +755,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
                 if (!image.isNull()) {
                     qDebug() << "Loading image from URL:" << url.toLocalFile();
                     saveState(); // Save state before making changes
+                    scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
                     images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
                     update();
                     return;
