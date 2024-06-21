@@ -191,22 +191,23 @@ void MyOpenGLWidget::paintGL() {
         depthRemovalSlider->setVisible(depthRemovalMode);
 
         if (cropMode) {
+            QRect translatedCropBox = cropBox.translated(scrollPosition);
             painter.setPen(QPen(Qt::blue, 2, Qt::DashLine));
-            painter.drawRect(cropBox);
+            painter.drawRect(translatedCropBox);
 
             // Draw the crop handles
             const int handleSize = 6;
             painter.setBrush(Qt::white);
             painter.setPen(Qt::black);
             QRect cropHandles[] = {
-                QRect(cropBox.topLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
-                QRect(cropBox.topRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
-                QRect(cropBox.bottomLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
-                QRect(cropBox.bottomRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
-                QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.top() - handleSize / 2, handleSize, handleSize),
-                QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.bottom() - handleSize / 2, handleSize, handleSize),
-                QRect(cropBox.left() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize),
-                QRect(cropBox.right() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize)
+                QRect(translatedCropBox.topLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(translatedCropBox.topRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(translatedCropBox.bottomLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(translatedCropBox.bottomRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(translatedCropBox.left() + translatedCropBox.width() / 2 - handleSize / 2, translatedCropBox.top() - handleSize / 2, handleSize, handleSize),
+                QRect(translatedCropBox.left() + translatedCropBox.width() / 2 - handleSize / 2, translatedCropBox.bottom() - handleSize / 2, handleSize, handleSize),
+                QRect(translatedCropBox.left() - handleSize / 2, translatedCropBox.top() + translatedCropBox.height() / 2 - handleSize / 2, handleSize, handleSize),
+                QRect(translatedCropBox.right() - handleSize / 2, translatedCropBox.top() + translatedCropBox.height() / 2 - handleSize / 2, handleSize, handleSize)
             };
             for (const QRect& handle : cropHandles) {
                 painter.drawRect(handle);
@@ -258,22 +259,23 @@ void MyOpenGLWidget::paintGL() {
         depthRemovalSlider->setVisible(depthRemovalMode);
 
         if (cropMode) {
+            QRect translatedCropBox = cropBox.translated(scrollPosition);
             painter.setPen(QPen(Qt::blue, 2, Qt::DashLine));
-            painter.drawRect(cropBox);
+            painter.drawRect(translatedCropBox);
 
             // Draw the crop handles
             const int handleSize = 6;
             painter.setBrush(Qt::white);
             painter.setPen(Qt::black);
             QRect cropHandles[] = {
-                QRect(cropBox.topLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
-                QRect(cropBox.topRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
-                QRect(cropBox.bottomLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
-                QRect(cropBox.bottomRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
-                QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.top() - handleSize / 2, handleSize, handleSize),
-                QRect(cropBox.left() + cropBox.width() / 2 - handleSize / 2, cropBox.bottom() - handleSize / 2, handleSize, handleSize),
-                QRect(cropBox.left() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize),
-                QRect(cropBox.right() - handleSize / 2, cropBox.top() + cropBox.height() / 2 - handleSize / 2, handleSize, handleSize)
+                QRect(translatedCropBox.topLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(translatedCropBox.topRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(translatedCropBox.bottomLeft() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(translatedCropBox.bottomRight() - QPoint(handleSize / 2, handleSize / 2), QSize(handleSize, handleSize)),
+                QRect(translatedCropBox.left() + translatedCropBox.width() / 2 - handleSize / 2, translatedCropBox.top() - handleSize / 2, handleSize, handleSize),
+                QRect(translatedCropBox.left() + translatedCropBox.width() / 2 - handleSize / 2, translatedCropBox.bottom() - handleSize / 2, handleSize, handleSize),
+                QRect(translatedCropBox.left() - handleSize / 2, translatedCropBox.top() + translatedCropBox.height() / 2 - handleSize / 2, handleSize, handleSize),
+                QRect(translatedCropBox.right() - handleSize / 2, translatedCropBox.top() + translatedCropBox.height() / 2 - handleSize / 2, handleSize, handleSize)
             };
             for (const QRect& handle : cropHandles) {
                 painter.drawRect(handle);

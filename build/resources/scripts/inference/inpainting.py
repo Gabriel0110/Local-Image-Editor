@@ -22,10 +22,10 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
         init_image = Image.open(BytesIO(init_image_data))
         mask_image = Image.open(BytesIO(mask_image_data))
 
-        # Convert to RGB if not already
-        if init_image.mode != "RGB":
+        # Convert to RGB if there's an alpha channel
+        if init_image.mode == "RGBA":
             init_image = init_image.convert("RGB")
-        if mask_image.mode != "RGB":
+        if mask_image.mode == "RGBA":
             mask_image = mask_image.convert("RGB")
 
         # Load the inpainting pipeline
@@ -33,6 +33,7 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
             "/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/models/stable-diffusion-inpainting",
             torch_dtype=torch.float32,
             variant="fp32",
+            safety_checker=None,
         ).to("mps")
 
         # Set scheduler
@@ -59,6 +60,9 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
             num_inference_steps=4,
             guidance_scale=4,
         ).images[0]
+
+        # Save the image locally
+        result.save("inpainting_result.png")
 
         # Convert the result image to base64 compatible to be read and decoded by C++ QByteArray
         buffer = BytesIO()
