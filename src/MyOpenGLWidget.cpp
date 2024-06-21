@@ -620,37 +620,36 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
         } else if (currentHandle != 0) {
             QPoint delta = event->pos() - lastMousePosition;
             QRect rect = selectedImage->boundingBox;
+            QRectF normalizedRect = rect.normalized();
+
             switch (currentHandle) {
                 case 1:
-                    rect.setTopLeft(rect.topLeft() + delta);
+                    normalizedRect.setTopLeft(normalizedRect.topLeft() + delta);
                     break;
                 case 2:
-                    rect.setTopRight(rect.topRight() + delta);
+                    normalizedRect.setTopRight(normalizedRect.topRight() + delta);
                     break;
                 case 3:
-                    rect.setBottomLeft(rect.bottomLeft() + delta);
+                    normalizedRect.setBottomLeft(normalizedRect.bottomLeft() + delta);
                     break;
                 case 4:
-                    rect.setBottomRight(rect.bottomRight() + delta);
+                    normalizedRect.setBottomRight(normalizedRect.bottomRight() + delta);
                     break;
                 case 5:
-                    rect.setTop(rect.top() + delta.y());
+                    normalizedRect.setTop(normalizedRect.top() + delta.y());
                     break;
                 case 6:
-                    rect.setBottom(rect.bottom() + delta.y());
+                    normalizedRect.setBottom(normalizedRect.bottom() + delta.y());
                     break;
                 case 7:
-                    rect.setLeft(rect.left() + delta.x());
+                    normalizedRect.setLeft(normalizedRect.left() + delta.x());
                     break;
                 case 8:
-                    rect.setRight(rect.right() + delta.x());
+                    normalizedRect.setRight(normalizedRect.right() + delta.x());
                     break;
             }
-            rect = rect.normalized();
-            selectedImage->boundingBox = rect;
 
-            // Resize the image from the original image to prevent loss of quality
-            selectedImage->image = selectedImage->originalImage.scaled(selectedImage->boundingBox.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            selectedImage->boundingBox = normalizedRect.toRect();
 
             lastMousePosition = event->pos();
             update();
