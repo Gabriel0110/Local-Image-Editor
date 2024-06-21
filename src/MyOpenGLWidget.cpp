@@ -957,6 +957,7 @@ void MyOpenGLWidget::bringToFront() {
         auto it = std::find(images.begin(), images.end(), *selectedImage);
         if (it != images.end()) {
             std::rotate(it, it + 1, images.end());
+            selectedImage = &(images.back());
         }
         update();
     }
@@ -968,6 +969,7 @@ void MyOpenGLWidget::pushToBack() {
         auto it = std::find(images.begin(), images.end(), *selectedImage);
         if (it != images.end() && it != images.begin()) {
             std::rotate(images.begin(), it, it + 1);
+            selectedImage = &(images.front());
         }
         update();
     }
