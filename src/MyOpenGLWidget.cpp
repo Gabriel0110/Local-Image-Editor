@@ -533,6 +533,10 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
                     }
                     img.isSelected = true;
                     imageClicked = true;
+                    qDebug() << "Image topLeft:" << img.boundingBox.topLeft() << "pos:" << pos << "scrollPosition:" << scrollPosition;
+                    qDebug() << "Image bottomRight:" << img.boundingBox.bottomRight() << "pos:" << pos << "scrollPosition:" << scrollPosition;
+                    qDebug() << "Image bounding box size:" << selectedImage->boundingBox.size();
+                    qDebug() << "Image size (not bounding box):" << selectedImage->image.size();
                     break;
                 } else if (img.contains(pos, QPoint(0, 0))) {
                     if (selectedImage != &img) {
@@ -543,6 +547,10 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
                     }
                     img.isSelected = true;
                     imageClicked = true;
+                    qDebug() << "Image topLeft:" << img.boundingBox.topLeft() << "pos:" << pos << "scrollPosition:" << scrollPosition;
+                    qDebug() << "Image bottomRight:" << img.boundingBox.bottomRight() << "pos:" << pos << "scrollPosition:" << scrollPosition;
+                    qDebug() << "Image bounding box size:" << selectedImage->boundingBox.size();
+                    qDebug() << "Image size (not bounding box):" << selectedImage->image.size();
                     break;
                 } else {
                     img.isSelected = false;
@@ -650,6 +658,7 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
             }
 
             selectedImage->boundingBox = normalizedRect.toRect();
+            selectedImage->image = selectedImage->originalImage.scaled(selectedImage->boundingBox.size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
             lastMousePosition = event->pos();
             update();
@@ -678,6 +687,11 @@ void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
         selectImagesInBox(selectionBox.translated(scrollPosition)); // Translate selection box coordinates back to original
     }
 
+    // if (selectedImage) {
+    //     // Scale the image to the size of the bounding box
+    //     selectedImage->image = selectedImage->originalImage.scaled(selectedImage->boundingBox.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    // }
+    
     update();
 }
 
@@ -820,6 +834,8 @@ void MyOpenGLWidget::rotateSelectedImage(int angle) {
         selectedImage->image = rotatedImage;
         selectedImage->boundingBox = newBoundingBox;
 
+        selectedImage->originalImage = selectedImage->image;
+
         update();
     } else {
         qDebug() << "No image selected";
@@ -846,6 +862,7 @@ void MyOpenGLWidget::mirrorSelectedImage() {
     } else if (selectedImage) {
         saveState(); // Save state before making changes
         selectedImage->image = selectedImage->image.mirrored(true, false);
+        selectedImage->originalImage = selectedImage->image;
         update();
     } else {
         qDebug() << "No image selected";
@@ -903,6 +920,8 @@ void MyOpenGLWidget::eraseAt(const QPoint& pos) {
     painter.setBrush(QBrush(Qt::transparent));
     painter.setPen(Qt::NoPen);
     painter.drawEllipse(imgPos, eraserSizeSlider->value() / 2, eraserSizeSlider->value() / 2);
+
+    selectedImage->originalImage = selectedImage->image;
     update();
 }
 
@@ -1013,6 +1032,7 @@ void MyOpenGLWidget::toggleCropMode(bool enabled) {
 void MyOpenGLWidget::toggleInpaintMode(bool enabled) {
     inpaintMode = enabled;
     if (enabled && selectedImage) {
+        selectedImage->originalImage = selectedImage->image;
         maskImage = QImage(selectedImage->image.size(), QImage::Format_ARGB32);
         maskImage.fill(Qt::transparent);
         selectedImage->disableBoundingBox();
@@ -1150,11 +1170,13 @@ void MyOpenGLWidget::handleInpaintResult() {
     QImage resultQImage = resultImage.toImage();
 
     // Set the size of the inpainted image to the original size
-    resultQImage = resultQImage.scaled(originalSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    resultQImage = resultQImage.scaled(originalSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
     // Replace the selected image with the inpainted image
     selectedImage->image = resultQImage;
     selectedImage->boundingBox.setSize(resultQImage.size());
+
+    selectedImage->originalImage = selectedImage->image;
 
     toggleInpaintMode(false);
     progressDialog->hide();
@@ -1288,7 +1310,7 @@ void MyOpenGLWidget::handleSnipeResult() {
     QPixmap imageObject;
     QPixmap imageWithMask;
 
-    if (!imageHole.loadFromData(imageHoleByteArray) || !imageObject.loadFromData(imageObjectByteArray) || !imageWithMask.loadFromData(imageWithMaskByteArray)) {
+    if (!imageHole.loadFromData(imageHoleByteArray, "PNG") || !imageObject.loadFromData(imageObjectByteArray, "PNG") || !imageWithMask.loadFromData(imageWithMaskByteArray, "PNG")) {
         qDebug() << "Failed to decode the images.";
         QMessageBox::critical(this, "Error", "Failed to decode the snipe images.");
         return;
@@ -1298,11 +1320,6 @@ void MyOpenGLWidget::handleSnipeResult() {
     QImage imageHoleQImage = imageHole.toImage();
     QImage imageObjectQImage = imageObject.toImage();
     QImage imageWithMaskQImage = imageWithMask.toImage();
-
-    // Scale
-    // scaleImage(imageHoleQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-    // scaleImage(imageObjectQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-    // scaleImage(imageWithMaskQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
 
     // Store the original image before replacing it with the mask image
     QImage originalImage = selectedImage->image;
@@ -1321,6 +1338,8 @@ void MyOpenGLWidget::handleSnipeResult() {
         // Replace the image with the hole and add the object image
         selectedImage->image = imageHoleQImage;
         selectedImage->boundingBox.setSize(imageHoleQImage.size());
+
+        selectedImage->originalImage = selectedImage->image;
 
         ImageObject newObjectImage(imageObjectQImage, selectedImage->boundingBox.topLeft());
         newObjectImage.isSelected = true;
@@ -1431,6 +1450,10 @@ void MyOpenGLWidget::drawMaskAt(const QPoint& pos) {
     if (!selectedImage) return;
 
     QPoint imgPos = pos - scrollPosition - selectedImage->boundingBox.topLeft();
+
+    // Ensure imgPos is within the bounds of the image
+    imgPos.setX(qBound(0, imgPos.x(), selectedImage->image.width() - 1));
+    imgPos.setY(qBound(0, imgPos.y(), selectedImage->image.height() - 1));
     QPainter painter(&maskImage);
     painter.setBrush(QBrush(Qt::magenta));
     painter.setPen(Qt::NoPen);
@@ -1451,6 +1474,7 @@ void MyOpenGLWidget::toggleDepthRemovalMode(bool enabled) {
     update();
 }
 
+// For depth background removal
 void MyOpenGLWidget::adjustImage(int value) {
     if (!depthRemovalMode || !selectedImage) return;
 
@@ -1490,6 +1514,8 @@ void MyOpenGLWidget::adjustImage(int value) {
 
     selectedImage->image = tempImage;
     selectedImage->boundingBox.setSize(tempImage.size());
+
+    selectedImage->originalImage = selectedImage->image;
     update();
 }
 
@@ -1567,6 +1593,8 @@ void MyOpenGLWidget::handleOneshotRemovalResult() {
     // Replace the selected image with the result image
     selectedImage->image = resultQImage;
     selectedImage->boundingBox.setSize(resultQImage.size());
+
+    selectedImage->originalImage = selectedImage->image;
 
     progressDialog->hide();
     delete progressDialog;
@@ -1655,6 +1683,8 @@ void MyOpenGLWidget::mergeSelectedImages() {
     clearSelection();
     selectedImage = &images.back();
     selectedImage->isSelected = true;
+
+    selectedImage->originalImage = selectedImage->image;
 
     // Update the widget to reflect the changes
     update();

@@ -228,28 +228,33 @@ if __name__ == "__main__":
         show_mask(best_mask, plt.gca())
         plt.axis('off')
         plt.savefig("mask.png", bbox_inches='tight', pad_inches=0)
-        #plt.show()
         logging.info("Selected best mask based on highest score.")
 
         image_hole, image_object = get_images(image, best_mask, pos_points, neg_points)
 
         buffer = BytesIO()
         image_hole = Image.fromarray(image_hole)
+        if image_hole.mode != 'RGBA':
+            image_hole = image_hole.convert('RGBA')
         image_hole.save(buffer, format="PNG")
         image_hole_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
         logging.info("Saved image hole as PNG and encoded to base64.")
 
         buffer = BytesIO()
         image_object = Image.fromarray(image_object)
+        if image_object.mode != 'RGBA':
+            image_object = image_object.convert('RGBA')
         image_object.save(buffer, format="PNG")
         image_object_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
         logging.info("Saved image object as PNG and encoded to base64.")
 
         buffer = BytesIO()
         image_with_mask = Image.open("mask.png")
+        if image_with_mask.mode != 'RGBA':
+            image_with_mask = image_with_mask.convert('RGBA')
         image_with_mask.save(buffer, format="PNG")
         image_with_mask_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
-        logging.info("Saved image with mask as PNG and encoded to base64.")
+        logging.info("Saved image with mask as PNG and encoded to baseize.")
 
         # Save the strings to respctive files
         with open("image_hole.txt", "w") as f:
@@ -262,3 +267,4 @@ if __name__ == "__main__":
     except Exception as e:
         logging.error(f"Error in main block: {str(e)}")
         raise
+
