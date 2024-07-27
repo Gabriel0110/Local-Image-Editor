@@ -1310,7 +1310,7 @@ void MyOpenGLWidget::handleSnipeResult() {
     QPixmap imageObject;
     QPixmap imageWithMask;
 
-    if (!imageHole.loadFromData(imageHoleByteArray, "PNG") || !imageObject.loadFromData(imageObjectByteArray, "PNG") || !imageWithMask.loadFromData(imageWithMaskByteArray, "PNG")) {
+    if (!imageHole.loadFromData(imageHoleByteArray) || !imageObject.loadFromData(imageObjectByteArray) || !imageWithMask.loadFromData(imageWithMaskByteArray)) {
         qDebug() << "Failed to decode the images.";
         QMessageBox::critical(this, "Error", "Failed to decode the snipe images.");
         return;
@@ -1320,6 +1320,11 @@ void MyOpenGLWidget::handleSnipeResult() {
     QImage imageHoleQImage = imageHole.toImage();
     QImage imageObjectQImage = imageObject.toImage();
     QImage imageWithMaskQImage = imageWithMask.toImage();
+
+    // Scale
+    // scaleImage(imageHoleQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+    // scaleImage(imageObjectQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+    // scaleImage(imageWithMaskQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
 
     // Store the original image before replacing it with the mask image
     QImage originalImage = selectedImage->image;

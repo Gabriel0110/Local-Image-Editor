@@ -3,3 +3,5 @@
 **/resources/models/
 **/resources/scripts/inference/*.png
 **/resources/scripts/inference/*.txt
+**/build/
+**/.DS_Store
