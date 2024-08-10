@@ -2,6 +2,6 @@
 **/*.log
 **/resources/models/
 **/resources/scripts/inference/*.png
-**/resources/scripts/inference/*.txt
+**/resources/scripts/inference/*.log
 **/build/
 **/.DS_Store
