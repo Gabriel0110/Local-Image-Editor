@@ -1,6 +1,6 @@
 # Local Image Editor
 
-Local Image Editor is a powerful desktop application that provides advanced image editing capabilities, including inpainting, depth-wise background removal, and more. This project also includes AI-powered tools like EdgeSAM and Stable Diffusion for state-of-the-art image manipulation.
+Local Image Editor is a powerful desktop application that provides advanced image editing capabilities (if desired - need the models locally). This project is based on Yacine's Dingboard (dingboard.com) - I like to call it Fingboard (Fake Dingboard).
 
 ## Features
 
