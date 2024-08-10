@@ -38,6 +38,7 @@ Local-Image-Editor/
 │   ├── MyOpenGLWidget.cpp
 │   └── MyOpenGLWidget.h
 └── CMakeLists.txt
+```
 
 ## Getting Started
 ### Prerequisites
