@@ -7,7 +7,7 @@ Local Image Editor is a powerful desktop application that provides advanced imag
 - **Image Editing**: Crop, rotate, and adjust images with ease.
 - **Inpainting**: Fill in missing parts of images using AI models.
 - **Depth-Wise Background Removal**: Remove backgrounds based on depth information.
-- **GIF Editing**: Add text, images, and layers to GIFs.
+- **GIF Editing (IN-PROGRESS)**: Add text, images, and layers to GIFs.
 - **AI Models Integration**: EdgeSAM for advanced segmentation and Stable Diffusion for inpainting.
 
 ## Project Structure
