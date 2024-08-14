@@ -1,9 +1,0 @@
-D:/Code/Local-Image-Editor/build/CMakeFiles/install_main_python_deps.dir
-D:/Code/Local-Image-Editor/build/CMakeFiles/clone_edgesam.dir
-D:/Code/Local-Image-Editor/build/CMakeFiles/download_edgesam_weights.dir
-D:/Code/Local-Image-Editor/build/CMakeFiles/install_edgesam_deps.dir
-D:/Code/Local-Image-Editor/build/CMakeFiles/MediaEditor.dir
-D:/Code/Local-Image-Editor/build/CMakeFiles/copy_resources.dir
-D:/Code/Local-Image-Editor/build/CMakeFiles/save_stable_diffusion_model.dir
-D:/Code/Local-Image-Editor/build/CMakeFiles/ALL_BUILD.dir
-D:/Code/Local-Image-Editor/build/CMakeFiles/ZERO_CHECK.dir
