@@ -3,13 +3,13 @@ import base64
 from io import BytesIO
 from PIL import Image
 from diffusers import AutoPipelineForInpainting, LCMScheduler
-from diffusers.utils import load_image
 import sys
 import json
 import logging
+import os
 
 # Set up logging
-filename = "inpainting.log"
+filename = os.path.join(os.path.dirname(__file__), "inpainting.log")
 logging.basicConfig(filename=filename, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly edited and blended image, masterful photoshop job"):
@@ -29,12 +29,15 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
             mask_image = mask_image.convert("RGB")
 
         # Load the inpainting pipeline
+        model_path = os.path.join(os.path.dirname(__file__), '../../models/stable-diffusion-inpainting')
+        
+        device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
         pipe = AutoPipelineForInpainting.from_pretrained(
-            "/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/models/stable-diffusion-inpainting",
+            model_path,
             torch_dtype=torch.float32,
             variant="fp32",
             safety_checker=None,
-        ).to("mps")
+        ).to(device)
 
         # Set scheduler
         pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)
@@ -62,7 +65,7 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
         ).images[0]
 
         # Save the image locally
-        result.save("inpainting_result.png")
+        result.save(os.path.join(os.path.dirname(__file__), "inpainting_result.png"))
 
         # Convert the result image to base64 compatible to be read and decoded by C++ QByteArray
         buffer = BytesIO()
@@ -84,7 +87,7 @@ def main():
 
         result_base64 = process_images(init_image_base64, mask_image_base64, user_prompt)
         
-        with open("inpainting_result.txt", "w") as f:
+        with open(os.path.join(os.path.dirname(__file__), "inpainting_result.txt"), "w") as f:
             f.write(result_base64)
     except Exception as e:
         logging.error(f"Error in main function: {str(e)}")

@@ -5,3 +5,4 @@
 **/resources/scripts/inference/*.log
 **/build/
 **/.DS_Store
+**/local-image-editor-venv/

@@ -27,6 +27,8 @@ class MyOpenGLWidget : public QOpenGLWidget {
     Q_OBJECT
 
 private:
+    QString projectRoot;  // Root directory of the project
+
     const int MAX_IMAGE_WIDTH = 512;
     const int MAX_IMAGE_HEIGHT = 512;
     std::vector<ImageObject> images;  // List of images in the widget
@@ -147,6 +149,9 @@ private:
     QRect computeBoundingBoxForSelectedImages();
     void selectImagesInBox(const QRect& box);
     void clearSelection();
+    void handleProcessError(QProcess::ProcessError error);
+    void handlePythonOutput();
+    void handlePythonError();
 };
 
 #endif // MYOPENGLWIDGET_H

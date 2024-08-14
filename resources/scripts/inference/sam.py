@@ -1,15 +1,22 @@
-# "/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/models/EdgeSAM/weights/edge_sam_3x.pth"
 from edge_sam import SamPredictor, sam_model_registry
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image
 import torch
 import matplotlib.pyplot as plt
-import cv2
 import sys
 import json
 import base64
 from io import BytesIO
 import logging
+import os
+
+# Set up logging
+log_file = os.path.join(os.path.dirname(__file__), "snipe.log")
+logging.basicConfig(
+    filename=log_file,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 def show_mask(mask, ax, random_color=False):
     if random_color:
@@ -19,42 +26,9 @@ def show_mask(mask, ax, random_color=False):
     h, w = mask.shape[-2:]
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
     ax.imshow(mask_image)
-    
-def show_points(coords, labels, ax, marker_size=50):
-    pos_points = coords[labels==1]
-    neg_points = coords[labels==0]
-    ax.scatter(pos_points[:, 0], pos_points[:, 1], color='green', marker='o', s=marker_size, edgecolor='white', linewidth=1.25)
-    ax.scatter(neg_points[:, 0], pos_points[:, 1], color='red', marker='o', s=marker_size, edgecolor='white', linewidth=1.25)   
-    
-def show_box(box, ax):
-    x0, y0 = box[0], box[1]
-    w, h = box[2] - box[0], box[3] - box[1]
-    ax.add_patch(plt.Rectangle((x0, y0), w, h, edgecolor='green', facecolor=(0,0,0,0), lw=2))
-
-def apply_transparency(image):
-    """Convert black pixels to transparent pixels in an image."""
-    image = image.convert("RGBA")
-    data = image.getdata()
-    new_data = []
-    for item in data:
-        if item[0] == 0 and item[1] == 0 and item[2] == 0:
-            new_data.append((255, 255, 255, 0))
-        else:
-            new_data.append(item)
-    image.putdata(new_data)
-    return image
-
-# Set up logging
-log_file = "snipe.log"
-logging.basicConfig(
-    filename=log_file,
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
 
 def get_images(original_image, mask_image, pos_points, neg_points):
     try:
-        # Convert the mask to a numpy array
         mask = np.array(mask_image)
         mask = (mask > 0.5).astype(np.uint8)
         logging.info("Converted mask image to numpy array.")
@@ -118,13 +92,13 @@ if __name__ == "__main__":
         rgb_image = np.array(original_image.convert("RGB"))
         logging.info("Loaded and processed original image with alpha channel.")
 
-        sam = sam_model_registry["edge_sam"](checkpoint="/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/models/EdgeSAM/weights/edge_sam_3x.pth")
-        sam.to(device="cpu")
+        model_path = os.path.join(os.path.dirname(__file__), '../../models/EdgeSAM/weights/edge_sam_3x.pth')
+        sam = sam_model_registry["edge_sam"](checkpoint=model_path)
+        sam.to(device="cuda" if torch.cuda.is_available() else "cpu")
         predictor = SamPredictor(sam)
         predictor.set_image(rgb_image)
         logging.info("Initialized SAM model and set image.")
 
-        # Combine the positive and negative points into a single array
         input_point = combined_points
         logging.info(f"Input point: {input_point}")
         input_label = np.array([1] * len(pos_points) + [0] * len(neg_points))
@@ -140,12 +114,12 @@ if __name__ == "__main__":
 
         best_mask = masks[np.argmax(scores)]
 
-        # Overlay the mask over the original image and save it
         plt.figure(figsize=(10,10))
         plt.imshow(rgb_image)
         show_mask(best_mask, plt.gca())
         plt.axis('off')
-        plt.savefig("mask.png", bbox_inches='tight', pad_inches=0)
+        mask_path = os.path.join(os.path.dirname(__file__), "mask.png")
+        plt.savefig(mask_path, bbox_inches='tight', pad_inches=0)
         logging.info("Selected best mask based on highest score.")
 
         image_hole, image_object = get_images(np.array(original_image), best_mask, pos_points, neg_points)
@@ -163,17 +137,16 @@ if __name__ == "__main__":
         logging.info("Saved image object as PNG and encoded to base64.")
 
         buffer = BytesIO()
-        image_with_mask = Image.open("mask.png")
+        image_with_mask = Image.open(mask_path)
         image_with_mask.save(buffer, format="PNG")
         image_with_mask_base64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
         logging.info("Saved image with mask as PNG and encoded to base64.")
 
-        # Save the strings to respective files
-        with open("image_hole.txt", "w") as f:
+        with open(os.path.join(os.path.dirname(__file__), "image_hole.txt"), "w") as f:
             f.write(image_hole_base64)
-        with open("image_object.txt", "w") as f:
+        with open(os.path.join(os.path.dirname(__file__), "image_object.txt"), "w") as f:
             f.write(image_object_base64)
-        with open("image_with_mask.txt", "w") as f:
+        with open(os.path.join(os.path.dirname(__file__), "image_with_mask.txt"), "w") as f:
             f.write(image_with_mask_base64)
         logging.info("Saved base64 strings to files.")
     except Exception as e:

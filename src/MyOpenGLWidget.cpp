@@ -1,4 +1,3 @@
-#include "pybind_wrapper.h"
 #include "MyOpenGLWidget.h"
 #include "CustomConfirmationDialog.h"
 #include <cmath>
@@ -27,6 +26,25 @@
 MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     setAcceptDrops(true);
     setFocusPolicy(Qt::StrongFocus); // Ensure the widget can receive keyboard focus
+
+    projectRoot = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath("../..");
+
+    // Ensure the project root directory is "Local-Image-Editor"
+    if (!QDir(projectRoot).exists()) {
+        QMessageBox::critical(nullptr, "Error", "The application must be run from the 'Local-Image-Editor' project root directory. Project root: " + projectRoot);
+        return;
+    }
+
+    // Ensure we are in the proper directory and look for the script directory
+    QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+    qDebug() << "Script directory path: " << scriptDir;
+
+    if (!QDir(scriptDir).exists()) {
+        qDebug() << "Directory does not exist: " << scriptDir;
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
 
     // Initialize the toolbar
     toolbar = new ImageToolbar(this);
@@ -1051,8 +1069,98 @@ void MyOpenGLWidget::toggleInpaintMode(bool enabled) {
     update();
 }
 
+// void MyOpenGLWidget::confirmInpaint() {
+//     if (!selectedImage) return;
+
+//     QImage originalImage = selectedImage->image;
+
+//     // Create a mask image where the mask area is white and the unmasked area is black
+//     QImage binaryMask(maskImage.size(), QImage::Format_RGB32);
+//     binaryMask.fill(Qt::black);
+
+//     for (int y = 0; y < maskImage.height(); ++y) {
+//         for (int x = 0; x < maskImage.width(); ++x) {
+//             QColor color = maskImage.pixelColor(x, y);
+//             if (color == Qt::magenta) {
+//                 binaryMask.setPixelColor(x, y, Qt::white);
+//             }
+//         }
+//     }
+
+//     QByteArray originalByteArray;
+//     QBuffer originalBuffer(&originalByteArray);
+//     originalImage.save(&originalBuffer, "PNG");
+//     QString originalBase64 = originalByteArray.toBase64();
+
+//     QByteArray maskByteArray;
+//     QBuffer maskBuffer(&maskByteArray);
+//     binaryMask.save(&maskBuffer, "PNG");
+//     QString maskBase64 = maskByteArray.toBase64();
+
+//     // Convert images to base64
+//     // QByteArray originalImageBase64;
+//     // QByteArray maskImageBase64;
+//     // QBuffer originalImageBuffer(&originalImageBase64);
+//     // QBuffer maskImageBuffer(&maskImageBase64);
+//     // originalImageBuffer.open(QIODevice::WriteOnly);
+//     // maskImageBuffer.open(QIODevice::WriteOnly);
+//     // selectedImage->image.save(&originalImageBuffer, "PNG");
+//     // binaryMask.save(&maskImageBuffer, "PNG");
+
+//     // Call the Python function with the base64 images
+//     QString promptText = inpaintTextBox->text();
+//     // QString resultImageBase64 = callPythonInpaintFunction(originalImageBase64.toBase64(), maskImageBase64.toBase64(), inpaintText);
+
+//     // Convert the result base64 image back to QImage
+//     // QByteArray resultImageBytes = QByteArray::fromBase64(resultImageBase64.toUtf8());
+//     // QImage resultImage;
+//     // resultImage.loadFromData(resultImageBytes, "PNG");
+
+//     // Replace the selected image with the result image
+//     // saveState(); // Save state before making changes
+//     // selectedImage->image = resultImage;
+//     // selectedImage->boundingBox.setSize(selectedImage->image.size());
+
+//     // std::string resultImageBase64 = process_images(originalImageBase64.toBase64().toStdString(), maskImageBase64.toBase64().toStdString(), promptText.toStdString());
+//     // qDebug() << "Result image base64: " << QString::fromStdString(resultImageBase64);
+
+//     // QByteArray resultImageBytes = QByteArray::fromBase64(resultImageBase64.c_str());
+//     // QImage resultImage;
+//     // resultImage.loadFromData(resultImageBytes, "PNG");
+
+//     // qDebug() << "Result image loaded";
+
+//     // Disable UI elements and show progress dialog
+//     inpaintPopup->setVisible(false);
+//     progressDialog = new QProgressDialog("Inpainting...", "Cancel", 0, 0, this);
+//     progressDialog->setWindowModality(Qt::WindowModal);
+//     progressDialog->setCancelButton(nullptr);
+//     progressDialog->show();
+
+//     QJsonObject json;
+//     json["init_image_base64"] = QString::fromStdString(originalBase64.toStdString());
+//     json["mask_image_base64"] = QString::fromStdString(maskBase64.toStdString());
+//     json["user_prompt"] = promptText;
+
+//     QJsonDocument doc(json);
+//     QByteArray data = doc.toJson(QJsonDocument::Compact);
+
+//     pythonProcess = new QProcess(this);
+//     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleInpaintResult);
+//     connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleInpaintError);
+    
+//     // Set working directory if needed
+//     pythonProcess->setWorkingDirectory(projectRoot + "/resources/scripts/inference");
+
+//     pythonProcess->start("python3.10", QStringList() << "inpainting.py");
+//     pythonProcess->write(data);
+//     pythonProcess->closeWriteChannel();
+// }
+
 void MyOpenGLWidget::confirmInpaint() {
     if (!selectedImage) return;
+
+    saveState();
 
     QImage originalImage = selectedImage->image;
 
@@ -1079,38 +1187,7 @@ void MyOpenGLWidget::confirmInpaint() {
     binaryMask.save(&maskBuffer, "PNG");
     QString maskBase64 = maskByteArray.toBase64();
 
-    // Convert images to base64
-    // QByteArray originalImageBase64;
-    // QByteArray maskImageBase64;
-    // QBuffer originalImageBuffer(&originalImageBase64);
-    // QBuffer maskImageBuffer(&maskImageBase64);
-    // originalImageBuffer.open(QIODevice::WriteOnly);
-    // maskImageBuffer.open(QIODevice::WriteOnly);
-    // selectedImage->image.save(&originalImageBuffer, "PNG");
-    // binaryMask.save(&maskImageBuffer, "PNG");
-
-    // Call the Python function with the base64 images
     QString promptText = inpaintTextBox->text();
-    // QString resultImageBase64 = callPythonInpaintFunction(originalImageBase64.toBase64(), maskImageBase64.toBase64(), inpaintText);
-
-    // Convert the result base64 image back to QImage
-    // QByteArray resultImageBytes = QByteArray::fromBase64(resultImageBase64.toUtf8());
-    // QImage resultImage;
-    // resultImage.loadFromData(resultImageBytes, "PNG");
-
-    // Replace the selected image with the result image
-    // saveState(); // Save state before making changes
-    // selectedImage->image = resultImage;
-    // selectedImage->boundingBox.setSize(selectedImage->image.size());
-
-    // std::string resultImageBase64 = process_images(originalImageBase64.toBase64().toStdString(), maskImageBase64.toBase64().toStdString(), promptText.toStdString());
-    // qDebug() << "Result image base64: " << QString::fromStdString(resultImageBase64);
-
-    // QByteArray resultImageBytes = QByteArray::fromBase64(resultImageBase64.c_str());
-    // QImage resultImage;
-    // resultImage.loadFromData(resultImageBytes, "PNG");
-
-    // qDebug() << "Result image loaded";
 
     // Disable UI elements and show progress dialog
     inpaintPopup->setVisible(false);
@@ -1129,15 +1206,45 @@ void MyOpenGLWidget::confirmInpaint() {
 
     pythonProcess = new QProcess(this);
     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleInpaintResult);
-    connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleInpaintError);
-    
-    // Set working directory if needed
-    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
+    connect(pythonProcess, &QProcess::errorOccurred, this, &MyOpenGLWidget::handleProcessError);
+    connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
+    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
 
-    pythonProcess->start("python3.10", QStringList() << "inpainting.py");
+    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");  // Adjust path as needed
+
+    QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+    QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+
+    if (!QDir(scriptDir).exists()) {
+        qDebug() << "Directory does not exist: " << scriptDir;
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
+    pythonProcess->setWorkingDirectory(scriptDir);
+
+    pythonProcess->start(pythonExecutable, QStringList() << "inpainting.py" << outputDir);
+
+    if (!pythonProcess->waitForStarted()) {
+        qDebug() << "Failed to start Python process.";
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
     pythonProcess->write(data);
     pythonProcess->closeWriteChannel();
+
+    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines, due to float32 operations instead of float16. Mac M1 took roughly 20-30 seconds for a 512x512 image using FP32. ***";
+
+    if (!pythonProcess->waitForFinished(60000*5)) {
+        qDebug() << "Python process did not finish within the expected time.";
+        progressDialog->hide();
+        delete progressDialog;
+    }
 }
+
 
 void MyOpenGLWidget::handleInpaintResult() {
     if (!selectedImage) return;
@@ -1145,7 +1252,7 @@ void MyOpenGLWidget::handleInpaintResult() {
     // Get the size of the selected image
     QSize originalSize = selectedImage->image.size();
 
-    std::ifstream file("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/inpainting_result.txt", std::ios::binary);
+    std::ifstream file((projectRoot + "/resources/scripts/inference/inpainting_result.txt").toStdString(), std::ios::binary);
     if (!file.is_open()) {
         qDebug() << "Failed to open inpainting result file.";
         return;
@@ -1185,7 +1292,7 @@ void MyOpenGLWidget::handleInpaintResult() {
     update();
 
     // Delete the result file
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/inpainting_result.txt");
+    std::remove((projectRoot + "/resources/scripts/inference/inpainting_result.txt").toStdString().c_str());
 }
 
 void MyOpenGLWidget::handleInpaintError(QProcess::ProcessError error) {
@@ -1208,8 +1315,66 @@ void MyOpenGLWidget::toggleSnipeMode(bool enabled) {
     update();
 }
 
+// void MyOpenGLWidget::confirmSnipe() {
+//     if (!selectedImage || positivePoints.empty()) return;
+
+//     QImage originalImage = selectedImage->image;
+//     QByteArray originalByteArray;
+//     QBuffer originalBuffer(&originalByteArray);
+//     originalImage.save(&originalBuffer, "PNG");
+//     QString originalBase64 = originalByteArray.toBase64();
+
+//     // Create JSON object to send to Python script
+//     QJsonObject json;
+//     QJsonArray positiveArray;
+//     QJsonArray negativeArray;
+
+//     json["original_image"] = QString::fromStdString(originalBase64.toStdString());
+
+//     for (const auto& point : positivePoints) {
+//         QJsonObject pointJson;
+//         pointJson["x"] = point.x();
+//         pointJson["y"] = point.y();
+//         positiveArray.append(pointJson);
+//     }
+
+//     for (const auto& point : negativePoints) {
+//         QJsonObject pointJson;
+//         pointJson["x"] = point.x();
+//         pointJson["y"] = point.y();
+//         negativeArray.append(pointJson);
+//     }
+
+//     qDebug() << "Positive points: " << positiveArray;
+//     qDebug() << "Negative points: " << negativeArray;
+
+//     json["positive_points"] = positiveArray;
+//     json["negative_points"] = negativeArray;
+
+//     progressDialog = new QProgressDialog("Sniping...", "Cancel", 0, 0, this);
+//     progressDialog->setWindowModality(Qt::WindowModal);
+//     progressDialog->setCancelButton(nullptr);
+//     progressDialog->show();
+
+//     QJsonDocument doc(json);
+//     QByteArray data = doc.toJson(QJsonDocument::Compact);
+
+//     pythonProcess = new QProcess(this);
+//     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleSnipeResult);
+//     //connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleSnipeError);
+
+//     // Set working directory if needed
+//     pythonProcess->setWorkingDirectory(projectRoot + "/resources/scripts/inference");
+
+//     pythonProcess->start("python3.10", QStringList() << "sam.py");
+//     pythonProcess->write(data);
+//     pythonProcess->closeWriteChannel();
+// }
+
 void MyOpenGLWidget::confirmSnipe() {
     if (!selectedImage || positivePoints.empty()) return;
+
+    saveState();
 
     QImage originalImage = selectedImage->image;
     QByteArray originalByteArray;
@@ -1254,14 +1419,41 @@ void MyOpenGLWidget::confirmSnipe() {
 
     pythonProcess = new QProcess(this);
     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleSnipeResult);
-    //connect(pythonProcess, QOverload<QProcess::ProcessError>::of(&QProcess::errorOccurred), this, &MyOpenGLWidget::handleSnipeError);
+    connect(pythonProcess, &QProcess::errorOccurred, this, &MyOpenGLWidget::handleProcessError);
+    connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
+    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
 
-    // Set working directory if needed
-    pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
+    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");  // Adjust path as needed
 
-    pythonProcess->start("python3.10", QStringList() << "sam.py");
+    QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+    QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+
+    if (!QDir(scriptDir).exists()) {
+        qDebug() << "Directory does not exist: " << scriptDir;
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
+    pythonProcess->setWorkingDirectory(scriptDir);
+
+    pythonProcess->start(pythonExecutable, QStringList() << "sam.py" << outputDir);
+
+    if (!pythonProcess->waitForStarted()) {
+        qDebug() << "Failed to start Python process.";
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
     pythonProcess->write(data);
     pythonProcess->closeWriteChannel();
+
+    if (!pythonProcess->waitForFinished(60000*5)) {
+        qDebug() << "Python process did not finish within the expected time.";
+        progressDialog->hide();
+        delete progressDialog;
+    }
 }
 
 void MyOpenGLWidget::handleSnipeResult() {
@@ -1269,7 +1461,7 @@ void MyOpenGLWidget::handleSnipeResult() {
 
     // Three files we need to convert to QImages: image_hole.txt, image_object.txt, image_with_mask.txt
 
-    std::ifstream fileHole("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_hole.txt", std::ios::binary);
+    std::ifstream fileHole((projectRoot + "/resources/scripts/inference/image_hole.txt").toStdString(), std::ios::binary);
     if (!fileHole.is_open()) {
         qDebug() << "Failed to open image hole file.";
         return;
@@ -1280,7 +1472,7 @@ void MyOpenGLWidget::handleSnipeResult() {
     std::string resultBase64 = bufferHole.str();
     fileHole.close();
 
-    std::ifstream fileObject("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_object.txt", std::ios::binary);
+    std::ifstream fileObject((projectRoot + "/resources/scripts/inference/image_object.txt").toStdString(), std::ios::binary);
     if (!fileObject.is_open()) {
         qDebug() << "Failed to open image object file.";
         return;
@@ -1291,7 +1483,7 @@ void MyOpenGLWidget::handleSnipeResult() {
     std::string resultObjectBase64 = bufferObject.str();
     fileObject.close();
 
-    std::ifstream fileMask("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_with_mask.txt", std::ios::binary);
+    std::ifstream fileMask((projectRoot + "/resources/scripts/inference/image_with_mask.txt").toStdString(), std::ios::binary);
     if (!fileMask.is_open()) {
         qDebug() << "Failed to open image with mask file.";
         return;
@@ -1365,10 +1557,10 @@ void MyOpenGLWidget::handleSnipeResult() {
     confirmationDialog->show();
 
     // Delete the result files
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_hole.txt");
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_object.txt");
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/image_with_mask.txt");
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/mask.png");
+    std::remove((projectRoot + "/resources/scripts/inference/image_hole.txt").toStdString().c_str());
+    std::remove((projectRoot + "/resources/scripts/inference/image_object.txt").toStdString().c_str());
+    std::remove((projectRoot + "/resources/scripts/inference/image_with_mask.txt").toStdString().c_str());
+    std::remove((projectRoot + "/resources/scripts/inference/snipe_result.txt").toStdString().c_str());
 }
 
 void MyOpenGLWidget::clearSnipePoints() {
@@ -1483,6 +1675,8 @@ void MyOpenGLWidget::toggleDepthRemovalMode(bool enabled) {
 void MyOpenGLWidget::adjustImage(int value) {
     if (!depthRemovalMode || !selectedImage) return;
 
+    saveState();
+
     QImage grayscale = originalImage.convertToFormat(QImage::Format_Grayscale8);
     std::vector<std::pair<int, int>> pixels;
 
@@ -1524,8 +1718,47 @@ void MyOpenGLWidget::adjustImage(int value) {
     update();
 }
 
+// void MyOpenGLWidget::oneshotRemoval() {
+//     if (!selectedImage) return;
+
+//     QImage originalImage = selectedImage->image;
+//     QByteArray originalByteArray;
+//     QBuffer originalBuffer(&originalByteArray);
+//     originalImage.save(&originalBuffer, "PNG");
+//     QString originalBase64 = originalByteArray.toBase64();
+
+//     // Create JSON object to send to Python script
+//     QJsonObject json;
+//     json["original_image"] = QString::fromStdString(originalBase64.toStdString());
+
+//     progressDialog = new QProgressDialog("Removing background...", "Cancel", 0, 0, this);
+//     progressDialog->setWindowModality(Qt::WindowModal);
+//     progressDialog->setCancelButton(nullptr);
+//     progressDialog->show();
+
+//     QJsonDocument doc(json);
+//     QByteArray data = doc.toJson(QJsonDocument::Compact);
+
+//     pythonProcess = new QProcess(this);
+//     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleOneshotRemovalResult);
+
+//     // Set working directory if needed
+//     try {
+//         pythonProcess->setWorkingDirectory(projectRoot + "/resources/scripts/inference");
+//     } catch (std::exception& e) {
+//         qDebug() << "Failed to set working directory: " << e.what();
+//     }
+//     // pythonProcess->setWorkingDirectory("/resources/scripts/inference");
+
+//     pythonProcess->start("python3.10", QStringList() << "oneshot-background-removal.py");
+//     pythonProcess->write(data);
+//     pythonProcess->closeWriteChannel();
+// }
+
 void MyOpenGLWidget::oneshotRemoval() {
     if (!selectedImage) return;
+
+    saveState();
 
     QImage originalImage = selectedImage->image;
     QByteArray originalByteArray;
@@ -1546,20 +1779,46 @@ void MyOpenGLWidget::oneshotRemoval() {
     QByteArray data = doc.toJson(QJsonDocument::Compact);
 
     pythonProcess = new QProcess(this);
+    connect(pythonProcess, &QProcess::errorOccurred, this, &MyOpenGLWidget::handleProcessError);
+    connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
+    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleOneshotRemovalResult);
 
-    // Set working directory if needed
-    try {
-        pythonProcess->setWorkingDirectory("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference");
-    } catch (std::exception& e) {
-        qDebug() << "Failed to set working directory: " << e.what();
-    }
-    // pythonProcess->setWorkingDirectory("/resources/scripts/inference");
+    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
 
-    pythonProcess->start("python3.10", QStringList() << "oneshot-background-removal.py");
+    QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+    QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+
+    if (!QDir(scriptDir).exists()) {
+        qDebug() << "Directory does not exist: " << scriptDir;
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
+    pythonProcess->setWorkingDirectory(scriptDir);
+
+    pythonProcess->start(pythonExecutable, QStringList() << "oneshot-background-removal.py" << outputDir);
+
+    if (!pythonProcess->waitForStarted()) {
+        qDebug() << "Failed to start Python process.";
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
     pythonProcess->write(data);
     pythonProcess->closeWriteChannel();
+
+    qDebug() << "\n*** IF THIS IS YOUR FIRST TIME RUNNING ONE-SHOT REMOVAL, THE MODEL NEEDS TO BE DOWNLOADED. THIS MAY TAKE A FEW MINUTES. ***\n";
+
+    if (!pythonProcess->waitForFinished(60000*5)) {
+        qDebug() << "Python process did not finish within the expected time.";
+        progressDialog->hide();
+        delete progressDialog;
+    }
 }
+
 
 void MyOpenGLWidget::handleOneshotRemovalResult() {
     if (!selectedImage) return;
@@ -1567,7 +1826,7 @@ void MyOpenGLWidget::handleOneshotRemovalResult() {
     // Get the size of the selected image
     QSize originalSize = selectedImage->image.size();
 
-    std::ifstream file("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/oneshot_removal_result.txt", std::ios::binary);
+    std::ifstream file((projectRoot + "/resources/scripts/inference/oneshot_removal_result.txt").toStdString(), std::ios::binary);
     if (!file.is_open()) {
         qDebug() << "Failed to open oneshot removal result file.";
         QMessageBox::critical(this, "Error", "Failed to open the oneshot removal result file.");
@@ -1607,7 +1866,24 @@ void MyOpenGLWidget::handleOneshotRemovalResult() {
     update();
 
     // Delete the result file
-    std::remove("/Users/gtomberlin/Documents/Code/Local-Image-Editor/resources/scripts/inference/oneshot_removal_result.txt");
+    std::remove((projectRoot + "/resources/scripts/inference/oneshot_removal_result.txt").toStdString().c_str());
+}
+
+void MyOpenGLWidget::handlePythonOutput() {
+    QByteArray output = pythonProcess->readAllStandardOutput();
+    qDebug() << "Python Output:" << output;
+}
+
+void MyOpenGLWidget::handlePythonError() {
+    QByteArray error = pythonProcess->readAllStandardError();
+    qDebug() << "Python Error:" << error;
+}
+
+void MyOpenGLWidget::handleProcessError(QProcess::ProcessError error) {
+    qDebug() << "Process error occurred:" << pythonProcess->errorString();
+    QMessageBox::critical(this, "Error", "Python process failed: " + pythonProcess->errorString());
+    progressDialog->hide();
+    delete progressDialog;
 }
 
 QRect MyOpenGLWidget::computeBoundingBoxForSelectedImages() {
