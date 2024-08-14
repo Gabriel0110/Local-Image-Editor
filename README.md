@@ -61,12 +61,23 @@ cd Local-Image-Editor
 
 2. Configure and build the project:
 
+#### On Linux/MacOS
 ```bash
 mkdir build
 cd build
 cmake ..
 make
 ```
+
+#### On Windows
+If you are using Visual Studio 2022 (or any other version), you need to specify the generator and the architecture:
+```bash
+mkdir build
+cd build
+cmake -G "Visual Studio 17 2022" -A x64 ..
+cmake --build . --config Release
+```
+- **Note: Replace "Visual Studio 17 2022" with the appropriate version, unless you are using a different generator (e.g. Ninja, etc.) then replace that entire piece with the generator of your choice. Also be sure to build for your system's architecture (x32/x64).**
 
 3. Set up the virtual environment:
 
@@ -84,8 +95,14 @@ The build process will download the Stable Diffusion inpainting model and store 
 
 Once the build is complete, you can run the application:
 
+#### On Linux/MacOS
 ```bash
 ./MediaEditor
+```
+
+#### On Windows
+```bash
+MediaEditor.exe
 ```
 
 ## Advanced Configuration
@@ -95,8 +112,15 @@ If you need to customize the build process (e.g., specify a different Python ver
 If you need to install the Python dependencies manually, activate the virtual environment and install the requirements:
 
 ```bash
-source build/local-image-editor-venv/bin/activate
+# Activate the virtual environment
+source build/local-image-editor-venv/bin/activate  # On Linux/MacOS
+# OR
+build\local-image-editor-venv\Scripts\activate  # On Windows
+
+# Install the main requirements
 pip install -r resources/scripts/requirements.txt
+
+# Install EdgeSAM requirements
 pip install -r build/EdgeSAM/requirements.txt
 ```
 
