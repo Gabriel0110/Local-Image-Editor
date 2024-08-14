@@ -47,7 +47,7 @@ Before you begin, ensure you have the following installed on your system:
 - **Python (version 3.8 or higher)**
 - **Git**
 - **A C++ compiler (like GCC or Clang)**
-- **Qt5, OpenCV, and OpenGL**
+- **Qt5/Qt6 (Qt5 was used in original development), OpenCV, and OpenGL**
 
 ### Build Instructions
 Follow these steps to build and run the project locally.
