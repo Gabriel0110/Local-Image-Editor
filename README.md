@@ -15,6 +15,7 @@ Local Image Editor is a powerful desktop application that provides advanced imag
 - **Replace EdgeSAM with SAM2** (possibly, depending on performance improvement)
 - **Implement SkalskiP's Florence2 + SAM2 open-vocabulary and captioned image segmentation**
 - **Replace Stable Diffusion Inpainting with FLUX Inpainting** (possibly, TBD)
+- **Implement an AI image enhancer** (possibly https://huggingface.co/spaces/finegrain/finegrain-image-enhancer)
 
 ## Project Structure
 
