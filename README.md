@@ -7,8 +7,14 @@ Local Image Editor is a powerful desktop application that provides advanced imag
 - **Image Editing**: Crop, rotate, and adjust images with ease.
 - **Inpainting**: Fill in missing parts of images using AI models.
 - **Depth-Wise Background Removal**: Remove backgrounds based on depth information.
-- **GIF Editing (IN-PROGRESS)**: Add text, images, and layers to GIFs.
 - **AI Models Integration**: EdgeSAM for advanced segmentation and Stable Diffusion for inpainting.
+
+## TO-DO
+- **GIF Editor (IN-PROGRESS: ~50%)**: Add text, images, and layers to GIFs.
+- **FLUX AI Image Generator**
+- **Replace EdgeSAM with SAM2** (possibly, depending on performance improvement)
+- **Implement SkalskiP's Florence2 + SAM2 open-vocabulary and captioned image segmentation**
+- **Replace Stable Diffusion Inpainting with FLUX Inpainting** (possibly, TBD)
 
 ## Project Structure
 
@@ -122,6 +128,12 @@ pip install -r resources/scripts/requirements.txt
 
 # Install EdgeSAM requirements
 pip install -r build/EdgeSAM/requirements.txt
+```
+
+## Bugs/Issues/Oddities
+Below are known bugs/issues/oddities that are in the pipeline to eventually be fixed or improved.
+```bash
+
 ```
 
 ## Contributing
