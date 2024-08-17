@@ -412,12 +412,16 @@ void MyOpenGLWidget::dropEvent(QDropEvent* event) {
 }
 
 void MyOpenGLWidget::contextMenuEvent(QContextMenuEvent* event) {
-    QMenu contextMenu(this);
-    QAction pasteAction("Paste", this);
-    connect(&pasteAction, &QAction::triggered, this, &MyOpenGLWidget::pasteImageFromClipboard);
-    contextMenu.addAction(&pasteAction);
+    if (!snipeMode) {
+        QMenu contextMenu(this);
+        QAction pasteAction("Paste", this);
+        connect(&pasteAction, &QAction::triggered, this, &MyOpenGLWidget::pasteImageFromClipboard);
+        contextMenu.addAction(&pasteAction);
 
-    contextMenu.exec(event->globalPos());
+        contextMenu.exec(event->globalPos());
+    } else {
+        event->ignore();
+    }
 }
 
 void MyOpenGLWidget::openShapeMenu() {
@@ -487,13 +491,11 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
         qreal relativeY = static_cast<qreal>(relativePos.y()) / selectedImage->boundingBox.height() * selectedImage->image.height();
         QPointF scaledPos(relativeX, relativeY);
 
-        if (event->button() == Qt::LeftButton) {
-            // Only add points within the image bounds
-            if (scaledPos.x() >= 0 && scaledPos.x() < selectedImage->image.width() && scaledPos.y() >= 0 && scaledPos.y() < selectedImage->image.height()) {
+        // Only add points within the image bounds
+        if (scaledPos.x() >= 0 && scaledPos.x() < selectedImage->image.width() && scaledPos.y() >= 0 && scaledPos.y() < selectedImage->image.height()) {
+            if (event->button() == Qt::LeftButton) {
                 positivePoints.push_back(scaledPos);
-            }
-        } else if (event->button() == Qt::RightButton) {
-            if (scaledPos.x() >= 0 && scaledPos.x() < selectedImage->image.width() && scaledPos.y() >= 0 && scaledPos.y() < selectedImage->image.height()) {
+            } else if (event->button() == Qt::RightButton) {
                 negativePoints.push_back(scaledPos);
             }
         }
@@ -1744,7 +1746,7 @@ void MyOpenGLWidget::clearSnipePoints() {
 void MyOpenGLWidget::drawSnipePoints(QPainter& painter, const QPoint& scrollPosition) {
     painter.setPen(QPen(Qt::white, 2));
     for (const auto& point : positivePoints) {
-        painter.setBrush(Qt::yellow);
+        painter.setBrush(Qt::green);
         QPoint drawPoint = point.toPoint() + selectedImage->boundingBox.topLeft() + scrollPosition;
         painter.drawEllipse(drawPoint, 5, 5);
     }
