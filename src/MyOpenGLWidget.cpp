@@ -158,6 +158,43 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
 
     colorDialog = new QColorDialog(this);
 
+    // Initialize Generate AI Image button
+    generateAIImageButton = new QPushButton("Generate AI Image", this);
+    generateAIImageButton->move(addShapeButton->x() - 10, 10); // Position it just to the left of the "Add Shape" button
+    generateAIImageButton->resize(150, 30);
+    connect(generateAIImageButton, &QPushButton::clicked, this, &MyOpenGLWidget::openGenerateAIMenu); // Connect to the function that will open the menu
+
+    // Initialize Generate AI popup
+    generateAIPopup = new QWidget(this);
+    generateAIPopup->setVisible(false);
+    QVBoxLayout* aiLayout = new QVBoxLayout(generateAIPopup);
+
+    useOpenAICheckBox = new QCheckBox("Use OpenAI DALL-E API", generateAIPopup);
+    connect(useOpenAICheckBox, &QCheckBox::toggled, this, &MyOpenGLWidget::toggleAPIKeyInput);
+    aiLayout->addWidget(useOpenAICheckBox);
+
+    useEnvVarCheckBox = new QCheckBox("Use OpenAI API Key from Environment Variable", generateAIPopup);
+    aiLayout->addWidget(useEnvVarCheckBox);
+
+    apiKeyTextBox = new QLineEdit(generateAIPopup);
+    apiKeyTextBox->setPlaceholderText("Enter your OpenAI API key");
+    apiKeyTextBox->setEnabled(false); // Initially disabled
+    aiLayout->addWidget(apiKeyTextBox);
+
+    QLabel* promptLabel = new QLabel("Prompt:", generateAIPopup);
+    aiLayout->addWidget(promptLabel);
+
+    promptTextBox = new QLineEdit(generateAIPopup);
+    aiLayout->addWidget(promptTextBox);
+
+    confirmGenerateAIButton = new QPushButton("Generate", generateAIPopup);
+    connect(confirmGenerateAIButton, &QPushButton::clicked, this, &MyOpenGLWidget::confirmGenerateAIImage);
+    aiLayout->addWidget(confirmGenerateAIButton);
+
+    cancelGenerateAIButton = new QPushButton("Cancel", generateAIPopup);
+    connect(cancelGenerateAIButton, &QPushButton::clicked, generateAIPopup, &QWidget::hide);
+    aiLayout->addWidget(cancelGenerateAIButton);
+
     installEventFilter(this);
 
     // Initialize undo and redo buttons
@@ -1068,6 +1105,141 @@ void MyOpenGLWidget::toggleInpaintMode(bool enabled) {
     }
     update();
 }
+
+void MyOpenGLWidget::openGenerateAIMenu() {
+    generateAIPopup->setVisible(true);
+    generateAIPopup->raise();
+    generateAIPopup->move(generateAIImageButton->pos() + QPoint(0, generateAIImageButton->height()));
+}
+
+void MyOpenGLWidget::toggleAPIKeyInput(bool enabled) {
+    apiKeyTextBox->setEnabled(enabled && !useEnvVarCheckBox->isChecked());
+}
+
+void MyOpenGLWidget::confirmGenerateAIImage() {
+    QString apiKey = apiKeyTextBox->text();
+    QString prompt = promptTextBox->text();
+
+    if (useEnvVarCheckBox->isChecked()) {
+        apiKey = qgetenv("OPENAI_API_KEY");
+        if (apiKey.isEmpty()) {
+            QMessageBox::warning(this, "Error", "Environment variable OPENAI_API_KEY is not set.");
+            return;
+        }
+    }
+
+    if (useOpenAICheckBox->isChecked() && apiKey.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Please provide a valid API key.");
+        return;
+    }
+
+    if (prompt.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Please provide a prompt.");
+        return;
+    }
+
+    generateAIPopup->setVisible(false);
+
+    // Show progress dialog
+    progressDialog = new QProgressDialog("Generating AI Image...", "Cancel", 0, 0, this);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setCancelButton(nullptr);
+    progressDialog->show();
+
+    // Prepare JSON data for Python script
+    QJsonObject json;
+    json["api_key"] = apiKey;
+    json["prompt"] = prompt;
+
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson(QJsonDocument::Compact);
+
+    pythonProcess = new QProcess(this);
+    connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleGeneratedAIImage);
+    connect(pythonProcess, &QProcess::errorOccurred, this, &MyOpenGLWidget::handleProcessError);
+    connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
+    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
+
+    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
+    QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+
+    if (!QDir(scriptDir).exists()) {
+        qDebug() << "Directory does not exist: " << scriptDir;
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
+    pythonProcess->setWorkingDirectory(scriptDir);
+
+    pythonProcess->start(pythonExecutable, QStringList() << "generate_ai_image.py");
+
+    if (!pythonProcess->waitForStarted()) {
+        qDebug() << "Failed to start Python process.";
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
+    pythonProcess->write(data);
+    pythonProcess->closeWriteChannel();
+
+    if (!pythonProcess->waitForFinished(60000 * 5)) {
+        qDebug() << "Python process did not finish within the expected time.";
+        progressDialog->hide();
+        delete progressDialog;
+    }
+
+
+}
+
+void MyOpenGLWidget::handleGeneratedAIImage() {
+    QString filePath = projectRoot + "/resources/scripts/inference/generated_ai_image.txt";
+    
+    // Open the file containing the Base64 encoded image string
+    std::ifstream file(filePath.toStdString(), std::ios::binary);
+    if (!file.is_open()) {
+        qDebug() << "Failed to open generated AI image file.";
+        QMessageBox::critical(this, "Error", "Failed to open the generated AI image file.");
+        return;
+    }
+
+    // Read the entire file into a stringstream
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string resultBase64 = buffer.str();
+    file.close();
+
+    // Convert the Base64 string to a QByteArray
+    QByteArray resultByteArray = QByteArray::fromBase64(QString::fromStdString(resultBase64).toUtf8());
+
+    // Load the image from the QByteArray
+    QPixmap resultImage;
+    if (!resultImage.loadFromData(resultByteArray)) {
+        qDebug() << "Failed to decode the image.";
+        QMessageBox::critical(this, "Error", "Failed to decode the generated AI image.");
+        return;
+    }
+
+    // Convert the QPixmap to QImage
+    QImage resultQImage = resultImage.toImage();
+
+    // Resize the image to fit the canvas
+    scaleImage(resultQImage, 512, 512);
+
+    // Create a new ImageObject and add it to the canvas
+    saveState(); // Save state before making changes
+    images.emplace_back(resultQImage, QPoint(width() / 2, height() / 2)); // Add the image to the center
+    selectedImage = &images.back(); // Set the new image as the selected image
+    update(); // Refresh the canvas
+
+    progressDialog->hide();
+    delete progressDialog;
+
+    // Delete the result file to clean up
+    std::remove(filePath.toStdString().c_str());
+}
+
 
 // void MyOpenGLWidget::confirmInpaint() {
 //     if (!selectedImage) return;

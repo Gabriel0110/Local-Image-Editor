@@ -24,3 +24,4 @@ mmengine==0.10.3
 mmcv==2.0.0rc4
 mmdet==3.3.0
 tensorboard==2.14.0
+openai

@@ -60,7 +60,9 @@ endif()
 
 # Set up a virtual environment for Python dependencies
 set(VENV_NAME "local-image-editor-venv")
-execute_process(COMMAND ${Python3_EXECUTABLE} -m venv ${CMAKE_SOURCE_DIR}/${VENV_NAME})
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/${VENV_NAME}")
+    execute_process(COMMAND ${Python3_EXECUTABLE} -m venv ${CMAKE_SOURCE_DIR}/${VENV_NAME})
+endif()
 set(VENV_PYTHON "${CMAKE_SOURCE_DIR}/${VENV_NAME}/Scripts/python.exe")
 
 # Install main Python dependencies, with force-reinstall to resolve conflicts

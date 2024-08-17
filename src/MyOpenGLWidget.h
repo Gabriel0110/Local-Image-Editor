@@ -21,6 +21,7 @@
 #include <QComboBox>
 #include <QColorDialog>
 #include <QDialog>
+#include <QCheckBox>
 
 // MyOpenGLWidget class for handling image editing
 class MyOpenGLWidget : public QOpenGLWidget {
@@ -88,6 +89,16 @@ private:
     QPushButton* createShapeButton;
     QColor selectedColor;
 
+    // AI image generation elements
+    QPushButton* generateAIImageButton;
+    QWidget* generateAIPopup;
+    QLineEdit* apiKeyTextBox;
+    QLineEdit* promptTextBox;
+    QCheckBox* useEnvVarCheckBox;
+    QCheckBox* useOpenAICheckBox;
+    QPushButton* confirmGenerateAIButton;
+    QPushButton* cancelGenerateAIButton;
+
 public:
     MyOpenGLWidget(QWidget* parent = nullptr);
     void uploadImage();
@@ -136,6 +147,12 @@ private slots:
     void openShapeMenu();
     void openColorDialog();
     void createShape();
+
+    // Slots for AI Image Generation
+    void openGenerateAIMenu();
+    void toggleAPIKeyInput(bool enabled);
+    void confirmGenerateAIImage();
+    void handleGeneratedAIImage();
 
 private:
     void eraseAt(const QPoint& pos);
