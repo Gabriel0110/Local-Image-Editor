@@ -29,6 +29,8 @@ Local-Image-Editor/
 │   └── scripts/
 │       ├── requirements.txt
 │       └── inference/
+│           ├── generate_ai_image.py
+│           ├── oneshot_background_removal.py
 │           ├── inpainting.py
 │           └── sam.py
 ├── src/
