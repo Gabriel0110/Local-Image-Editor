@@ -77,6 +77,8 @@ private:
     QPushButton* confirmInpaintButton;
     QPushButton* cancelInpaintButton;
     QSlider* inpaintBrushSizeSlider;
+    QLineEdit* numInferenceStepsTextBox;
+    QLineEdit* guidanceScaleTextBox;
 
     // Shape menu elements
     QDialog* shapeMenu;

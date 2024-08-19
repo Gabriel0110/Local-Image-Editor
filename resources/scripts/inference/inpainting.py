@@ -12,7 +12,7 @@ import os
 filename = os.path.join(os.path.dirname(__file__), "inpainting.log")
 logging.basicConfig(filename=filename, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly edited and blended image, masterful photoshop job"):
+def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly edited and blended image, masterful photoshop job", num_inference_steps=4, guidance_scale=4.0):
     try:
         # Decode the base64 images
         init_image_data = base64.b64decode(init_image_base64)
@@ -60,8 +60,8 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
             image=init_image,
             mask_image=mask_image,
             generator=generator,
-            num_inference_steps=4,
-            guidance_scale=4,
+            num_inference_steps=num_inference_steps,
+            guidance_scale=guidance_scale,
         ).images[0]
 
         # Save the image locally
@@ -84,8 +84,10 @@ def main():
         init_image_base64 = json_data["init_image_base64"]
         mask_image_base64 = json_data["mask_image_base64"]
         user_prompt = json_data.get("user_prompt", "")
+        num_inference_steps = json_data.get("num_inference_steps", 4)
+        guidance_scale = json_data.get("guidance_scale", 4.0)
 
-        result_base64 = process_images(init_image_base64, mask_image_base64, user_prompt)
+        result_base64 = process_images(init_image_base64, mask_image_base64, user_prompt, num_inference_steps, guidance_scale)
         
         with open(os.path.join(os.path.dirname(__file__), "inpainting_result.txt"), "w") as f:
             f.write(result_base64)

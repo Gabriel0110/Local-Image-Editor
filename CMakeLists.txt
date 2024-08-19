@@ -65,7 +65,7 @@ add_custom_target(clone_edgesam
 )
 
 # Only run the git clone command if the repository doesn't exist
-if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM/.git")
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM")
     add_custom_command(TARGET clone_edgesam POST_BUILD
         COMMAND git clone https://github.com/chongzhou96/EdgeSAM.git ${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM
         COMMAND git -C ${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM reset --hard 96c457a

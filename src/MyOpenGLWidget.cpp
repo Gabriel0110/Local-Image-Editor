@@ -84,6 +84,15 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     inpaintPopup->setVisible(false);
     QVBoxLayout* inpaintLayout = new QVBoxLayout(inpaintPopup);
     inpaintPromptLabel = new QLabel("Prompt:", inpaintPopup);
+
+    QLabel* numInferenceStepsLabel = new QLabel("Inference Steps:", inpaintPopup);
+    numInferenceStepsTextBox = new QLineEdit(inpaintPopup);
+    numInferenceStepsTextBox->setPlaceholderText("Default: 4");
+
+    QLabel* guidanceScaleLabel = new QLabel("Guidance Scale:", inpaintPopup);
+    guidanceScaleTextBox = new QLineEdit(inpaintPopup);
+    guidanceScaleTextBox->setPlaceholderText("Default: 4");
+
     inpaintTextBox = new QLineEdit(inpaintPopup);
     confirmInpaintButton = new QPushButton("Confirm", inpaintPopup);
     cancelInpaintButton = new QPushButton("Cancel", inpaintPopup);
@@ -93,6 +102,10 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
 
     inpaintLayout->addWidget(inpaintPromptLabel);
     inpaintLayout->addWidget(inpaintTextBox);
+    inpaintLayout->addWidget(numInferenceStepsLabel);
+    inpaintLayout->addWidget(numInferenceStepsTextBox);
+    inpaintLayout->addWidget(guidanceScaleLabel);
+    inpaintLayout->addWidget(guidanceScaleTextBox);
     inpaintLayout->addWidget(confirmInpaintButton);
     inpaintLayout->addWidget(cancelInpaintButton);
     inpaintLayout->addWidget(inpaintBrushSizeSlider);
@@ -1346,6 +1359,8 @@ void MyOpenGLWidget::confirmInpaint() {
     QString maskBase64 = maskByteArray.toBase64();
 
     QString promptText = inpaintTextBox->text();
+    QString numInferenceSteps = numInferenceStepsTextBox->text().isEmpty() ? "4" : numInferenceStepsTextBox->text();
+    QString guidanceScale = guidanceScaleTextBox->text().isEmpty() ? "4" : guidanceScaleTextBox->text();
 
     // Disable UI elements and show progress dialog
     inpaintPopup->setVisible(false);
@@ -1358,6 +1373,8 @@ void MyOpenGLWidget::confirmInpaint() {
     json["init_image_base64"] = QString::fromStdString(originalBase64.toStdString());
     json["mask_image_base64"] = QString::fromStdString(maskBase64.toStdString());
     json["user_prompt"] = promptText;
+    json["num_inference_steps"] = numInferenceSteps.toInt();
+    json["guidance_scale"] = guidanceScale.toFloat();
 
     QJsonDocument doc(json);
     QByteArray data = doc.toJson(QJsonDocument::Compact);
@@ -1366,9 +1383,9 @@ void MyOpenGLWidget::confirmInpaint() {
     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleInpaintResult);
     connect(pythonProcess, &QProcess::errorOccurred, this, &MyOpenGLWidget::handleProcessError);
     connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
-    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
+    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonOutput);
 
-    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");  // Adjust path as needed
+    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
 
     QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
     QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
@@ -1394,7 +1411,7 @@ void MyOpenGLWidget::confirmInpaint() {
     pythonProcess->write(data);
     pythonProcess->closeWriteChannel();
 
-    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines or lack of GPU support. E.g. on an Nvidia 2070 (very old card), it takes roughly 20-30 seconds to load the model pipeline and another 60 seconds to do 4-step inference. ***";
+    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines or lack of GPU support. E.g., on an Nvidia 2070 (very old card), it takes roughly 20-30 seconds to load the model pipeline and another 60 seconds to do 4-step inference. ***";
 
     if (!pythonProcess->waitForFinished(60000*5)) {
         qDebug() << "Python process did not finish within the expected time.";
