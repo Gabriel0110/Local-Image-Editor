@@ -11,7 +11,7 @@ Local Image Editor is a powerful desktop application that provides advanced imag
 
 ## TO-DO
 - **GIF Editor (IN-PROGRESS: ~50%)**: Add text, images, and layers to GIFs.
-- ~~** Add AI Image Generator**~~ (DONE)
+- ~~** Add AI Image Generator**~~ (DONE - OpenAI Dall-E 3 API, requires API key)
 - **Replace EdgeSAM with SAM2** (possibly, depending on performance improvement)
 - **Implement SkalskiP's Florence2 + SAM2 open-vocabulary and captioned image segmentation**
 - **Replace Stable Diffusion Inpainting with FLUX Inpainting** (possibly, TBD)
@@ -52,7 +52,7 @@ Local-Image-Editor/
 ### Prerequisites
 Before you begin, ensure you have the following installed on your system:
 - **CMake (version 3.10 or higher)**
-- **Python (version 3.8 or higher)**
+- **Python (version 3.8, 3.9, 3.10, or 3.11)**
 - **Git**
 - **A C++ compiler (like GCC or Clang)**
 - **Qt5/Qt6 (Qt5 was used in original development), OpenCV, and OpenGL**
