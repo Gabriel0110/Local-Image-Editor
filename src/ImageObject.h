@@ -5,7 +5,6 @@
 #include <QRect>
 #include <QPainter>
 
-// Class representing an image object
 class ImageObject {
 public:
     QImage image;
@@ -15,7 +14,6 @@ public:
     bool boundingBoxEnabled;
     static const int HANDLE_SIZE = 10;
 
-    // Constructor: Initialize the image object with an image and its position
     ImageObject(const QImage& img, const QPoint& pos) : image(img), originalImage(img), isSelected(false), boundingBoxEnabled(true) {
         boundingBox.setSize(img.size());
         boundingBox.moveCenter(pos);

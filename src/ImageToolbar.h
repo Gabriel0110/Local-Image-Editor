@@ -8,32 +8,31 @@
 #include <QIcon>
 #include <QSlider>
 
-// Image toolbar class
 class ImageToolbar : public QWidget {
     Q_OBJECT
 
 public:
     explicit ImageToolbar(QWidget* parent = nullptr);
-    void checkInpaintAction(bool checked);  // Method to enable/disable inpaint action
-    void setMergeActionVisible(bool visible); // Method to set merge action visibility
-    void setUntoggledActions();  // Method to untoggle all actions without emitting signals
+    void checkInpaintAction(bool checked);
+    void setMergeActionVisible(bool visible);
+    void setUntoggledActions();
 
 signals:
-    void toggleRotationMode(bool enabled);  // Signal to toggle rotation mode
-    void rotateImage(int angle);  // Signal to rotate image
-    void mirrorImage();  // Signal to mirror image
-    void copyImage();    // Signal to copy image
-    void deleteImage();  // Signal to delete image
-    void saveImage();    // Signal to save image
-    void toggleEraser(bool enabled);  // Signal to toggle eraser mode
-    void bringToFront();  // Signal to bring image to front
-    void pushToBack();    // Signal to push image to back
-    void toggleCropMode(bool enabled); // Signal to toggle crop mode
-    void toggleInpaintMode(bool enabled); // Signal to toggle inpaint mode
+    void toggleRotationMode(bool enabled);
+    void rotateImage(int angle);
+    void mirrorImage();
+    void copyImage();
+    void deleteImage();
+    void saveImage();
+    void toggleEraser(bool enabled);
+    void bringToFront();
+    void pushToBack();
+    void toggleCropMode(bool enabled);
+    void toggleInpaintMode(bool enabled);
     void toggleSnipeMode(bool enabled);
-    void toggleDepthRemoval(bool enabled); // Signal for depth-wise background removal
-    void oneshotRemoval(); // Signal for oneshot background removal
-    void mergeImages(); // Signal to merge images
+    void toggleDepthRemoval(bool enabled);
+    void oneshotRemoval();
+    void mergeImages();
 
 private:
     QAction* mirrorAction;
@@ -50,16 +49,16 @@ private:
     QAction* snipeAction;
     QAction* depthRemovalAction;
     QAction* oneshotRemovalAction;
-    QAction* mergeAction; // Merge action
+    QAction* mergeAction;
 
 private slots:
-    void onRotateButtonClicked();  // Slot to handle rotate button click
-    void onEraserButtonClicked();  // Slot to handle eraser button click
-    void onCropButtonClicked();  // Slot to handle crop button click
-    void onInpaintButtonClicked(); // Slot to handle inpaint button click
+    void onRotateButtonClicked();
+    void onEraserButtonClicked();
+    void onCropButtonClicked();
+    void onInpaintButtonClicked();
     void onSnipeButtonClicked();
     void onDepthRemovalButtonClicked();
-    void onMergeButtonClicked(); // Slot to handle merge button click
+    void onMergeButtonClicked();
 };
 
 #endif // IMAGETOOLBAR_H

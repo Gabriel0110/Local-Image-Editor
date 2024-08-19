@@ -23,7 +23,6 @@
 #include <QDialog>
 #include <QCheckBox>
 
-// MyOpenGLWidget class for handling image editing
 class MyOpenGLWidget : public QOpenGLWidget {
     Q_OBJECT
 
@@ -141,7 +140,7 @@ private slots:
     void handleOneshotRemovalResult();
     void copyImageToClipboard();
     void pasteImageFromClipboard();
-    void mergeSelectedImages(); // Slot to handle merge action
+    void mergeSelectedImages();
 
     // Slots for shape menu
     void openShapeMenu();

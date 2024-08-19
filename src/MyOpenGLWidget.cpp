@@ -24,7 +24,7 @@
 #include <QColorDialog>
 
 MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
-    setAcceptDrops(true);
+    setAcceptDrops(true); // Enable drag and drop
     setFocusPolicy(Qt::StrongFocus); // Ensure the widget can receive keyboard focus
 
     projectRoot = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath("../..");
@@ -401,7 +401,7 @@ void scaleImage(QImage& image, int maxWidth, int maxHeight) {
 }
 
 void MyOpenGLWidget::dropEvent(QDropEvent* event) {
-    saveState(); // Save state before making changes
+    saveState();
     const QMimeData* mimeData = event->mimeData();
     if (mimeData->hasUrls()) {
         QList<QUrl> urls = mimeData->urls();
@@ -618,23 +618,6 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
                     img.isSelected = false;
                 }
             }
-            // for (auto& img : images){
-            //     int handle = img.handleAt(pos, QPoint(0, 0));
-            //     if (handle != 0) {
-            //         currentHandle = handle;
-            //         selectedImage = &img;
-            //         img.isSelected = true;
-            //         imageClicked = true;
-            //         break;
-            //     } else if (img.contains(pos, QPoint(0, 0))) {
-            //         selectedImage = &img;
-            //         img.isSelected = true;
-            //         imageClicked = true;
-            //         break;
-            //     } else {
-            //         img.isSelected = false;
-            //     }
-            // }
 
             // if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode && !depthRemovalMode && !rotationMode) {
             if (!imageClicked) {
@@ -732,7 +715,7 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
             update();
         }
     } else if (isSelecting) {
-        selectionEndPoint = event->pos() - scrollPosition; // Update the end point relative to the scroll position
+        selectionEndPoint = event->pos() - scrollPosition;
         update();
     }
 }
@@ -749,11 +732,6 @@ void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
         QRect selectionBox = QRect(selectionStartPoint, selectionEndPoint).normalized();
         selectImagesInBox(selectionBox.translated(scrollPosition)); // Translate selection box coordinates back to original
     }
-
-    // if (selectedImage) {
-    //     // Scale the image to the size of the bounding box
-    //     selectedImage->image = selectedImage->originalImage.scaled(selectedImage->boundingBox.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    // }
     
     update();
 }
@@ -781,7 +759,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
                 QImage image(url.toLocalFile());
                 if (!image.isNull()) {
                     //qDebug() << "Loading image from URL:" << url.toLocalFile();
-                    saveState(); // Save state before making changes
+                    saveState();
                     scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
                     images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
                     update();
@@ -798,7 +776,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
         QImage image = QImage::fromData(imageData);
         if (!image.isNull()) {
             //qDebug() << "Clipboard contains application/x-qt-image and successfully retrieved the image";
-            saveState(); // Save state before making changes
+            saveState();
             scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
             images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
             update();
@@ -812,7 +790,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
         QImage image = qvariant_cast<QImage>(mimeData->imageData());
         if (!image.isNull()) {
             //qDebug() << "Clipboard contains valid image data";
-            saveState(); // Save state before making changes
+            saveState();
             scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
             images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
             update();
@@ -830,7 +808,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
                 QImage image(url.toLocalFile());
                 if (!image.isNull()) {
                     //qDebug() << "Loading image from URL:" << url.toLocalFile();
-                    saveState(); // Save state before making changes
+                    saveState();
                     scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
                     images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
                     update();
@@ -847,7 +825,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
 
 void MyOpenGLWidget::rotateSelectedImage(int angle) {
     if (!selectedImages.empty()) {
-        saveState(); // Save state before making changes
+        saveState();
         for (auto& img : selectedImages) {
             // Calculate the center of the image
             QPoint center = img->boundingBox.center();
@@ -872,7 +850,7 @@ void MyOpenGLWidget::rotateSelectedImage(int angle) {
     } else if (selectedImage) {
         qDebug() << "Rotating image by" << angle;
         
-        saveState(); // Save state before making changes
+        saveState();
 
         if (originalImageBeforeRotation.isNull()) {
             originalImageBeforeRotation = selectedImage->image;
@@ -917,13 +895,13 @@ void MyOpenGLWidget::toggleRotationMode(bool enabled) {
 
 void MyOpenGLWidget::mirrorSelectedImage() {
     if (!selectedImages.empty()) {
-        saveState(); // Save state before making changes
+        saveState();
         for (auto& img : selectedImages) {
             img->image = img->image.mirrored(true, false);
         }
         update();
     } else if (selectedImage) {
-        saveState(); // Save state before making changes
+        saveState();
         selectedImage->image = selectedImage->image.mirrored(true, false);
         selectedImage->originalImage = selectedImage->image;
         update();
@@ -934,7 +912,7 @@ void MyOpenGLWidget::mirrorSelectedImage() {
 
 void MyOpenGLWidget::copySelectedImage() {
     if (selectedImage) {
-        saveState(); // Save state before making changes
+        saveState();
         images.emplace_back(selectedImage->image, selectedImage->boundingBox.center() + QPoint(20, 20));
         update();
     } else {
@@ -944,7 +922,7 @@ void MyOpenGLWidget::copySelectedImage() {
 
 void MyOpenGLWidget::deleteSelectedImage() {
     if (selectedImage) {
-        saveState(); // Save state before making changes
+        saveState();
         images.erase(std::remove(images.begin(), images.end(), *selectedImage), images.end());
         selectedImage = nullptr;
         update();
@@ -1040,7 +1018,7 @@ void MyOpenGLWidget::uploadImage() {
     if (!fileName.isEmpty()) {
         QImage image;
         if (image.load(fileName)) {
-            saveState(); // Save state before making changes
+            saveState();
             scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
             images.emplace_back(image, QPoint(0, 0));
             update();
@@ -1050,7 +1028,7 @@ void MyOpenGLWidget::uploadImage() {
 
 void MyOpenGLWidget::bringToFront() {
     if (selectedImage) {
-        saveState(); // Save state before making changes
+        saveState();
         auto it = std::find(images.begin(), images.end(), *selectedImage);
         if (it != images.end()) {
             std::rotate(it, it + 1, images.end());
@@ -1062,7 +1040,7 @@ void MyOpenGLWidget::bringToFront() {
 
 void MyOpenGLWidget::pushToBack() {
     if (selectedImage) {
-        saveState(); // Save state before making changes
+        saveState();
         auto it = std::find(images.begin(), images.end(), *selectedImage);
         if (it != images.end() && it != images.begin()) {
             std::rotate(images.begin(), it, it + 1);
@@ -1083,7 +1061,7 @@ void MyOpenGLWidget::toggleCropMode(bool enabled) {
         if (selectedImage) {
             selectedImage->enableBoundingBox();
             if (cropBox != selectedImage->boundingBox) {
-                saveState(); // Save state before making changes
+                saveState();
                 selectedImage->image = selectedImage->image.copy(cropBox.translated(-selectedImage->boundingBox.topLeft()));
                 selectedImage->boundingBox.setSize(cropBox.size());
             }
@@ -1416,7 +1394,7 @@ void MyOpenGLWidget::confirmInpaint() {
     pythonProcess->write(data);
     pythonProcess->closeWriteChannel();
 
-    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines, due to float32 operations instead of float16. Mac M1 took roughly 20-30 seconds for a 512x512 image using FP32. ***";
+    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines or lack of GPU support. ***";
 
     if (!pythonProcess->waitForFinished(60000*5)) {
         qDebug() << "Python process did not finish within the expected time.";
@@ -1603,7 +1581,7 @@ void MyOpenGLWidget::confirmSnipe() {
     connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
     connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
 
-    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");  // Adjust path as needed
+    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
 
     QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
     QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
@@ -1638,8 +1616,6 @@ void MyOpenGLWidget::confirmSnipe() {
 
 void MyOpenGLWidget::handleSnipeResult() {
     if (!selectedImage) return;
-
-    // Three files we need to convert to QImages: image_hole.txt, image_object.txt, image_with_mask.txt
 
     std::ifstream fileHole((projectRoot + "/resources/scripts/inference/image_hole.txt").toStdString(), std::ios::binary);
     if (!fileHole.is_open()) {
@@ -1692,11 +1668,6 @@ void MyOpenGLWidget::handleSnipeResult() {
     QImage imageHoleQImage = imageHole.toImage();
     QImage imageObjectQImage = imageObject.toImage();
     QImage imageWithMaskQImage = imageWithMask.toImage();
-
-    // Scale
-    // scaleImage(imageHoleQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-    // scaleImage(imageObjectQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-    // scaleImage(imageWithMaskQImage, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
 
     // Store the original image before replacing it with the mask image
     QImage originalImage = selectedImage->image;
@@ -1843,7 +1814,7 @@ void MyOpenGLWidget::toggleDepthRemovalMode(bool enabled) {
     if (enabled) {
         setCursor(Qt::CrossCursor);
         if (selectedImage) {
-            originalImage = selectedImage->image;  // Save the original image
+            originalImage = selectedImage->image;
         }
     } else {
         setCursor(Qt::ArrowCursor);
@@ -2085,7 +2056,7 @@ void MyOpenGLWidget::clearSelection() {
     toggleSnipeMode(false);
     toggleDepthRemovalMode(false);
 
-    // Untoggle toolbar buttons without emitting signals
+    // Untoggle toolbar buttons
     if (toolbar) {
         toolbar->setUntoggledActions();
     }
@@ -2126,7 +2097,6 @@ void MyOpenGLWidget::selectImagesInBox(const QRect& box) {
 void MyOpenGLWidget::mergeSelectedImages() {
     if (selectedImages.size() < 2) return;
 
-    // Save the current state before making changes
     saveState();
 
     // Compute the bounding box that encompasses all selected images
@@ -2167,7 +2137,6 @@ void MyOpenGLWidget::mergeSelectedImages() {
 
     selectedImage->originalImage = selectedImage->image;
 
-    // Update the widget to reflect the changes
     update();
 }
 

@@ -3,7 +3,6 @@
 #include <QToolBar>
 #include <QDir>
 
-// Constructor: Initialize the toolbar and its actions
 ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QHBoxLayout* layout = new QHBoxLayout(this);
 
@@ -106,25 +105,21 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     setLayout(layout);
 }
 
-// Slot for handling rotate button click
 void ImageToolbar::onRotateButtonClicked() {
     bool toggled = rotateAction->isChecked();
-    emit toggleRotationMode(toggled);  // Emit a signal indicating the rotate mode status
+    emit toggleRotationMode(toggled);
 }
 
-// Slot for handling the eraser button click
 void ImageToolbar::onEraserButtonClicked() {
     bool toggled = eraserAction->isChecked();
-    emit toggleEraser(toggled);  // Emit a signal indicating the eraser mode status
+    emit toggleEraser(toggled);
 }
 
-// Slot to handle crop button click
 void ImageToolbar::onCropButtonClicked() {
     bool toggled = cropAction->isChecked();
-    emit toggleCropMode(toggled);  // Emit a signal indicating the crop mode status
+    emit toggleCropMode(toggled);
 }
 
-// Slot to handle inpaint button click
 void ImageToolbar::onInpaintButtonClicked() {
     bool toggled = inpaintAction->isChecked();
     emit toggleInpaintMode(toggled);
@@ -136,7 +131,7 @@ void ImageToolbar::checkInpaintAction(bool checked) {
 
 void ImageToolbar::onSnipeButtonClicked() {
     bool toggled = snipeAction->isChecked();
-    emit toggleSnipeMode(toggled);  // Add this slot
+    emit toggleSnipeMode(toggled);
 }
 
 void ImageToolbar::onDepthRemovalButtonClicked() {
@@ -145,7 +140,7 @@ void ImageToolbar::onDepthRemovalButtonClicked() {
 }
 
 void ImageToolbar::onMergeButtonClicked() {
-    emit mergeImages(); // Emit a signal indicating merge action
+    emit mergeImages();
 }
 
 void ImageToolbar::setMergeActionVisible(bool visible) {
