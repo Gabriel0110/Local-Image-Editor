@@ -5,7 +5,7 @@ Local Image Editor is a powerful desktop application that provides advanced imag
 ## Features
 
 - **Image Editing**: Crop, rotate, and adjust images with ease.
-- **Inpainting**: Fill in missing parts of images using AI models.
+- **Inpainting**: Fill in missing parts of images or add new details using AI models.
 - **Depth-Wise & One-Shot Background Removal**: Remove backgrounds based on depth information or simple one-shot removal.
 - **Image Segmentation**: AI object segmentation with positive and negative point prompting.
 
@@ -138,7 +138,7 @@ Below are known bugs/issues/oddities that are in the pipeline to eventually be f
 ```plaintext
 - If you snipe on an image that already has transparency to it, the image with a hole replaces the transparency with black
 - Same as above, if you inpaint on an image that already has a transparency (test via sniping then do inpaint), it will replace the transparency with black.
-- Inpainting is returning an image with insanely worse quality and blemishes
+- **INPAINTING BUGGED (high prio fix)**: Inpainting is returning an image with insanely worse quality and blemishes and doesn't seem to be working correctly.
 - When rotating, the image slowly moves upward to the left
 - When multi-selecting via clicking (ctrl/cmd clicking), if they images are layered on top of each other, there is some incorrect interactions - they do not get properly selected as they should and like they do with multi-select via selection box
 - If you have images stacked, and you push one to front/back then click a different stacked image, it will multi-select them
