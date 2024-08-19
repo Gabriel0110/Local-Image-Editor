@@ -34,8 +34,8 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
         device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
         pipe = AutoPipelineForInpainting.from_pretrained(
             model_path,
-            torch_dtype=torch.float32,
-            variant="fp32",
+            torch_dtype=torch.float32 if device == "cpu" or device == "mps" else torch.float16,
+            variant="fp32" if device == "cpu" or device == "mps" else "fp16",
             safety_checker=None,
         ).to(device)
 

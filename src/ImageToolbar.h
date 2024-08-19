@@ -16,6 +16,7 @@ public:
     explicit ImageToolbar(QWidget* parent = nullptr);
     void checkInpaintAction(bool checked);  // Method to enable/disable inpaint action
     void setMergeActionVisible(bool visible); // Method to set merge action visibility
+    void setUntoggledActions();  // Method to untoggle all actions without emitting signals
 
 signals:
     void toggleRotationMode(bool enabled);  // Signal to toggle rotation mode
@@ -35,6 +36,12 @@ signals:
     void mergeImages(); // Signal to merge images
 
 private:
+    QAction* mirrorAction;
+    QAction* copyAction;
+    QAction* deleteAction;
+    QAction* saveAction;
+    QAction* bringToFrontAction;
+    QAction* pushToBackAction;
     QAction* rotateAction;
     QAction* eraserAction;
     QAction* cropAction;
@@ -42,6 +49,7 @@ private:
     QSlider* eraserSizeSlider;
     QAction* snipeAction;
     QAction* depthRemovalAction;
+    QAction* oneshotRemovalAction;
     QAction* mergeAction; // Merge action
 
 private slots:

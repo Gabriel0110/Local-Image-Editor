@@ -22,32 +22,32 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     QString iconPath = QDir::currentPath() + "/resources/images/icons/";
 
     // Icon Attribution: https://www.flaticon.com/free-icons/rotate title="rotate icons" Rotate icons created by adriansyah - Flaticon
-    QAction* rotateAction = toolbar->addAction(QIcon(iconPath + "rotate.png"), "Rotate");
+    rotateAction = toolbar->addAction(QIcon(iconPath + "rotate.png"), "Rotate");
     rotateAction->setToolTip("Rotate");
     rotateAction->setCheckable(true);
 
     // Icon Attribution: https://www.flaticon.com/free-icons/flip title="flip icons" Flip icons created by Freepik - Flaticon
-    QAction* mirrorAction = toolbar->addAction(QIcon(iconPath + "flip.png"), "Mirror");
+    mirrorAction = toolbar->addAction(QIcon(iconPath + "flip.png"), "Mirror");
     mirrorAction->setToolTip("Mirror");
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/photo" title="photo icons" Photo icons created by Freepik - Flaticon
-    QAction* copyAction = toolbar->addAction(QIcon(iconPath + "copy.png"), "Copy");
+    copyAction = toolbar->addAction(QIcon(iconPath + "copy.png"), "Copy");
     copyAction->setToolTip("Copy");
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/edit-tools" title="edit tools icons" Edit tools icons created by srip - Flaticon
-    QAction* deleteAction = toolbar->addAction(QIcon(iconPath + "delete.png"), "Delete");
+    deleteAction = toolbar->addAction(QIcon(iconPath + "delete.png"), "Delete");
     deleteAction->setToolTip("Delete");
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/save" title="save icons" Save icons created by Bharat Icons - Flaticon
-    QAction* saveAction = toolbar->addAction(QIcon(iconPath + "save.png"), "Save");
+    saveAction = toolbar->addAction(QIcon(iconPath + "save.png"), "Save");
     saveAction->setToolTip("Save");
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/bring" title="bring icons" Bring icons created by Icon Mela - Flaticon
-    QAction* bringToFrontAction = toolbar->addAction(QIcon(iconPath + "bring-to-front.png"), "Bring to Front");
+    bringToFrontAction = toolbar->addAction(QIcon(iconPath + "bring-to-front.png"), "Bring to Front");
     bringToFrontAction->setToolTip("Bring to Front");
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/higher" title="higher icons" Higher icons created by icon wind - Flaticon
-    QAction* pushToBackAction = toolbar->addAction(QIcon(iconPath + "push-to-back.png"), "Push to Back");
+    pushToBackAction = toolbar->addAction(QIcon(iconPath + "push-to-back.png"), "Push to Back");
     pushToBackAction->setToolTip("Push to Back");
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/design-tools" title="design tools icons" Design tools icons created by Culmbio - Flaticon
@@ -67,6 +67,7 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/gun" title="gun icons" Gun icons created by photo3idea_studio - Flaticon
     snipeAction = toolbar->addAction(QIcon(iconPath + "snipe.png"), "Snipe (Segment)");
+    snipeAction->setToolTip("Snipe (Segment)");
     snipeAction->setCheckable(true);
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/depth-perception" title="depth perception icons" Depth perception icons created by Freepik - Flaticon
@@ -75,7 +76,7 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     depthRemovalAction->setCheckable(true);
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/remove-user" title="remove user icons" Remove user icons created by Tempo_doloe - Flaticon
-    QAction* oneshotRemovalAction = toolbar->addAction(QIcon(iconPath + "oneshot-background-removal.png"), "Oneshot Background Removal"); // Add oneshot removal button
+    oneshotRemovalAction = toolbar->addAction(QIcon(iconPath + "oneshot-background-removal.png"), "Oneshot Background Removal"); // Add oneshot removal button
     oneshotRemovalAction->setToolTip("Oneshot Background Removal");
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/consolidate" title="consolidate icons" Consolidate icons created by Freepik - Flaticon
@@ -148,3 +149,31 @@ void ImageToolbar::onMergeButtonClicked() {
 void ImageToolbar::setMergeActionVisible(bool visible) {
     mergeAction->setVisible(visible);
 }
+
+void ImageToolbar::setUntoggledActions() {
+    if (rotateAction) {
+        rotateAction->setChecked(false);
+    }
+
+    if (eraserAction) {
+        eraserAction->setChecked(false);
+    }
+
+    if (cropAction) {
+        cropAction->setChecked(false);
+    }
+
+    if (inpaintAction) {
+        inpaintAction->setChecked(false);
+    }
+
+    if (snipeAction) {
+        snipeAction->setChecked(false);
+    }
+
+    if (depthRemovalAction) {
+        depthRemovalAction->setChecked(false);
+    }
+}
+
+

@@ -631,7 +631,8 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
             //     }
             // }
 
-            if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode && !depthRemovalMode && !rotationMode) {
+            // if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode && !depthRemovalMode && !rotationMode) {
+            if (!imageClicked) {
                 // Check if click is inside combined bounding box of selected images
                 QRect combinedBoundingBox = computeBoundingBoxForSelectedImages();
                 if (combinedBoundingBox.contains(pos)) {
@@ -2078,6 +2079,11 @@ void MyOpenGLWidget::clearSelection() {
     toggleSnipeMode(false);
     toggleDepthRemovalMode(false);
 
+    // Untoggle toolbar buttons without emitting signals
+    if (toolbar) {
+        toolbar->setUntoggledActions();
+    }
+
     // Clear the selection of all images
     for (auto& img : images) {
         img.isSelected = false;
@@ -2085,18 +2091,9 @@ void MyOpenGLWidget::clearSelection() {
     }
     selectedImages.clear();
     selectedImage = nullptr;
-    
-    // Hide any UI elements associated with active modes (like sliders)
-    toolbar->setVisible(false);
-    rotationSlider->setVisible(false);
-    eraserSizeSlider->setVisible(false);
-    depthRemovalSlider->setVisible(false);
-    inpaintPopup->setVisible(false);
-    snipePopup->setVisible(false);
-    
+
     update();
 }
-
 
 void MyOpenGLWidget::selectImagesInBox(const QRect& box) {
     selectedImages.clear();
