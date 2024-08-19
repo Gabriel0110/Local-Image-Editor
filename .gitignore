@@ -1,5 +1,6 @@
 .vscode
 **/*.log
+**/resources/*.DS_Store
 **/resources/models/
 **/resources/scripts/inference/*.png
 **/resources/scripts/inference/*.log
