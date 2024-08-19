@@ -14,8 +14,9 @@ Local Image Editor is a powerful desktop application that provides advanced imag
 - ~~** Add AI Image Generator**~~ (DONE - OpenAI Dall-E 3 API, requires API key)
 - **Replace EdgeSAM with SAM2** (possibly, depending on performance improvement)
 - **Implement SkalskiP's Florence2 + SAM2 open-vocabulary and captioned image segmentation**
-- **Replace Stable Diffusion Inpainting with FLUX Inpainting** (possibly, TBD)
+- **Replace Stable Diffusion Inpainting with FLUX Inpainting** (possibly, TBD - FLUX is computationally expensive)
 - **Implement an AI image enhancer** (possibly https://huggingface.co/spaces/finegrain/finegrain-image-enhancer)
+- **Add dynamic support/option for CUDA-enabled Torch installation**
 
 ## Project Structure
 
@@ -24,8 +25,8 @@ Local-Image-Editor/
 ├── resources/
 │   ├── images/
 │   ├── models/
-│   │   ├── EdgeSAM/
-│   │   └── stable-diffusion-inpainting/
+│   │   ├── EdgeSAM/ **(BEWARE: THIS IS DOWNLOADED AND INSTALLED DURING THE BUILD)**
+│   │   └── stable-diffusion-inpainting/ **(BEWARE: THIS IS DOWNLOADED DURING THE BUILD)**
 │   └── scripts/
 │       ├── requirements.txt
 │       └── inference/
@@ -141,7 +142,7 @@ Below are known bugs/issues/oddities that are in the pipeline to eventually be f
 - When rotating, the image slowly moves upward to the left
 - When multi-selecting via clicking (ctrl/cmd clicking), if they images are layered on top of each other, there is some incorrect interactions - they do not get properly selected as they should and like they do with multi-select via selection box
 - If you have images stacked, and you push one to front/back then click a different stacked image, it will multi-select them
-- When merging, it merges based on the order in which the images are selected in multi-select, but it should be based on the layer order of the images (multi-select via box selection works fine)
+- ~~When merging, it merges based on the order in which the images are selected in multi-select, but it should be based on the layer order of the images (multi-select via box selection works fine)~~
 - Any tool that has additional UI that appears: if the image is too big, or the location of where the additional UI appears is off the screen, you can't see it or use it, and you have to cancel and then move the image to where you'll be able to see it, then re-do it.
 ```
 

@@ -1394,7 +1394,7 @@ void MyOpenGLWidget::confirmInpaint() {
     pythonProcess->write(data);
     pythonProcess->closeWriteChannel();
 
-    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines or lack of GPU support. ***";
+    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines or lack of GPU support. E.g. on an Nvidia 2070 (very old card), it takes roughly 20-30 seconds to load the model pipeline and another 60 seconds to do 4-step inference. ***";
 
     if (!pythonProcess->waitForFinished(60000*5)) {
         qDebug() << "Python process did not finish within the expected time.";

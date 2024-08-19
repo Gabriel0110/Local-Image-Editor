@@ -53,13 +53,13 @@ else()
     set(VENV_PYTHON "${CMAKE_SOURCE_DIR}/${VENV_NAME}/bin/python")
 endif()
 
-# Install main Python dependencies, with force-reinstall to resolve conflicts
+# Install main Python dependencies
 add_custom_target(install_main_python_deps
     COMMAND ${VENV_PYTHON} -m pip install --upgrade pip
     COMMAND ${VENV_PYTHON} -m pip install -r ${CMAKE_SOURCE_DIR}/resources/scripts/requirements.txt
 )
 
-# Step 1: Always define the clone_edgesam target
+# Always define the clone_edgesam target
 add_custom_target(clone_edgesam
     COMMAND ${CMAKE_COMMAND} -E echo "Cloning EdgeSAM repository..."
 )
@@ -74,7 +74,7 @@ else()
     message(STATUS "EdgeSAM repository already exists. Skipping clone.")
 endif()
 
-# Step 2: Define the weights download target
+# Define the weights download target
 add_custom_target(download_edgesam_weights
     COMMAND ${CMAKE_COMMAND} -E echo "Downloading EdgeSAM weights..."
 )
@@ -99,7 +99,7 @@ endif()
 # Ensure the weights are downloaded only after the clone_edgesam target has been built
 add_dependencies(download_edgesam_weights clone_edgesam)
 
-# Step 3: Install EdgeSAM dependencies if the repo exists
+# Install EdgeSAM dependencies if the repo exists
 add_custom_target(install_edgesam_deps
     COMMAND ${CMAKE_COMMAND} -E echo "Installing EdgeSAM dependencies..."
     COMMAND ${VENV_PYTHON} -m pip install -e ${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM
