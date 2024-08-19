@@ -374,11 +374,16 @@ void MyOpenGLWidget::paintGL() {
     if (shapeMenu->isVisible()) {
         shapeMenu->move(addShapeButton->pos() + QPoint(0, addShapeButton->height()));
     }
+
+    // Ensure generateAIImageButton and generateAIPopup are always at the top right
+    generateAIImageButton->move(addShapeButton->x() - 10, 10);
+    if (generateAIPopup->isVisible()) {
+        generateAIPopup->move(generateAIImageButton->pos() + QPoint(0, generateAIImageButton->height()));
+    }
 }
 
-
 void MyOpenGLWidget::dragEnterEvent(QDragEnterEvent* event) {
-    qDebug() << "Drag entered with MIME types:" << event->mimeData()->formats();
+    //qDebug() << "Drag entered with MIME types:" << event->mimeData()->formats();
     if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
     }
@@ -766,16 +771,16 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
     QClipboard* clipboard = QApplication::clipboard();
     const QMimeData* mimeData = clipboard->mimeData();
 
-    qDebug() << "Available MIME types in clipboard:" << mimeData->formats();
+    //qDebug() << "Available MIME types in clipboard:" << mimeData->formats();
 
     if (mimeData->hasUrls()) {
         QList<QUrl> urlList = mimeData->urls();
-        qDebug() << "Clipboard contains URLs:" << urlList;
+        //qDebug() << "Clipboard contains URLs:" << urlList;
         for (const QUrl &url : urlList) {
             if (url.isLocalFile()) {
                 QImage image(url.toLocalFile());
                 if (!image.isNull()) {
-                    qDebug() << "Loading image from URL:" << url.toLocalFile();
+                    //qDebug() << "Loading image from URL:" << url.toLocalFile();
                     saveState(); // Save state before making changes
                     scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
                     images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
@@ -792,7 +797,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
         QByteArray imageData = mimeData->data("application/x-qt-image");
         QImage image = QImage::fromData(imageData);
         if (!image.isNull()) {
-            qDebug() << "Clipboard contains application/x-qt-image and successfully retrieved the image";
+            //qDebug() << "Clipboard contains application/x-qt-image and successfully retrieved the image";
             saveState(); // Save state before making changes
             scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
             images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
@@ -806,7 +811,7 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
     if (mimeData->hasImage()) {
         QImage image = qvariant_cast<QImage>(mimeData->imageData());
         if (!image.isNull()) {
-            qDebug() << "Clipboard contains valid image data";
+            //qDebug() << "Clipboard contains valid image data";
             saveState(); // Save state before making changes
             scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
             images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
@@ -819,12 +824,12 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
 
     if (mimeData->hasFormat("text/uri-list")) {
         QList<QUrl> urlList = mimeData->urls();
-        qDebug() << "Clipboard contains text/uri-list URLs:" << urlList;
+        //qDebug() << "Clipboard contains text/uri-list URLs:" << urlList;
         for (const QUrl &url : urlList) {
             if (url.isLocalFile()) {
                 QImage image(url.toLocalFile());
                 if (!image.isNull()) {
-                    qDebug() << "Loading image from URL:" << url.toLocalFile();
+                    //qDebug() << "Loading image from URL:" << url.toLocalFile();
                     saveState(); // Save state before making changes
                     scaleImage(image, MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT); // Scale the image to default smaller size
                     images.emplace_back(image, QPoint(width() / 2, height() / 2)); // Paste image at the center
@@ -2073,6 +2078,7 @@ QRect MyOpenGLWidget::computeBoundingBoxForSelectedImages() {
 
 void MyOpenGLWidget::clearSelection() {
     // Disable any active modes before clearing selection
+    toggleCropMode(false);
     toggleRotationMode(false);
     toggleEraserMode(false);
     toggleInpaintMode(false);
