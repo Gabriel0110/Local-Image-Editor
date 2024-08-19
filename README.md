@@ -132,7 +132,7 @@ pip install -r build/EdgeSAM/requirements.txt
 
 ## Bugs/Issues/Oddities
 Below are known bugs/issues/oddities that are in the pipeline to eventually be fixed or improved.
-```bash
+```plaintext
 - If you snipe on an image that already has transparency to it, the image with a hole replaces the transparency with black
 - Same as above, if you inpaint on an image that already has a transparency (test via sniping then do inpaint), it will replace the transparency with black.
 - Inpainting is returning an image with insanely worse quality and blemishes
