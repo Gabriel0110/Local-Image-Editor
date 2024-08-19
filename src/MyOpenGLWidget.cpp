@@ -376,7 +376,7 @@ void MyOpenGLWidget::paintGL() {
     }
 
     // Ensure generateAIImageButton and generateAIPopup are always at the top right
-    generateAIImageButton->move(addShapeButton->x() - 10, 10);
+    generateAIImageButton->move(addShapeButton->x() - 200, 10);
     if (generateAIPopup->isVisible()) {
         generateAIPopup->move(generateAIImageButton->pos() + QPoint(0, generateAIImageButton->height()));
     }
@@ -2134,19 +2134,25 @@ void MyOpenGLWidget::mergeSelectedImages() {
     QImage mergedImage(boundingBox.size(), QImage::Format_ARGB32);
     mergedImage.fill(Qt::transparent);
 
+    // Sort selected images based on their order in the `images` list, which represents layer order
+    std::vector<ImageObject*> sortedSelectedImages = selectedImages;
+    std::sort(sortedSelectedImages.begin(), sortedSelectedImages.end(), [&](ImageObject* a, ImageObject* b) {
+        return std::find(images.begin(), images.end(), *a) < std::find(images.begin(), images.end(), *b);
+    });
+
     // Draw the selected images onto the merged image, adjusted to their relative positions
     QPainter painter(&mergedImage);
-    for (auto& img : selectedImages) {
+    for (auto& img : sortedSelectedImages) {
         QRect targetRect = img->boundingBox.translated(-boundingBox.topLeft());
         painter.drawImage(targetRect, img->image);
     }
 
     // Create a new ImageObject for the merged image
-    ImageObject newMergedImage(mergedImage, boundingBox.topLeft() + QPoint(boundingBox.width()/2, boundingBox.height()/2));
+    ImageObject newMergedImage(mergedImage, boundingBox.topLeft() + QPoint(boundingBox.width() / 2, boundingBox.height() / 2));
 
     // Remove the selected images from the images list
     for (auto it = images.begin(); it != images.end(); ) {
-        if (std::find(selectedImages.begin(), selectedImages.end(), &(*it)) != selectedImages.end()) {
+        if (std::find(sortedSelectedImages.begin(), sortedSelectedImages.end(), &(*it)) != sortedSelectedImages.end()) {
             it = images.erase(it);
         } else {
             ++it;
@@ -2164,3 +2170,4 @@ void MyOpenGLWidget::mergeSelectedImages() {
     // Update the widget to reflect the changes
     update();
 }
+

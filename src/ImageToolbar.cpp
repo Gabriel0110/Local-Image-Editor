@@ -18,6 +18,8 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     );
     toolbar->setIconSize(QSize(24, 24));  // Set a consistent icon size
     toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);  // Display only the icon
+    toolbar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);  // Allow horizontal expansion
+    toolbar->setMinimumWidth(400);  // Set a minimum width for the toolbar
 
     QString iconPath = QDir::currentPath() + "/resources/images/icons/";
 
