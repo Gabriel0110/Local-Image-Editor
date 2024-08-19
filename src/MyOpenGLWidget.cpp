@@ -2071,12 +2071,29 @@ QRect MyOpenGLWidget::computeBoundingBoxForSelectedImages() {
 }
 
 void MyOpenGLWidget::clearSelection() {
+    // Disable any active modes before clearing selection
+    toggleRotationMode(false);
+    toggleEraserMode(false);
+    toggleInpaintMode(false);
+    toggleSnipeMode(false);
+    toggleDepthRemovalMode(false);
+
+    // Clear the selection of all images
     for (auto& img : images) {
         img.isSelected = false;
         img.enableBoundingBox();
     }
     selectedImages.clear();
     selectedImage = nullptr;
+    
+    // Hide any UI elements associated with active modes (like sliders)
+    toolbar->setVisible(false);
+    rotationSlider->setVisible(false);
+    eraserSizeSlider->setVisible(false);
+    depthRemovalSlider->setVisible(false);
+    inpaintPopup->setVisible(false);
+    snipePopup->setVisible(false);
+    
     update();
 }
 
