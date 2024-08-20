@@ -32,10 +32,6 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
         if mask_image.mode == "RGBA":
             mask_image = mask_image.convert("RGB")
 
-        # Save the images locally
-        init_image.save("init_image.png")
-        mask_image.save("mask_image.png")
-
         # Load the inpainting pipeline
         model_path = os.path.join(os.path.dirname(__file__), '../../models/stable-diffusion-2-inpainting')
         
