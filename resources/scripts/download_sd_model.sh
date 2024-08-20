@@ -1,3 +1,5 @@
 #!/bin/bash
 
-"$1" -c "import torch; from diffusers import AutoPipelineForInpainting; device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"; model = AutoPipelineForInpainting.from_pretrained('runwayml/stable-diffusion-inpainting', torch_dtype=torch.float32 if device == "cpu" or device == "mps" else torch.float16, variant="fp32" if device == "cpu" or device == "mps" else "fp16"); model.save_pretrained('$2')"
+#"$1" -c "import torch; from diffusers import AutoPipelineForInpainting; device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"; model = AutoPipelineForInpainting.from_pretrained('runwayml/stable-diffusion-inpainting', torch_dtype=torch.float32 if device == "cpu" or device == "mps" else torch.float16, variant="fp32" if device == "cpu" or device == "mps" else "fp16"); model.save_pretrained('$2')"
+
+"$1" -c "import torch; from diffusers import StableDiffusionInpaintPipeline; device = 'cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'; model = StableDiffusionInpaintPipeline.from_pretrained('stabilityai/stable-diffusion-2-inpainting', torch_dtype=torch.float32 if device == 'cpu' or device == 'mps' else torch.float16, variant='fp32' if device == 'cpu' or device == 'mps' else 'fp16'); model.save_pretrained('$2')"

@@ -8,6 +8,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/Release)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/Debug)
+
 if (MSVC)
     add_compile_options(/Zc:__cplusplus /permissive-)
 endif()
@@ -112,10 +115,10 @@ add_custom_target(save_stable_diffusion_model
     COMMENT "Checking for Stable Diffusion model"
 )
 
-if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/stable-diffusion-inpainting")
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/stable-diffusion-2-inpainting")
     # Define the paths dynamically
     set(SCRIPT_PATH "${CMAKE_SOURCE_DIR}/resources/scripts/download_sd_model.sh")
-    set(SD_MODEL_SAVE_DIR "${CMAKE_SOURCE_DIR}/resources/models/stable-diffusion-inpainting")
+    set(SD_MODEL_SAVE_DIR "${CMAKE_SOURCE_DIR}/resources/models/stable-diffusion-2-inpainting")
 
     add_custom_command(TARGET save_stable_diffusion_model POST_BUILD
         COMMAND /bin/bash ${SCRIPT_PATH} ${VENV_PYTHON} ${SD_MODEL_SAVE_DIR}

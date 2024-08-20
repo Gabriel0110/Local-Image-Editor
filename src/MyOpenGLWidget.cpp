@@ -29,6 +29,12 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
 
     projectRoot = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath("../..");
 
+    #if defined(Q_OS_WIN)
+        pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
+    #else
+        pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/bin/python3");
+    #endif
+
     // Ensure the project root directory is "Local-Image-Editor"
     if (!QDir(projectRoot).exists()) {
         QMessageBox::critical(nullptr, "Error", "The application must be run from the 'Local-Image-Editor' project root directory. Project root: " + projectRoot);
@@ -87,7 +93,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
 
     QLabel* numInferenceStepsLabel = new QLabel("Inference Steps:", inpaintPopup);
     numInferenceStepsTextBox = new QLineEdit(inpaintPopup);
-    numInferenceStepsTextBox->setPlaceholderText("Default: 4");
+    numInferenceStepsTextBox->setPlaceholderText("Default: 25");
 
     QLabel* guidanceScaleLabel = new QLabel("Guidance Scale:", inpaintPopup);
     guidanceScaleTextBox = new QLineEdit(inpaintPopup);
@@ -1159,7 +1165,6 @@ void MyOpenGLWidget::confirmGenerateAIImage() {
     connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
     connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
 
-    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
     QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
 
     if (!QDir(scriptDir).exists()) {
@@ -1359,7 +1364,7 @@ void MyOpenGLWidget::confirmInpaint() {
     QString maskBase64 = maskByteArray.toBase64();
 
     QString promptText = inpaintTextBox->text();
-    QString numInferenceSteps = numInferenceStepsTextBox->text().isEmpty() ? "4" : numInferenceStepsTextBox->text();
+    QString numInferenceSteps = numInferenceStepsTextBox->text().isEmpty() ? "25" : numInferenceStepsTextBox->text();
     QString guidanceScale = guidanceScaleTextBox->text().isEmpty() ? "4" : guidanceScaleTextBox->text();
 
     // Disable UI elements and show progress dialog
@@ -1383,9 +1388,7 @@ void MyOpenGLWidget::confirmInpaint() {
     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleInpaintResult);
     connect(pythonProcess, &QProcess::errorOccurred, this, &MyOpenGLWidget::handleProcessError);
     connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
-    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonOutput);
-
-    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
+    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
 
     QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
     QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
@@ -1597,8 +1600,6 @@ void MyOpenGLWidget::confirmSnipe() {
     connect(pythonProcess, &QProcess::errorOccurred, this, &MyOpenGLWidget::handleProcessError);
     connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
     connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
-
-    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
 
     QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
     QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
@@ -1951,8 +1952,6 @@ void MyOpenGLWidget::oneshotRemoval() {
     connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
     connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleOneshotRemovalResult);
-
-    QString pythonExecutable = QDir(projectRoot).absoluteFilePath("local-image-editor-venv/Scripts/python.exe");
 
     QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
     QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");

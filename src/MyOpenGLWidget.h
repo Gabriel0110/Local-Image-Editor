@@ -28,6 +28,7 @@ class MyOpenGLWidget : public QOpenGLWidget {
 
 private:
     QString projectRoot;  // Root directory of the project
+    QString pythonExecutable;  // Path to the Python executable
 
     const int MAX_IMAGE_WIDTH = 512;
     const int MAX_IMAGE_HEIGHT = 512;
