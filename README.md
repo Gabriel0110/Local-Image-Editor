@@ -139,9 +139,6 @@ build\local-image-editor-venv\Scripts\activate  # On Windows
 
 # Install the main requirements
 pip install -r resources/scripts/requirements.txt
-
-# Install EdgeSAM requirements
-pip install -r build/EdgeSAM/requirements.txt
 ```
 
 ## Bugs/Issues/Oddities
