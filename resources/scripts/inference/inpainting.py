@@ -12,7 +12,7 @@ import os
 filename = os.path.join(os.path.dirname(__file__), "inpainting.log")
 logging.basicConfig(filename=filename, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly edited and blended image, masterful photoshop job", num_inference_steps=25, guidance_scale=4.0):
+def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly edited and blended image, masterful photoshop job", num_inference_steps=25, guidance_scale=7.0, strength=0.6):
     try:
         # Decode the base64 images
         init_image_data = base64.b64decode(init_image_base64)
@@ -38,7 +38,7 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
         device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
         pipe = StableDiffusionInpaintPipeline.from_pretrained(
             model_path,
-            torch_dtype=torch.float32 if device == "cpu" or device == "mps" else torch.float16,
+            torch_dtype=torch.float32 if device in ["cpu", "mps"] else torch.float16,
             safety_checker=None
         ).to(device)
 
@@ -57,6 +57,7 @@ def process_images(init_image_base64, mask_image_base64, user_prompt="Seamlessly
             mask_image=mask_image,
             num_inference_steps=num_inference_steps,
             guidance_scale=guidance_scale,
+            strength=strength
         ).images[0]
 
         # Save the image locally
@@ -79,8 +80,9 @@ def main():
         init_image_base64 = json_data["init_image_base64"]
         mask_image_base64 = json_data["mask_image_base64"]
         user_prompt = json_data.get("user_prompt", "")
-        num_inference_steps = json_data.get("num_inference_steps", 4)
-        guidance_scale = json_data.get("guidance_scale", 4.0)
+        num_inference_steps = json_data.get("num_inference_steps", 25)
+        guidance_scale = json_data.get("guidance_scale", 7.0)
+        strength = json_data.get("strength", 0.6)
 
         result_base64 = process_images(init_image_base64, mask_image_base64, user_prompt, num_inference_steps, guidance_scale)
         

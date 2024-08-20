@@ -80,6 +80,7 @@ private:
     QSlider* inpaintBrushSizeSlider;
     QLineEdit* numInferenceStepsTextBox;
     QLineEdit* guidanceScaleTextBox;
+    QLineEdit* strengthTextBox;
 
     // Shape menu elements
     QDialog* shapeMenu;

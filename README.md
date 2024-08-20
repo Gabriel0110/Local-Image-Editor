@@ -137,7 +137,7 @@ pip install -r build/EdgeSAM/requirements.txt
 Below are known bugs/issues/oddities that are in the pipeline to eventually be fixed or improved.
 - If you snipe on an image that already has transparency to it, the image with a hole replaces the transparency with black
 - Same as above, if you inpaint on an image that already has a transparency (test via sniping then do inpaint), it will replace the transparency with black.
-- **INPAINTING BUGGED (high prio fix)**: Inpainting is returning an image with insanely worse quality and blemishes and doesn't seem to be working correctly.
+- **INPAINTING BUGGED**: Inpainting is returning an image with insanely worse quality and blemishes and doesn't seem to be working correctly. Maybe user error, heh.
 - When rotating, the image slowly moves upward to the left
 - When multi-selecting via clicking (ctrl/cmd clicking), if they images are layered on top of each other, there is some incorrect interactions - they do not get properly selected as they should and like they do with multi-select via selection box
 - If you have images stacked, and you push one to front/back then click a different stacked image, it will multi-select them

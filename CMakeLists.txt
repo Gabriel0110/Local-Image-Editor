@@ -111,19 +111,16 @@ add_custom_target(install_edgesam_deps
 
 # Always define the target, but conditionally run the command based on the model's existence
 add_custom_target(save_stable_diffusion_model
-    COMMAND ${CMAKE_COMMAND} -E echo "Stable Diffusion model already exists. Skipping download."
     COMMENT "Checking for Stable Diffusion model"
 )
 
 if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/stable-diffusion-2-inpainting")
-    # Define the paths dynamically
-    set(SCRIPT_PATH "${CMAKE_SOURCE_DIR}/resources/scripts/download_sd_model.sh")
-    set(SD_MODEL_SAVE_DIR "${CMAKE_SOURCE_DIR}/resources/models/stable-diffusion-2-inpainting")
-
     add_custom_command(TARGET save_stable_diffusion_model POST_BUILD
-        COMMAND /bin/bash ${SCRIPT_PATH} ${VENV_PYTHON} ${SD_MODEL_SAVE_DIR}
+        COMMAND ${VENV_PYTHON} ${CMAKE_SOURCE_DIR}/resources/scripts/download_sd_model.py ${VENV_PYTHON} ${CMAKE_SOURCE_DIR}/resources/models/stable-diffusion-2-inpainting
         DEPENDS install_main_python_deps install_edgesam_deps
     )
+else()
+    message(STATUS "Stable Diffusion model already exists. Skipping download.")
 endif()
 
 # Add executable

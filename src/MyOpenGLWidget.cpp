@@ -97,7 +97,11 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
 
     QLabel* guidanceScaleLabel = new QLabel("Guidance Scale:", inpaintPopup);
     guidanceScaleTextBox = new QLineEdit(inpaintPopup);
-    guidanceScaleTextBox->setPlaceholderText("Default: 4");
+    guidanceScaleTextBox->setPlaceholderText("Default: 7.0");
+
+    QLabel* strengthLabel = new QLabel("Strength:", inpaintPopup);
+    strengthTextBox = new QLineEdit(inpaintPopup);
+    strengthTextBox->setPlaceholderText("Default: 0.6");
 
     inpaintTextBox = new QLineEdit(inpaintPopup);
     confirmInpaintButton = new QPushButton("Confirm", inpaintPopup);
@@ -112,6 +116,8 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     inpaintLayout->addWidget(numInferenceStepsTextBox);
     inpaintLayout->addWidget(guidanceScaleLabel);
     inpaintLayout->addWidget(guidanceScaleTextBox);
+    inpaintLayout->addWidget(strengthLabel);
+    inpaintLayout->addWidget(strengthTextBox);
     inpaintLayout->addWidget(confirmInpaintButton);
     inpaintLayout->addWidget(cancelInpaintButton);
     inpaintLayout->addWidget(inpaintBrushSizeSlider);
@@ -1369,7 +1375,8 @@ void MyOpenGLWidget::confirmInpaint() {
 
     QString promptText = inpaintTextBox->text();
     QString numInferenceSteps = numInferenceStepsTextBox->text().isEmpty() ? "25" : numInferenceStepsTextBox->text();
-    QString guidanceScale = guidanceScaleTextBox->text().isEmpty() ? "4" : guidanceScaleTextBox->text();
+    QString guidanceScale = guidanceScaleTextBox->text().isEmpty() ? "7.0" : guidanceScaleTextBox->text();
+    QString strength = strengthTextBox->text().isEmpty() ? "0.6" : strengthTextBox->text();
 
     // Disable UI elements and show progress dialog
     inpaintPopup->setVisible(false);
@@ -1384,6 +1391,7 @@ void MyOpenGLWidget::confirmInpaint() {
     json["user_prompt"] = promptText;
     json["num_inference_steps"] = numInferenceSteps.toInt();
     json["guidance_scale"] = guidanceScale.toFloat();
+    json["strength"] = strength.toFloat();
 
     QJsonDocument doc(json);
     QByteArray data = doc.toJson(QJsonDocument::Compact);
@@ -1418,7 +1426,7 @@ void MyOpenGLWidget::confirmInpaint() {
     pythonProcess->write(data);
     pythonProcess->closeWriteChannel();
 
-    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines or lack of GPU support. E.g., on an Nvidia 2070 (very old card), it takes roughly 20-30 seconds to load the model pipeline and another 60 seconds to do 4-step inference. ***";
+    qDebug() << "*** Inpainting can take a bit longer, especially on less powerful machines or lack of GPU support. E.g., on my old PC with an Nvidia 2070 (very old card), it takes roughly 20-30 seconds to load the model pipeline and another 60 seconds to do 4-step inference. ***";
 
     if (!pythonProcess->waitForFinished(60000*5)) {
         qDebug() << "Python process did not finish within the expected time.";
