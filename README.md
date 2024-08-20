@@ -1,6 +1,6 @@
 # Local Image Editor
 
-Local Image Editor is a powerful desktop application that provides advanced image editing capabilities (if desired - need the models locally). This project is based on Yacine's Dingboard (dingboard.com) - I like to call it Fingboard (Fake Dingboard).
+Local Image Editor is a desktop application that provides basic and advanced image editing capabilities. This project is based on Yacine's Dingboard (dingboard.com), just not as good, but local! I like to call it Fingboard (Fake Dingboard).
 
 ## Features
 
@@ -14,7 +14,7 @@ Local Image Editor is a powerful desktop application that provides advanced imag
 - ~~** Add AI Image Generator**~~ (DONE - OpenAI Dall-E 3 API, requires API key)
 - **Replace EdgeSAM with SAM2** (possibly, depending on performance improvement)
 - **Implement SkalskiP's Florence2 + SAM2 open-vocabulary and captioned image segmentation**
-- **Replace Stable Diffusion Inpainting with FLUX Inpainting** (possibly, TBD - FLUX is computationally expensive)
+- **Replace Stable Diffusion 2 Inpainting with FLUX Inpainting** (possibly, TBD - FLUX is computationally expensive)
 - **Implement an AI image enhancer** (possibly https://huggingface.co/spaces/finegrain/finegrain-image-enhancer)
 - **Add dynamic support/option for CUDA-enabled Torch installation**
 
