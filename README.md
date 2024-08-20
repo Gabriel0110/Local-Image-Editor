@@ -9,6 +9,17 @@ Local Image Editor is a desktop application that provides basic and advanced ima
 - **Depth-Wise & One-Shot Background Removal**: Remove backgrounds based on depth information or simple one-shot removal.
 - **Image Segmentation**: AI object segmentation with positive and negative point prompting.
 
+
+## Basic Example Showcases
+https://github.com/user-attachments/assets/5c5102d1-9c8b-4974-afa0-21c690334317
+
+https://github.com/user-attachments/assets/cf118e5e-79ff-4851-92a1-032844b9e353
+
+https://github.com/user-attachments/assets/9d9eb4e4-07e6-423c-aecc-46b179e37ee3
+
+https://github.com/user-attachments/assets/3f3211be-c6fc-4309-beb0-0ea0d3cacf46
+
+
 ## TO-DO
 - **GIF Editor (IN-PROGRESS: ~50%)**: Add text, images, and layers to GIFs.
 - ~~** Add AI Image Generator**~~ (DONE - OpenAI Dall-E 3 API, requires API key)
