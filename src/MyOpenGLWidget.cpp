@@ -252,15 +252,19 @@ void MyOpenGLWidget::paintGL() {
         toolbar->move(toolbarPos);
         toolbar->setVisible(true);
 
-        QPoint rotationSliderPos = combinedBoundingBox.bottomLeft() + scrollPosition + QPoint((combinedBoundingBox.width() - rotationSlider->width()) / 2, 10);
+        QPoint inpaintPopupPos = combinedBoundingBox.topLeft() + scrollPosition - QPoint(inpaintPopup->width() + 10, 0);
+        inpaintPopup->move(inpaintPopupPos);
+        inpaintPopup->setVisible(inpaintMode);
+
+        QPoint rotationSliderPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, 0);
         rotationSlider->move(rotationSliderPos);
         rotationSlider->setVisible(rotationMode);
 
-        QPoint eraserSliderPos = combinedBoundingBox.bottomLeft() + scrollPosition + QPoint((combinedBoundingBox.width() - eraserSizeSlider->width()) / 2, 10);
+        QPoint eraserSliderPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, eraserSizeSlider->height());
         eraserSizeSlider->move(eraserSliderPos);
         eraserSizeSlider->setVisible(eraserMode);
 
-        QPoint depthSliderPos = combinedBoundingBox.bottomLeft() + scrollPosition + QPoint((combinedBoundingBox.width() - depthRemovalSlider->width()) / 2, 10);
+        QPoint depthSliderPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, depthRemovalSlider->height() * 2);
         depthRemovalSlider->move(depthSliderPos);
         depthRemovalSlider->setVisible(depthRemovalMode);
 
@@ -302,11 +306,6 @@ void MyOpenGLWidget::paintGL() {
             snipePopup->setVisible(false);
         }
 
-        // Disable the bounding box for the selected images before drawing the combined bounding box
-        for (auto& img : selectedImages) {
-            img->disableBoundingBox();
-        }
-
         // Draw the combined bounding box around all selected images
         painter.setPen(QPen(Qt::magenta, 2, Qt::DashLine));
         painter.drawRect(combinedBoundingBox.translated(scrollPosition));
@@ -320,15 +319,19 @@ void MyOpenGLWidget::paintGL() {
         toolbar->move(toolbarPos);
         toolbar->setVisible(true);
 
-        QPoint rotationSliderPos = boundingBox.bottomLeft() + scrollPosition + QPoint((boundingBox.width() - rotationSlider->width()) / 2, 10);
+        QPoint inpaintPopupPos = boundingBox.topLeft() + scrollPosition - QPoint(inpaintPopup->width() + 10, 0);
+        inpaintPopup->move(inpaintPopupPos);
+        inpaintPopup->setVisible(inpaintMode);
+
+        QPoint rotationSliderPos = boundingBox.topRight() + scrollPosition + QPoint(10, 0);
         rotationSlider->move(rotationSliderPos);
         rotationSlider->setVisible(rotationMode);
 
-        QPoint eraserSliderPos = boundingBox.bottomLeft() + scrollPosition + QPoint((boundingBox.width() - eraserSizeSlider->width()) / 2, 10);
+        QPoint eraserSliderPos = boundingBox.topRight() + scrollPosition + QPoint(10, eraserSizeSlider->height());
         eraserSizeSlider->move(eraserSliderPos);
         eraserSizeSlider->setVisible(eraserMode);
 
-        QPoint depthSliderPos = boundingBox.bottomLeft() + scrollPosition + QPoint((boundingBox.width() - depthRemovalSlider->width()) / 2, 10);
+        QPoint depthSliderPos = boundingBox.topRight() + scrollPosition + QPoint(10, depthRemovalSlider->height() * 2);
         depthRemovalSlider->move(depthSliderPos);
         depthRemovalSlider->setVisible(depthRemovalMode);
 
@@ -400,6 +403,7 @@ void MyOpenGLWidget::paintGL() {
         generateAIPopup->move(generateAIImageButton->pos() + QPoint(0, generateAIImageButton->height()));
     }
 }
+
 
 void MyOpenGLWidget::dragEnterEvent(QDragEnterEvent* event) {
     //qDebug() << "Drag entered with MIME types:" << event->mimeData()->formats();
