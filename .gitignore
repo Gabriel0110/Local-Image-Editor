@@ -4,6 +4,7 @@
 **/resources/models/
 **/resources/scripts/inference/*.png
 **/resources/scripts/inference/*.log
+**/resources/scripts/inference/*.txt
 **/build/
 **/.DS_Store
 **/local-image-editor-venv/
