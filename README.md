@@ -158,6 +158,7 @@ Below are known bugs/issues/oddities that are in the pipeline to eventually be f
 - If you have images stacked, and you push one to front/back then click a different stacked image, it will multi-select them
 - ~~When merging, it merges based on the order in which the images are selected in multi-select, but it should be based on the layer order of the images (multi-select via box selection works fine)~~
 - Any tool that has additional UI that appears: if the image is too big, or the location of where the additional UI appears is off the screen, you can't see it or use it, and you have to cancel and then move the image to where you'll be able to see it, then re-do it.
+- You can currently toggle multiple modes on at the same time - this should not happen. It can cause an issue with turning off a mode, and you'll have to restart or possibly undo until it is removed.
 
 ## Contributing
 Contributions are welcome! Please fork this repository and submit a pull request.
