@@ -70,14 +70,6 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::oneshotRemoval, this, &MyOpenGLWidget::oneshotRemoval);
     connect(toolbar, &ImageToolbar::mergeImages, this, &MyOpenGLWidget::mergeSelectedImages);
 
-    // Initialize the rotation slider
-    // rotationSlider = new QSlider(Qt::Horizontal, this);
-    // rotationSlider->setRange(0, 360);
-    // rotationSlider->setValue(0);
-    // rotationSlider->setVisible(false);
-    // rotationSlider->setFixedWidth(200);
-    // connect(rotationSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::rotateSelectedImage);
-
     // Initialize the eraser size slider
     eraserSizeSlider = new QSlider(Qt::Horizontal, this);
     eraserSizeSlider->setRange(1, 100);
@@ -262,10 +254,6 @@ void MyOpenGLWidget::paintGL() {
         inpaintPopup->move(inpaintPopupPos);
         inpaintPopup->setVisible(inpaintMode);
 
-        // QPoint rotationSliderPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, 0);
-        // rotationSlider->move(rotationSliderPos);
-        // rotationSlider->setVisible(rotationMode);
-
         QPoint eraserSliderPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, eraserSizeSlider->height());
         eraserSizeSlider->move(eraserSliderPos);
         eraserSizeSlider->setVisible(eraserMode);
@@ -329,10 +317,6 @@ void MyOpenGLWidget::paintGL() {
         QPoint inpaintPopupPos = boundingBox.topLeft() + scrollPosition - QPoint(inpaintPopup->width() + 10, 0);
         inpaintPopup->move(inpaintPopupPos);
         inpaintPopup->setVisible(inpaintMode);
-
-        // QPoint rotationSliderPos = boundingBox.topRight() + scrollPosition + QPoint(10, 0);
-        // rotationSlider->move(rotationSliderPos);
-        // rotationSlider->setVisible(rotationMode);
 
         QPoint eraserSliderPos = boundingBox.topRight() + scrollPosition + QPoint(10, eraserSizeSlider->height());
         eraserSizeSlider->move(eraserSliderPos);
