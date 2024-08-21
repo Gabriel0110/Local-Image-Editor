@@ -10,7 +10,7 @@ Local Image Editor is a desktop application that provides basic and advanced ima
 - **Image Segmentation**: AI object segmentation with positive and negative point prompting.
 
 ## Feature Requests
-Please feel free to open an issue in the repository with a feature request you have in mind, and if it seems worth the time and I have the time, I'll work on implementatiom. You can also fork and work on features yourself and submit a PR.
+Please feel free to open an issue in the repository with a feature request you have in mind, and if it seems worth the time and I have the time, I'll work on implementation. You can also fork and work on features yourself and submit a PR.
 
 ## Basic Example Showcases
 https://github.com/user-attachments/assets/5c5102d1-9c8b-4974-afa0-21c690334317
