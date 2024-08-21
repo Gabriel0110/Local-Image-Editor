@@ -172,6 +172,8 @@ private:
     void handleProcessError(QProcess::ProcessError error);
     void handlePythonOutput();
     void handlePythonError();
+    void applyRotationToImage(ImageObject* img, int angle);
+
 };
 
 #endif // MYOPENGLWIDGET_H

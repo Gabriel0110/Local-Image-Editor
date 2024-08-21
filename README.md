@@ -8,7 +8,7 @@ The idea for this project came from Yacine's Dingboard (dingboard.com). Not as g
 
 - **Image Editing**: Crop, rotate, and adjust images with ease.
 - **Inpainting**: Fill in missing parts of images or add new details using AI models.
-- **Depth-Wise & One-Shot Background Removal**: Remove backgrounds based on depth information or simple one-shot removal.
+- **Background Removal**: Remove backgrounds with simple one-shot removal.
 - **Image Segmentation**: AI object segmentation with positive and negative point prompting.
 
 ## Feature Requests

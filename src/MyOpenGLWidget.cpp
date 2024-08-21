@@ -68,7 +68,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::toggleSnipeMode, this, &MyOpenGLWidget::toggleSnipeMode);
     connect(toolbar, &ImageToolbar::toggleDepthRemoval, this, &MyOpenGLWidget::toggleDepthRemovalMode);
     connect(toolbar, &ImageToolbar::oneshotRemoval, this, &MyOpenGLWidget::oneshotRemoval);
-    connect(toolbar, &ImageToolbar::mergeImages, this, &MyOpenGLWidget::mergeSelectedImages); // Connect merge action
+    connect(toolbar, &ImageToolbar::mergeImages, this, &MyOpenGLWidget::mergeSelectedImages);
 
     // Initialize the rotation slider
     rotationSlider = new QSlider(Qt::Horizontal, this);
@@ -76,7 +76,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     rotationSlider->setValue(0);
     rotationSlider->setVisible(false);
     rotationSlider->setFixedWidth(200);
-    connect(rotationSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::rotateSelectedImage); // Connect rotation slider
+    connect(rotationSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::rotateSelectedImage);
 
     // Initialize the eraser size slider
     eraserSizeSlider = new QSlider(Qt::Horizontal, this);
@@ -852,64 +852,108 @@ void MyOpenGLWidget::pasteImageFromClipboard() {
     qDebug() << "No valid image data found in clipboard";
 }
 
+// void MyOpenGLWidget::rotateSelectedImage(int angle) {
+//     if (!selectedImages.empty()) {
+//         saveState();
+//         for (auto& img : selectedImages) {
+//             // Calculate the center of the image
+//             QPoint center = img->boundingBox.center();
+
+//             // Apply the rotation transformation around the center for image
+//             QTransform transform;
+//             transform.translate(center.x(), center.y());
+//             transform.rotate(angle);
+//             transform.translate(-center.x(), -center.y());
+
+//             // Transform the image
+//             QImage rotatedImage = img->originalImage.transformed(transform, Qt::SmoothTransformation);
+
+//             // Calculate the new bounding box to fit the rotated image
+//             QRect newBoundingBox = QRect(center - QPoint(rotatedImage.width() / 2, rotatedImage.height() / 2), rotatedImage.size());
+
+//             // Update the selected image and bounding box
+//             img->image = rotatedImage;
+//             img->boundingBox = newBoundingBox;
+//         }
+//         update();
+//     } else if (selectedImage) {
+//         qDebug() << "Rotating image by" << angle;
+        
+//         saveState();
+
+//         if (originalImageBeforeRotation.isNull()) {
+//             originalImageBeforeRotation = selectedImage->image;
+//         }
+
+//         // Calculate the center of the image
+//         QPoint center = selectedImage->boundingBox.center();
+
+//         // Apply the rotation transformation around the center for image
+//         QTransform transform;
+//         transform.translate(center.x(), center.y());
+//         transform.rotate(angle);
+//         transform.translate(-center.x(), -center.y());
+
+//         // Transform the image
+//         QImage rotatedImage = originalImageBeforeRotation.transformed(transform, Qt::SmoothTransformation);
+
+//         // Calculate the new bounding box to fit the rotated image
+//         QRect newBoundingBox = QRect(center - QPoint(rotatedImage.width() / 2, rotatedImage.height() / 2), rotatedImage.size());
+
+//         // Update the selected image and bounding box
+//         selectedImage->image = rotatedImage;
+//         selectedImage->boundingBox = newBoundingBox;
+
+//         selectedImage->originalImage = selectedImage->image;
+
+//         update();
+//     } else {
+//         qDebug() << "No image selected";
+//     }
+// }
+
 void MyOpenGLWidget::rotateSelectedImage(int angle) {
     if (!selectedImages.empty()) {
         saveState();
         for (auto& img : selectedImages) {
-            // Calculate the center of the image
-            QPoint center = img->boundingBox.center();
-
-            // Apply the rotation transformation around the center for image
-            QTransform transform;
-            transform.translate(center.x(), center.y());
-            transform.rotate(angle);
-            transform.translate(-center.x(), -center.y());
-
-            // Transform the image
-            QImage rotatedImage = img->originalImage.transformed(transform, Qt::SmoothTransformation);
-
-            // Calculate the new bounding box to fit the rotated image
-            QRect newBoundingBox = QRect(center - QPoint(rotatedImage.width() / 2, rotatedImage.height() / 2), rotatedImage.size());
-
-            // Update the selected image and bounding box
-            img->image = rotatedImage;
-            img->boundingBox = newBoundingBox;
+            applyRotationToImage(img, angle);
         }
         update();
     } else if (selectedImage) {
-        qDebug() << "Rotating image by" << angle;
-        
         saveState();
-
-        if (originalImageBeforeRotation.isNull()) {
-            originalImageBeforeRotation = selectedImage->image;
-        }
-
-        // Calculate the center of the image
-        QPoint center = selectedImage->boundingBox.center();
-
-        // Apply the rotation transformation around the center for image
-        QTransform transform;
-        transform.translate(center.x(), center.y());
-        transform.rotate(angle);
-        transform.translate(-center.x(), -center.y());
-
-        // Transform the image
-        QImage rotatedImage = originalImageBeforeRotation.transformed(transform, Qt::SmoothTransformation);
-
-        // Calculate the new bounding box to fit the rotated image
-        QRect newBoundingBox = QRect(center - QPoint(rotatedImage.width() / 2, rotatedImage.height() / 2), rotatedImage.size());
-
-        // Update the selected image and bounding box
-        selectedImage->image = rotatedImage;
-        selectedImage->boundingBox = newBoundingBox;
-
-        selectedImage->originalImage = selectedImage->image;
-
+        applyRotationToImage(selectedImage, angle);
         update();
     } else {
         qDebug() << "No image selected";
     }
+}
+
+void MyOpenGLWidget::applyRotationToImage(ImageObject* img, int angle) {
+    if (img->originalImageBeforeRotation.isNull()) {
+        img->originalImageBeforeRotation = img->originalImage;
+    }
+
+    // Calculate the center of the image
+    QPoint center = img->boundingBox.center();
+
+    // Apply the rotation transformation around the center of the image
+    QTransform transform;
+    transform.translate(center.x(), center.y());
+    transform.rotate(angle);
+    transform.translate(-center.x(), -center.y());
+
+    // Transform the image
+    QImage rotatedImage = img->originalImageBeforeRotation.transformed(transform, Qt::SmoothTransformation);
+
+    // Update the selected image
+    img->image = rotatedImage;
+
+    // Update the bounding box to fit the rotated image but do not resize it
+    QRectF rotatedBoundingBox = transform.mapRect(QRectF(img->boundingBox));
+
+    img->boundingBox = rotatedBoundingBox.toRect();
+    
+    update();
 }
 
 void MyOpenGLWidget::toggleRotationMode(bool enabled) {

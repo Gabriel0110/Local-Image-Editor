@@ -9,6 +9,7 @@ class ImageObject {
 public:
     QImage image;
     QImage originalImage; // Store the original image to prevent loss of quality during resizing
+    QImage originalImageBeforeRotation;
     QRect boundingBox;
     bool isSelected;
     bool boundingBoxEnabled;

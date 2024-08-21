@@ -24,8 +24,9 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
 
     // Icon Attribution: https://www.flaticon.com/free-icons/rotate title="rotate icons" Rotate icons created by adriansyah - Flaticon
     rotateAction = toolbar->addAction(QIcon(iconPath + "rotate.png"), "Rotate");
-    rotateAction->setToolTip("Rotate");
+    rotateAction->setToolTip("Rotate (Currently disabled)");
     rotateAction->setCheckable(true);
+    rotateAction->setEnabled(false);
 
     // Icon Attribution: https://www.flaticon.com/free-icons/flip title="flip icons" Flip icons created by Freepik - Flaticon
     mirrorAction = toolbar->addAction(QIcon(iconPath + "flip.png"), "Mirror");
@@ -73,8 +74,9 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/depth-perception" title="depth perception icons" Depth perception icons created by Freepik - Flaticon
     depthRemovalAction = toolbar->addAction(QIcon(iconPath + "depthwise-background-removal.png"), "Depthwise Background Removal"); // Add depth removal button
-    depthRemovalAction->setToolTip("Depthwise Background Removal");
+    depthRemovalAction->setToolTip("Depthwise Background Removal (Currently unavailable)");
     depthRemovalAction->setCheckable(true);
+    depthRemovalAction->setEnabled(false);
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/remove-user" title="remove user icons" Remove user icons created by Tempo_doloe - Flaticon
     oneshotRemovalAction = toolbar->addAction(QIcon(iconPath + "oneshot-background-removal.png"), "Oneshot Background Removal"); // Add oneshot removal button
