@@ -8,7 +8,7 @@ The idea for this project came from Yacine's Dingboard (dingboard.com). Not as g
 
 - **Image Editing**: Crop, rotate, and adjust images with ease.
 - **Inpainting**: Fill in missing parts of images or add new details using AI models.
-- **Background Removal**: Remove backgrounds with simple one-shot removal.
+- **Background Removal**: Remove backgrounds with simple one-shot removal or depth-wise removal allowing for fine-grained control over removed pixels based on depth in the image.
 - **Image Segmentation**: AI object segmentation with positive and negative point prompting.
 
 ## Feature Requests
@@ -29,6 +29,7 @@ https://github.com/user-attachments/assets/3f3211be-c6fc-4309-beb0-0ea0d3cacf46
 - ~~** Add AI Image Generator**~~ (DONE - OpenAI Dall-E 3 API, requires API key)
 - **Replace EdgeSAM with SAM2** (possibly, depending on performance improvement)
 - **Implement SkalskiP's Florence2 + SAM2 open-vocabulary and captioned image segmentation**
+- ~~**Implement Depth Anything 2 depth-wise background removal**~~
 - **Replace Stable Diffusion 2 Inpainting with FLUX Inpainting** (possibly, TBD - FLUX is computationally expensive)
 - **Implement an AI image enhancer** (possibly https://huggingface.co/spaces/finegrain/finegrain-image-enhancer)
 - **Add dynamic support/option for CUDA-enabled Torch installation**
@@ -150,7 +151,7 @@ Below are known bugs/issues/oddities that are in the pipeline to eventually be f
 - If you snipe on an image that already has transparency to it, the image with a hole replaces the transparency with black
 - Same as above, if you inpaint on an image that already has a transparency (test via sniping then do inpaint), it will replace the transparency with black.
 - **INPAINTING BUGGED**: Inpainting is returning an image with insanely worse quality and blemishes and doesn't seem to be working correctly. Maybe user error, heh.
-- When rotating, the image slowly moves upward to the left
+- ~~When rotating, the image slowly moves upward to the left~~
 - When multi-selecting via clicking (ctrl/cmd clicking), if they images are layered on top of each other, there is some incorrect interactions - they do not get properly selected as they should and like they do with multi-select via selection box
 - If you have images stacked, and you push one to front/back then click a different stacked image, it will multi-select them
 - ~~When merging, it merges based on the order in which the images are selected in multi-select, but it should be based on the layer order of the images (multi-select via box selection works fine)~~
