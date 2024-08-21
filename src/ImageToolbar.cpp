@@ -14,6 +14,7 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
         "QToolButton { background-color: transparent; border: none; }"
         "QToolButton:hover { background-color: lightgray; }"
         "QToolButton:pressed { background-color: darkgray; }"
+        "QToolButton:checked { background-color: lightblue; }"
     );
     toolbar->setIconSize(QSize(24, 24));  // Set a consistent icon size
     toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);  // Display only the icon
@@ -26,7 +27,7 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     rotateAction = toolbar->addAction(QIcon(iconPath + "rotate.png"), "Rotate");
     rotateAction->setToolTip("Rotate (Currently disabled)");
     rotateAction->setCheckable(true);
-    rotateAction->setEnabled(false);
+    //rotateAction->setEnabled(false);
 
     // Icon Attribution: https://www.flaticon.com/free-icons/flip title="flip icons" Flip icons created by Freepik - Flaticon
     mirrorAction = toolbar->addAction(QIcon(iconPath + "flip.png"), "Mirror");

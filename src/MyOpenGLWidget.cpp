@@ -71,12 +71,12 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(toolbar, &ImageToolbar::mergeImages, this, &MyOpenGLWidget::mergeSelectedImages);
 
     // Initialize the rotation slider
-    rotationSlider = new QSlider(Qt::Horizontal, this);
-    rotationSlider->setRange(0, 360);
-    rotationSlider->setValue(0);
-    rotationSlider->setVisible(false);
-    rotationSlider->setFixedWidth(200);
-    connect(rotationSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::rotateSelectedImage);
+    // rotationSlider = new QSlider(Qt::Horizontal, this);
+    // rotationSlider->setRange(0, 360);
+    // rotationSlider->setValue(0);
+    // rotationSlider->setVisible(false);
+    // rotationSlider->setFixedWidth(200);
+    // connect(rotationSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::rotateSelectedImage);
 
     // Initialize the eraser size slider
     eraserSizeSlider = new QSlider(Qt::Horizontal, this);
@@ -262,9 +262,9 @@ void MyOpenGLWidget::paintGL() {
         inpaintPopup->move(inpaintPopupPos);
         inpaintPopup->setVisible(inpaintMode);
 
-        QPoint rotationSliderPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, 0);
-        rotationSlider->move(rotationSliderPos);
-        rotationSlider->setVisible(rotationMode);
+        // QPoint rotationSliderPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, 0);
+        // rotationSlider->move(rotationSliderPos);
+        // rotationSlider->setVisible(rotationMode);
 
         QPoint eraserSliderPos = combinedBoundingBox.topRight() + scrollPosition + QPoint(10, eraserSizeSlider->height());
         eraserSizeSlider->move(eraserSliderPos);
@@ -321,6 +321,7 @@ void MyOpenGLWidget::paintGL() {
 
     } else if (selectedImage) {
         QRect boundingBox = selectedImage->boundingBox;
+
         QPoint toolbarPos = boundingBox.topLeft() + scrollPosition - QPoint(0, toolbar->height());
         toolbar->move(toolbarPos);
         toolbar->setVisible(true);
@@ -329,9 +330,9 @@ void MyOpenGLWidget::paintGL() {
         inpaintPopup->move(inpaintPopupPos);
         inpaintPopup->setVisible(inpaintMode);
 
-        QPoint rotationSliderPos = boundingBox.topRight() + scrollPosition + QPoint(10, 0);
-        rotationSlider->move(rotationSliderPos);
-        rotationSlider->setVisible(rotationMode);
+        // QPoint rotationSliderPos = boundingBox.topRight() + scrollPosition + QPoint(10, 0);
+        // rotationSlider->move(rotationSliderPos);
+        // rotationSlider->setVisible(rotationMode);
 
         QPoint eraserSliderPos = boundingBox.topRight() + scrollPosition + QPoint(10, eraserSizeSlider->height());
         eraserSizeSlider->move(eraserSliderPos);
@@ -380,7 +381,7 @@ void MyOpenGLWidget::paintGL() {
         }
     } else {
         toolbar->setVisible(false);
-        rotationSlider->setVisible(false);
+        // rotationSlider->setVisible(false);
         eraserSizeSlider->setVisible(false);
         snipePopup->setVisible(false);
         depthRemovalSlider->setVisible(false);
@@ -506,263 +507,279 @@ void MyOpenGLWidget::keyReleaseEvent(QKeyEvent* event) {
 }
 
 void MyOpenGLWidget::mousePressEvent(QMouseEvent* event) {
-    if (eraserMode && selectedImage) {
-        eraseAt(event->pos());
-        return;
-    }
-
-    if (inpaintMode && selectedImage) {
-        drawMaskAt(event->pos());
-        return;
-    }
-
-    if (snipeMode && selectedImage) {
-        QPoint pos = event->pos() - scrollPosition;
-        QPoint relativePos = pos - selectedImage->boundingBox.topLeft();
-
-        // Calculate the relative position in terms of the original image size
-        qreal relativeX = static_cast<qreal>(relativePos.x()) / selectedImage->boundingBox.width() * selectedImage->image.width();
-        qreal relativeY = static_cast<qreal>(relativePos.y()) / selectedImage->boundingBox.height() * selectedImage->image.height();
-        QPointF scaledPos(relativeX, relativeY);
-
-        // Only add points within the image bounds
-        if (scaledPos.x() >= 0 && scaledPos.x() < selectedImage->image.width() && scaledPos.y() >= 0 && scaledPos.y() < selectedImage->image.height()) {
-            if (event->button() == Qt::LeftButton) {
-                positivePoints.push_back(scaledPos);
-            } else if (event->button() == Qt::RightButton) {
-                negativePoints.push_back(scaledPos);
-            }
-        }
-
-        update();
-        return;
-    }
-
-    QPoint pos = event->pos() - scrollPosition; // Adjust for scroll position
-    bool imageClicked = false;
-
-    if (cropMode && selectedImage) {
-        // Check if a crop handle was clicked
-        int handle = cropHandleAt(pos);
-        if (handle != 0) {
-            currentHandle = handle;
-            lastMousePosition = event->pos();
+    if (event->button() == Qt::LeftButton && rotationMode) {
+        startRotation(event);
+    } else {
+        if (eraserMode && selectedImage) {
+            eraseAt(event->pos());
             return;
         }
-    }
 
-    if (event->button() == Qt::LeftButton) {
-        if (event->modifiers() & Qt::ControlModifier || event->modifiers() & Qt::MetaModifier) {
-            // Handle multi-select with ctrl/cmd click
-            for (auto& img : images) {
-                if (img.contains(pos, QPoint(0, 0))) {
-                    auto it = std::find(selectedImages.begin(), selectedImages.end(), &img);
-                    if (it != selectedImages.end()) {
-                        // Image is already selected, unselect it
-                        qDebug() << "Image unselected";
-                        selectedImages.erase(it);
-                        img.isSelected = false;
+        if (inpaintMode && selectedImage) {
+            drawMaskAt(event->pos());
+            return;
+        }
 
-                        // If it was the last selected image, set selectedImage to nullptr
-                        if (selectedImage == &img) {
-                            qDebug() << "Selected image set to nullptr";
-                            selectedImage = nullptr;
-                        }
-                    } else {
-                        // Image is not selected, add it to selectedImages
-                        if (selectedImage && std::find(selectedImages.begin(), selectedImages.end(), selectedImage) == selectedImages.end()) {
-                            // If there is already a selected image, add it to selectedImages first
-                            selectedImages.push_back(selectedImage);
-                            selectedImage->isSelected = true;
-                            selectedImage->disableBoundingBox();
-                        }
-                        selectedImages.push_back(&img);
-                        img.isSelected = true;
-                        img.disableBoundingBox();
+        if (snipeMode && selectedImage) {
+            QPoint pos = event->pos() - scrollPosition;
+            QPoint relativePos = pos - selectedImage->boundingBox.topLeft();
 
-                        // If the clicked image is the only image selected, set selectedImage to it
-                        if (selectedImages.size() == 1) {
-                            selectedImage = &img;
+            // Calculate the relative position in terms of the original image size
+            qreal relativeX = static_cast<qreal>(relativePos.x()) / selectedImage->boundingBox.width() * selectedImage->image.width();
+            qreal relativeY = static_cast<qreal>(relativePos.y()) / selectedImage->boundingBox.height() * selectedImage->image.height();
+            QPointF scaledPos(relativeX, relativeY);
 
-                            // Disable the bounding box for the selected image since any image added to selectedImages will have its bounding box drawn
-                            selectedImage->disableBoundingBox();
-                        }
-                    }
-                    imageClicked = true;
-                    break;
+            // Only add points within the image bounds
+            if (scaledPos.x() >= 0 && scaledPos.x() < selectedImage->image.width() && scaledPos.y() >= 0 && scaledPos.y() < selectedImage->image.height()) {
+                if (event->button() == Qt::LeftButton) {
+                    positivePoints.push_back(scaledPos);
+                } else if (event->button() == Qt::RightButton) {
+                    negativePoints.push_back(scaledPos);
                 }
             }
 
-            if (!imageClicked) {
-                // If no image was clicked, start a selection box
-                isSelecting = true;
-                selectionStartPoint = event->pos() - scrollPosition; // Set the start point of the selection box considering scroll position
-                selectionEndPoint = selectionStartPoint;
-                isDragging = false; // Ensure dragging is reset
-                currentHandle = 0; // Ensure handle is reset
-            } else if (!selectedImages.empty() && selectedImages.size() > 1) {
-                // Compute bounding box for selected images
-                QRect combinedBoundingBox = computeBoundingBoxForSelectedImages();
-                if (combinedBoundingBox.contains(pos)) {
-                    isDragging = true;
-                    selectedImage = nullptr;
-                }
-            }
-            
-        } else {
-            // Iterate over images in reverse order to select the topmost image
-            for (auto it = images.rbegin(); it != images.rend(); ++it) {
-                ImageObject& img = *it;
-                int handle = img.handleAt(pos, QPoint(0, 0));
-                if (handle != 0) {
-                    currentHandle = handle;
-                    if (selectedImage != &img) {
-                        if (selectedImage) {
-                            selectedImage->isSelected = false;
-                        }
-                        selectedImage = &img;
-                    }
-                    img.isSelected = true;
-                    imageClicked = true;
-                    qDebug() << "Image topLeft:" << img.boundingBox.topLeft() << "pos:" << pos << "scrollPosition:" << scrollPosition;
-                    qDebug() << "Image bottomRight:" << img.boundingBox.bottomRight() << "pos:" << pos << "scrollPosition:" << scrollPosition;
-                    qDebug() << "Image bounding box size:" << selectedImage->boundingBox.size();
-                    qDebug() << "Image size (not bounding box):" << selectedImage->image.size();
-                    break;
-                } else if (img.contains(pos, QPoint(0, 0))) {
-                    if (selectedImage != &img) {
-                        if (selectedImage) {
-                            selectedImage->isSelected = false;
-                        }
-                        selectedImage = &img;
-                    }
-                    img.isSelected = true;
-                    imageClicked = true;
-                    qDebug() << "Image topLeft:" << img.boundingBox.topLeft() << "pos:" << pos << "scrollPosition:" << scrollPosition;
-                    qDebug() << "Image bottomRight:" << img.boundingBox.bottomRight() << "pos:" << pos << "scrollPosition:" << scrollPosition;
-                    qDebug() << "Image bounding box size:" << selectedImage->boundingBox.size();
-                    qDebug() << "Image size (not bounding box):" << selectedImage->image.size();
-                    break;
-                } else {
-                    img.isSelected = false;
-                }
-            }
+            update();
+            return;
+        }
 
-            // if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode && !depthRemovalMode && !rotationMode) {
-            if (!imageClicked) {
-                // Check if click is inside combined bounding box of selected images
-                QRect combinedBoundingBox = computeBoundingBoxForSelectedImages();
-                if (combinedBoundingBox.contains(pos)) {
-                    isDragging = true;
-                } else {
-                    isDragging = true;
-                    selectedImage = nullptr;
-                    clearSelection();
-                    qDebug() << "Mouse pressed, selected image set to nullptr";
-                }
-            } else if (imageClicked && !selectedImages.empty()) {
-                // Start dragging the combined selection
-                isDragging = true;
-                selectedImage = nullptr;
+        QPoint pos = event->pos() - scrollPosition; // Adjust for scroll position
+        bool imageClicked = false;
+
+        if (cropMode && selectedImage) {
+            // Check if a crop handle was clicked
+            int handle = cropHandleAt(pos);
+            if (handle != 0) {
+                currentHandle = handle;
+                lastMousePosition = event->pos();
+                return;
             }
         }
-    }
 
-    lastMousePosition = event->pos();
-    update();
+        if (event->button() == Qt::LeftButton) {
+            if (event->modifiers() & Qt::ControlModifier || event->modifiers() & Qt::MetaModifier) {
+                // Handle multi-select with ctrl/cmd click
+                for (auto& img : images) {
+                    if (img.contains(pos, QPoint(0, 0))) {
+                        auto it = std::find(selectedImages.begin(), selectedImages.end(), &img);
+                        if (it != selectedImages.end()) {
+                            // Image is already selected, unselect it
+                            qDebug() << "Image unselected";
+                            selectedImages.erase(it);
+                            img.isSelected = false;
+
+                            // If it was the last selected image, set selectedImage to nullptr
+                            if (selectedImage == &img) {
+                                qDebug() << "Selected image set to nullptr";
+                                selectedImage = nullptr;
+                            }
+                        } else {
+                            // Image is not selected, add it to selectedImages
+                            if (selectedImage && std::find(selectedImages.begin(), selectedImages.end(), selectedImage) == selectedImages.end()) {
+                                // If there is already a selected image, add it to selectedImages first
+                                selectedImages.push_back(selectedImage);
+                                selectedImage->isSelected = true;
+                                selectedImage->disableBoundingBox();
+                            }
+                            selectedImages.push_back(&img);
+                            img.isSelected = true;
+                            img.disableBoundingBox();
+
+                            // If the clicked image is the only image selected, set selectedImage to it
+                            if (selectedImages.size() == 1) {
+                                selectedImage = &img;
+
+                                // Disable the bounding box for the selected image since any image added to selectedImages will have its bounding box drawn
+                                selectedImage->disableBoundingBox();
+                            }
+                        }
+                        imageClicked = true;
+                        break;
+                    }
+                }
+
+                if (!imageClicked) {
+                    // If no image was clicked, start a selection box
+                    isSelecting = true;
+                    selectionStartPoint = event->pos() - scrollPosition; // Set the start point of the selection box considering scroll position
+                    selectionEndPoint = selectionStartPoint;
+                    isDragging = false; // Ensure dragging is reset
+                    currentHandle = 0; // Ensure handle is reset
+                } else if (!selectedImages.empty() && selectedImages.size() > 1) {
+                    // Compute bounding box for selected images
+                    QRect combinedBoundingBox = computeBoundingBoxForSelectedImages();
+                    if (combinedBoundingBox.contains(pos)) {
+                        isDragging = true;
+                        selectedImage = nullptr;
+                    }
+                }
+                
+            } else {
+                // Iterate over images in reverse order to select the topmost image
+                for (auto it = images.rbegin(); it != images.rend(); ++it) {
+                    ImageObject& img = *it;
+                    int handle = img.handleAt(pos, QPoint(0, 0));
+                    if (handle != 0) {
+                        currentHandle = handle;
+                        if (selectedImage != &img) {
+                            if (selectedImage) {
+                                selectedImage->isSelected = false;
+                            }
+                            selectedImage = &img;
+                        }
+                        img.isSelected = true;
+                        imageClicked = true;
+                        qDebug() << "Image topLeft:" << img.boundingBox.topLeft() << "pos:" << pos << "scrollPosition:" << scrollPosition;
+                        qDebug() << "Image bottomRight:" << img.boundingBox.bottomRight() << "pos:" << pos << "scrollPosition:" << scrollPosition;
+                        qDebug() << "Image bounding box size:" << selectedImage->boundingBox.size();
+                        qDebug() << "Image size (not bounding box):" << selectedImage->image.size();
+                        break;
+                    } else if (img.contains(pos, QPoint(0, 0))) {
+                        if (selectedImage != &img) {
+                            if (selectedImage) {
+                                selectedImage->isSelected = false;
+                            }
+                            selectedImage = &img;
+                        }
+                        img.isSelected = true;
+                        imageClicked = true;
+                        qDebug() << "Image topLeft:" << img.boundingBox.topLeft() << "pos:" << pos << "scrollPosition:" << scrollPosition;
+                        qDebug() << "Image bottomRight:" << img.boundingBox.bottomRight() << "pos:" << pos << "scrollPosition:" << scrollPosition;
+                        qDebug() << "Image bounding box size:" << selectedImage->boundingBox.size();
+                        qDebug() << "Image size (not bounding box):" << selectedImage->image.size();
+                        break;
+                    } else {
+                        img.isSelected = false;
+                    }
+                }
+
+                // if (!imageClicked && !eraserMode && !cropMode && !inpaintMode && !snipeMode && !depthRemovalMode && !rotationMode) {
+                if (!imageClicked) {
+                    // Check if click is inside combined bounding box of selected images
+                    QRect combinedBoundingBox = computeBoundingBoxForSelectedImages();
+                    if (combinedBoundingBox.contains(pos)) {
+                        isDragging = true;
+                    } else {
+                        isDragging = true;
+                        selectedImage = nullptr;
+                        clearSelection();
+                        qDebug() << "Mouse pressed, selected image set to nullptr";
+                    }
+                } else if (imageClicked && !selectedImages.empty()) {
+                    // Start dragging the combined selection
+                    isDragging = true;
+                    selectedImage = nullptr;
+                }
+            }
+        }
+
+        lastMousePosition = event->pos();
+        update();
+    }
 }
 
 void MyOpenGLWidget::mouseMoveEvent(QMouseEvent* event) {
-    if (eraserMode && selectedImage) {
-        eraseAt(event->pos());
-        return;
-    }
+    if (rotationMode && (event->buttons() & Qt::LeftButton)) {
+        rotateImage(event);
+    } else {
 
-    if (inpaintMode && selectedImage) {
-        drawMaskAt(event->pos());
-        return;
-    }
-
-    if (isDragging && !selectedImage) {
-        QPoint delta = event->pos() - lastMousePosition;
-        if (!selectedImages.empty()) {
-            for (auto& img : selectedImages) {
-                img->boundingBox.translate(delta);
-            }
-        } else {
-            scrollPosition += delta;
+        if (eraserMode && selectedImage) {
+            eraseAt(event->pos());
+            return;
         }
-        lastMousePosition = event->pos();
-        update();
-    } else if (event->buttons() & Qt::LeftButton && selectedImage) {
-        if (cropMode && currentHandle != 0) {
-            QPoint delta = event->pos() - lastMousePosition;
-            adjustCropBox(delta);
-            lastMousePosition = event->pos();
-            update();
-        } else if (currentHandle != 0) {
-            QPoint delta = event->pos() - lastMousePosition;
-            QRect rect = selectedImage->boundingBox;
-            QRectF normalizedRect = rect.normalized();
 
-            switch (currentHandle) {
-                case 1:
-                    normalizedRect.setTopLeft(normalizedRect.topLeft() + delta);
-                    break;
-                case 2:
-                    normalizedRect.setTopRight(normalizedRect.topRight() + delta);
-                    break;
-                case 3:
-                    normalizedRect.setBottomLeft(normalizedRect.bottomLeft() + delta);
-                    break;
-                case 4:
-                    normalizedRect.setBottomRight(normalizedRect.bottomRight() + delta);
-                    break;
-                case 5:
-                    normalizedRect.setTop(normalizedRect.top() + delta.y());
-                    break;
-                case 6:
-                    normalizedRect.setBottom(normalizedRect.bottom() + delta.y());
-                    break;
-                case 7:
-                    normalizedRect.setLeft(normalizedRect.left() + delta.x());
-                    break;
-                case 8:
-                    normalizedRect.setRight(normalizedRect.right() + delta.x());
-                    break;
+        if (inpaintMode && selectedImage) {
+            drawMaskAt(event->pos());
+            return;
+        }
+
+        if (isDragging && !selectedImage) {
+            QPoint delta = event->pos() - lastMousePosition;
+            if (!selectedImages.empty()) {
+                for (auto& img : selectedImages) {
+                    img->boundingBox.translate(delta);
+                }
+            } else {
+                scrollPosition += delta;
             }
-
-            selectedImage->boundingBox = normalizedRect.toRect();
-            selectedImage->image = selectedImage->originalImage.scaled(selectedImage->boundingBox.size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
             lastMousePosition = event->pos();
             update();
-        } else if (!cropMode && !snipeMode) {
-            QPoint delta = event->pos() - lastMousePosition;
-            selectedImage->boundingBox.translate(delta);
-            lastMousePosition = event->pos();
+        } else if (event->buttons() & Qt::LeftButton && selectedImage) {
+            if (cropMode && currentHandle != 0) {
+                QPoint delta = event->pos() - lastMousePosition;
+                adjustCropBox(delta);
+                lastMousePosition = event->pos();
+                update();
+            } else if (currentHandle != 0) {
+                QPoint delta = event->pos() - lastMousePosition;
+                QRect rect = selectedImage->boundingBox;
+                QRectF normalizedRect = rect.normalized();
+
+                switch (currentHandle) {
+                    case 1:
+                        normalizedRect.setTopLeft(normalizedRect.topLeft() + delta);
+                        break;
+                    case 2:
+                        normalizedRect.setTopRight(normalizedRect.topRight() + delta);
+                        break;
+                    case 3:
+                        normalizedRect.setBottomLeft(normalizedRect.bottomLeft() + delta);
+                        break;
+                    case 4:
+                        normalizedRect.setBottomRight(normalizedRect.bottomRight() + delta);
+                        break;
+                    case 5:
+                        normalizedRect.setTop(normalizedRect.top() + delta.y());
+                        break;
+                    case 6:
+                        normalizedRect.setBottom(normalizedRect.bottom() + delta.y());
+                        break;
+                    case 7:
+                        normalizedRect.setLeft(normalizedRect.left() + delta.x());
+                        break;
+                    case 8:
+                        normalizedRect.setRight(normalizedRect.right() + delta.x());
+                        break;
+                }
+
+                selectedImage->boundingBox = normalizedRect.toRect();
+                selectedImage->image = selectedImage->originalImage.scaled(selectedImage->boundingBox.size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+                lastMousePosition = event->pos();
+                update();
+            } else if (!cropMode && !snipeMode) {
+                QPoint delta = event->pos() - lastMousePosition;
+                selectedImage->boundingBox.translate(delta);
+                lastMousePosition = event->pos();
+                update();
+            }
+        } else if (isSelecting) {
+            selectionEndPoint = event->pos() - scrollPosition;
             update();
         }
-    } else if (isSelecting) {
-        selectionEndPoint = event->pos() - scrollPosition;
-        update();
     }
 }
 
 void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent* event) {
-    if (eraserMode || inpaintMode || snipeMode) {
-        return;
-    }
-    isDragging = false;
-    currentHandle = 0;
+    if (rotationMode) {
+        //rotationMode = false;
+        accumulatedRotation = 0;
+    } else {
 
-    if (isSelecting) {
-        isSelecting = false;
-        QRect selectionBox = QRect(selectionStartPoint, selectionEndPoint).normalized();
-        selectImagesInBox(selectionBox.translated(scrollPosition)); // Translate selection box coordinates back to original
+        if (eraserMode || inpaintMode || snipeMode) {
+            return;
+        }
+
+        isDragging = false;
+        currentHandle = 0;
+
+        if (isSelecting) {
+            isSelecting = false;
+            QRect selectionBox = QRect(selectionStartPoint, selectionEndPoint).normalized();
+            selectImagesInBox(selectionBox.translated(scrollPosition)); // Translate selection box coordinates back to original
+        }
+        
+        update();
     }
-    
-    update();
 }
 
 void MyOpenGLWidget::copyImageToClipboard() {
@@ -916,53 +933,65 @@ void MyOpenGLWidget::rotateSelectedImage(int angle) {
     if (!selectedImages.empty()) {
         saveState();
         for (auto& img : selectedImages) {
-            applyRotationToImage(img, angle);
+            rotateImageAroundCenter(img, angle);
         }
-        update();
     } else if (selectedImage) {
         saveState();
-        applyRotationToImage(selectedImage, angle);
-        update();
+        rotateImageAroundCenter(selectedImage, angle);
     } else {
         qDebug() << "No image selected";
     }
+    update();
 }
 
-void MyOpenGLWidget::applyRotationToImage(ImageObject* img, int angle) {
+void MyOpenGLWidget::rotateImageAroundCenter(ImageObject* img, int angleDelta) {
     if (img->originalImageBeforeRotation.isNull()) {
         img->originalImageBeforeRotation = img->originalImage;
     }
 
-    // Calculate the center of the image
+    // Update the current rotation angle
+    img->currentRotationAngle += angleDelta;
+
     QPoint center = img->boundingBox.center();
 
-    // Apply the rotation transformation around the center of the image
     QTransform transform;
     transform.translate(center.x(), center.y());
-    transform.rotate(angle);
+    transform.rotate(img->currentRotationAngle);  // Rotate by the accumulated angle
     transform.translate(-center.x(), -center.y());
 
-    // Transform the image
     QImage rotatedImage = img->originalImageBeforeRotation.transformed(transform, Qt::SmoothTransformation);
 
-    // Update the selected image
     img->image = rotatedImage;
 
-    // Update the bounding box to fit the rotated image but do not resize it
-    QRectF rotatedBoundingBox = transform.mapRect(QRectF(img->boundingBox));
+    img->boundingBox.setSize(rotatedImage.size());
+}
 
-    img->boundingBox = rotatedBoundingBox.toRect();
-    
-    update();
+void MyOpenGLWidget::startRotation(QMouseEvent* event) {
+    if (selectedImage) {
+        lastMousePosition = event->pos(); // Save the initial mouse position
+        accumulatedRotation = 0; // Reset accumulated rotation for this drag operation
+    }
+}
+
+void MyOpenGLWidget::rotateImage(QMouseEvent* event) {
+    if (selectedImage) {
+        QPoint currentMousePos = event->pos();
+        QPoint delta = currentMousePos - lastMousePosition; // Calculate the difference in mouse position
+
+        // Calculate the angle based on the distance moved by the mouse
+        float angleDelta = (delta.x() - delta.y()) * 0.5; // Adjust the scaling factor as needed
+
+        accumulatedRotation += angleDelta;
+
+        rotateSelectedImage(static_cast<int>(angleDelta));  // Rotate by the delta, not accumulated
+
+        lastMousePosition = currentMousePos; // Update the last mouse position
+    }
 }
 
 void MyOpenGLWidget::toggleRotationMode(bool enabled) {
     rotationMode = enabled;
-    if (enabled) {
-        rotationSlider->setVisible(true);
-    } else {
-        rotationSlider->setVisible(false);
-    }
+    isRotating = false;
     update();
 }
 

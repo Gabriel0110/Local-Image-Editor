@@ -13,9 +13,10 @@ public:
     QRect boundingBox;
     bool isSelected;
     bool boundingBoxEnabled;
+    int currentRotationAngle;
     static const int HANDLE_SIZE = 10;
 
-    ImageObject(const QImage& img, const QPoint& pos) : image(img), originalImage(img), isSelected(false), boundingBoxEnabled(true) {
+    ImageObject(const QImage& img, const QPoint& pos) : image(img), originalImage(img), currentRotationAngle(0), isSelected(false), boundingBoxEnabled(true) {
         boundingBox.setSize(img.size());
         boundingBox.moveCenter(pos);
     }

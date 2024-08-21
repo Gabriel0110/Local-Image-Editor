@@ -69,7 +69,11 @@ private:
     bool depthRemovalMode = false;
     QSlider* depthRemovalSlider;
     bool rotationMode = false;  // Flag indicating if rotation mode is enabled
-    QSlider* rotationSlider;  // Slider for rotation
+    //QSlider* rotationSlider;  // Slider for rotation
+    bool isRotating;
+    QPoint initialMousePos;
+    double initialAngle;
+    int accumulatedRotation;
 
     // Inpainting popup elements
     QWidget* inpaintPopup;
@@ -172,7 +176,9 @@ private:
     void handleProcessError(QProcess::ProcessError error);
     void handlePythonOutput();
     void handlePythonError();
-    void applyRotationToImage(ImageObject* img, int angle);
+    void rotateImage(QMouseEvent* event);
+    void startRotation(QMouseEvent* event);
+    void rotateImageAroundCenter(ImageObject* img, int angle);
 
 };
 
