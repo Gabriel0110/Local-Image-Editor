@@ -62,12 +62,11 @@ add_custom_target(install_main_python_deps
     COMMAND ${VENV_PYTHON} -m pip install -r ${CMAKE_SOURCE_DIR}/resources/scripts/requirements.txt
 )
 
-# Always define the clone_edgesam target
+# Clone EdgeSAM only if it doesn't exist
 add_custom_target(clone_edgesam
     COMMAND ${CMAKE_COMMAND} -E echo "Cloning EdgeSAM repository..."
 )
 
-# Only run the git clone command if the repository doesn't exist
 if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM")
     add_custom_command(TARGET clone_edgesam POST_BUILD
         COMMAND git clone https://github.com/chongzhou96/EdgeSAM.git ${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM
@@ -77,12 +76,11 @@ else()
     message(STATUS "EdgeSAM repository already exists. Skipping clone.")
 endif()
 
-# Define the weights download target
+# Download EdgeSAM weights only if they don't exist
 add_custom_target(download_edgesam_weights
     COMMAND ${CMAKE_COMMAND} -E echo "Downloading EdgeSAM weights..."
 )
 
-# Only download the weights if they don't already exist
 if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM/weights/edge_sam.pth" OR NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM/weights/edge_sam_3x.pth")
     if (WIN32)
         add_custom_command(TARGET download_edgesam_weights POST_BUILD
@@ -99,17 +97,23 @@ if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM/weights/edge_sam.pt
     endif()
 endif()
 
-# Ensure the weights are downloaded only after the clone_edgesam target has been built
 add_dependencies(download_edgesam_weights clone_edgesam)
 
-# Install EdgeSAM dependencies if the repo exists
+# Install EdgeSAM dependencies only if they aren't installed
 add_custom_target(install_edgesam_deps
     COMMAND ${CMAKE_COMMAND} -E echo "Installing EdgeSAM dependencies..."
-    COMMAND ${VENV_PYTHON} -m pip install -e ${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM
-    DEPENDS download_edgesam_weights
 )
 
-# Always define the target, but conditionally run the command based on the model's existence
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM/edge_sam.egg-info")
+    add_custom_command(TARGET install_edgesam_deps POST_BUILD
+        COMMAND ${VENV_PYTHON} -m pip install -e ${CMAKE_SOURCE_DIR}/resources/models/EdgeSAM
+        DEPENDS download_edgesam_weights
+    )
+else()
+    message(STATUS "EdgeSAM dependencies already installed. Skipping installation.")
+endif()
+
+# Save Stable Diffusion model if it doesn't exist
 add_custom_target(save_stable_diffusion_model
     COMMENT "Checking for Stable Diffusion model"
 )
