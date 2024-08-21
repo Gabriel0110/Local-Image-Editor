@@ -27,6 +27,7 @@ https://github.com/user-attachments/assets/3f3211be-c6fc-4309-beb0-0ea0d3cacf46
 
 
 ## TO-DO
+- Massive clean-up and refactoring. Excuse the mess.
 - **GIF Editor (IN-PROGRESS: ~50%)**: Add text, images, and layers to GIFs.
 - ~~** Add AI Image Generator**~~ (DONE - OpenAI Dall-E 3 API, requires API key)
 - **Replace EdgeSAM with SAM2** (possibly, depending on performance improvement)
