@@ -144,6 +144,8 @@ private slots:
     void handleSnipeResult();
     void toggleDepthRemovalMode(bool enabled);
     void adjustImage(int value);
+    void handleDepthEstimationResult(int exitCode, QProcess::ExitStatus exitStatus);
+    void requestDepthEstimation();
     void oneshotRemoval();
     void handleOneshotRemovalResult();
     void copyImageToClipboard();

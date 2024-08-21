@@ -144,7 +144,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     depthRemovalSlider->setValue(0);
     depthRemovalSlider->setVisible(false);
     depthRemovalSlider->setFixedWidth(200);
-    connect(depthRemovalSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::adjustImage); // Connect depth removal slider
+    connect(depthRemovalSlider, &QSlider::valueChanged, this, &MyOpenGLWidget::adjustImage);
 
     // Initialize shape menu
     shapeMenu = new QDialog(this);
@@ -992,6 +992,7 @@ void MyOpenGLWidget::rotateImage(QMouseEvent* event) {
 void MyOpenGLWidget::toggleRotationMode(bool enabled) {
     rotationMode = enabled;
     isRotating = false;
+    accumulatedRotation = 0;
     update();
 }
 
@@ -1915,62 +1916,233 @@ void MyOpenGLWidget::drawMaskAt(const QPoint& pos) {
 void MyOpenGLWidget::toggleDepthRemovalMode(bool enabled) {
     depthRemovalMode = enabled;
     if (enabled) {
-        setCursor(Qt::CrossCursor);
+        //setCursor(Qt::CrossCursor);
         if (selectedImage) {
             originalImage = selectedImage->image;
+            requestDepthEstimation();
         }
     } else {
-        setCursor(Qt::ArrowCursor);
+        //setCursor(Qt::ArrowCursor);
+        if (depthRemovalSlider) {
+            depthRemovalSlider->setValue(0);
+            depthRemovalSlider->setVisible(false);
+        }
     }
     update();
 }
 
+void MyOpenGLWidget::requestDepthEstimation() {
+    if (!selectedImage) return;
+
+    saveState();
+
+    QImage originalImage = selectedImage->image;
+
+    // Convert original image to base64
+    QByteArray originalByteArray;
+    QBuffer originalBuffer(&originalByteArray);
+    originalImage.save(&originalBuffer, "PNG");
+    QString originalBase64 = originalByteArray.toBase64();
+
+    // Disable UI elements and show progress dialog
+    progressDialog = new QProgressDialog("Performing Depth Estimation...", "Cancel", 0, 0, this);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setCancelButton(nullptr);
+    progressDialog->show();
+
+    // Prepare JSON data
+    QJsonObject json;
+    json["image_base64"] = QString::fromStdString(originalBase64.toStdString());
+
+    QJsonDocument doc(json);
+    QByteArray data = doc.toJson(QJsonDocument::Compact);
+
+    pythonProcess = new QProcess(this);
+    connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MyOpenGLWidget::handleDepthEstimationResult);
+    connect(pythonProcess, &QProcess::errorOccurred, this, &MyOpenGLWidget::handleProcessError);
+    connect(pythonProcess, &QProcess::readyReadStandardOutput, this, &MyOpenGLWidget::handlePythonOutput);
+    connect(pythonProcess, &QProcess::readyReadStandardError, this, &MyOpenGLWidget::handlePythonError);
+
+    QString scriptDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+    QString outputDir = QDir(projectRoot).absoluteFilePath("resources/scripts/inference");
+
+    if (!QDir(scriptDir).exists()) {
+        qDebug() << "Directory does not exist: " << scriptDir;
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
+    pythonProcess->setWorkingDirectory(scriptDir);
+
+    pythonProcess->start(pythonExecutable, QStringList() << "depth-estimation-generator.py" << outputDir);
+
+    if (!pythonProcess->waitForStarted()) {
+        qDebug() << "Failed to start Python process.";
+        progressDialog->hide();
+        delete progressDialog;
+        return;
+    }
+
+    pythonProcess->write(data);
+    pythonProcess->closeWriteChannel();
+
+    if (!pythonProcess->waitForFinished(60000 * 5)) {  // 5 minutes timeout
+        qDebug() << "Python process did not finish within the expected time.";
+        progressDialog->hide();
+        delete progressDialog;
+    }
+}
+
+void MyOpenGLWidget::handleDepthEstimationResult(int exitCode, QProcess::ExitStatus exitStatus) {
+    if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+        qDebug() << "Depth estimation completed successfully.";
+        depthRemovalSlider->setVisible(true);
+        adjustImage(depthRemovalSlider->value());
+
+        // Remove the depth_estimation_result.png
+        try {
+            std::remove((projectRoot + "/resources/scripts/inference/depth_estimation_result.png").toStdString().c_str());
+        } catch (const std::exception& e) {
+            qDebug() << "Failed to remove depth_estimation_result.png: " << e.what();
+        }
+    } else {
+        qDebug() << "Depth estimation failed with exit code:" << exitCode;
+        QMessageBox::critical(this, "Error", "Depth estimation process failed.");
+    }
+
+    progressDialog->hide();
+    delete progressDialog;
+}
+
 // For depth background removal
+// void MyOpenGLWidget::adjustImage(int value) {
+//     if (!depthRemovalMode || !selectedImage) return;
+
+//     saveState();
+
+//     QImage grayscale = originalImage.convertToFormat(QImage::Format_Grayscale8);
+//     std::vector<std::pair<int, int>> pixels;
+
+//     for (int y = 0; y < grayscale.height(); ++y) {
+//         for (int x = 0; x < grayscale.width(); ++x) {
+//             int brightness = qGray(grayscale.pixel(x, y));
+//             pixels.emplace_back(brightness, y * grayscale.width() + x);
+//         }
+//     }
+
+//     std::sort(pixels.begin(), pixels.end(), [](const std::pair<int, int>& a, const std::pair<int, int>& b) {
+//         return a.first < b.first;
+//     });
+
+//     int numPixelsToRemove = static_cast<int>(pixels.size() * (value / 1000.0));
+//     QImage mask(originalImage.size(), QImage::Format_ARGB32);
+//     mask.fill(Qt::black);
+
+//     for (int i = 0; i < numPixelsToRemove; ++i) {
+//         int index = pixels[i].second;
+//         int x = index % grayscale.width();
+//         int y = index / grayscale.width();
+//         mask.setPixelColor(x, y, Qt::white);
+//     }
+
+//     QImage tempImage = originalImage;
+//     for (int y = 0; y < tempImage.height(); ++y) {
+//         for (int x = 0; x < tempImage.width(); ++x) {
+//             if (mask.pixelColor(x, y) == Qt::white) {
+//                 tempImage.setPixelColor(x, y, Qt::transparent);
+//             }
+//         }
+//     }
+
+//     selectedImage->image = tempImage;
+//     selectedImage->boundingBox.setSize(tempImage.size());
+
+//     selectedImage->originalImage = selectedImage->image;
+//     update();
+// }
+
 void MyOpenGLWidget::adjustImage(int value) {
     if (!depthRemovalMode || !selectedImage) return;
 
     saveState();
 
-    QImage grayscale = originalImage.convertToFormat(QImage::Format_Grayscale8);
+    // Load the depth map image from the b64 string in the result text file
+    std::ifstream file((projectRoot + "/resources/scripts/inference/depth_estimation_result.txt").toStdString(), std::ios::binary);
+    if (!file.is_open()) {
+        qDebug() << "Failed to open depth map file.";
+        return;
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string depthMapBase64 = buffer.str();
+    file.close();
+
+    QByteArray depthMapByteArray = QByteArray::fromBase64(QString::fromStdString(depthMapBase64).toUtf8());
+
+    // Load the depth map image from the QByteArray
+    QPixmap depthMapPixmap;
+    if (!depthMapPixmap.loadFromData(depthMapByteArray)) {
+        qDebug() << "Failed to decode the depth map image.";
+        QMessageBox::critical(this, "Error", "Failed to decode the depth map image.");
+        return;
+    }
+
+    // Convert the QPixmap to QImage
+    QImage depthMap = depthMapPixmap.toImage();
+
     std::vector<std::pair<int, int>> pixels;
 
-    for (int y = 0; y < grayscale.height(); ++y) {
-        for (int x = 0; x < grayscale.width(); ++x) {
-            int brightness = qGray(grayscale.pixel(x, y));
-            pixels.emplace_back(brightness, y * grayscale.width() + x);
+    for (int y = 0; y < depthMap.height(); ++y) {
+        for (int x = 0; x < depthMap.width(); ++x) {
+            QColor color = depthMap.pixelColor(x, y);
+
+            // Convert color to HSV and get the hue value
+            int hue = color.hue();
+
+            // In the HSV color space, hue represents the color position on the spectrum
+            pixels.emplace_back(hue, y * depthMap.width() + x);
         }
     }
 
+    // Sort pixels by hue value (violet -> red)
     std::sort(pixels.begin(), pixels.end(), [](const std::pair<int, int>& a, const std::pair<int, int>& b) {
-        return a.first < b.first;
+        int hueA = (a.first + 60) % 360;
+        int hueB = (b.first + 60) % 360;
+        return hueA < hueB;
     });
 
-    int numPixelsToRemove = static_cast<int>(pixels.size() * (value / 1000.0));
-    QImage mask(originalImage.size(), QImage::Format_ARGB32);
-    mask.fill(Qt::black);
+    // Calculate how many pixels to keep based on the slider value
+    int numPixelsToKeep = static_cast<int>(pixels.size() * (1 - value / 1000.0));
+    
+    // Create a mask starting with all pixels removed (transparent)
+    QImage mask(depthMap.size(), QImage::Format_ARGB32);
+    mask.fill(Qt::transparent);
 
-    for (int i = 0; i < numPixelsToRemove; ++i) {
+    // Set pixels to keep as opaque in the mask
+    for (int i = 0; i < numPixelsToKeep; ++i) {
         int index = pixels[i].second;
-        int x = index % grayscale.width();
-        int y = index / grayscale.width();
-        mask.setPixelColor(x, y, Qt::white);
+        int x = index % depthMap.width();
+        int y = index / depthMap.width();
+        mask.setPixelColor(x, y, QColor(255, 255, 255, 255));  // Opaque white
     }
 
-    QImage tempImage = originalImage;
-    for (int y = 0; y < tempImage.height(); ++y) {
-        for (int x = 0; x < tempImage.width(); ++x) {
-            if (mask.pixelColor(x, y) == Qt::white) {
-                tempImage.setPixelColor(x, y, Qt::transparent);
-            }
-        }
-    }
+    // Create a temporary image with the pixels removed
+    QImage tempImage = originalImage.convertToFormat(QImage::Format_ARGB32);
+    QPainter painter(&tempImage);
+    painter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+    painter.drawImage(0, 0, mask);
+    painter.end();
 
+    // Update the selected image with the new image having removed pixels
     selectedImage->image = tempImage;
     selectedImage->boundingBox.setSize(tempImage.size());
-
     selectedImage->originalImage = selectedImage->image;
+
     update();
 }
+
 
 // void MyOpenGLWidget::oneshotRemoval() {
 //     if (!selectedImage) return;

@@ -127,6 +127,20 @@ else()
     message(STATUS "Stable Diffusion model already exists. Skipping download.")
 endif()
 
+# Save Depth Anything model if it doesn't exist
+add_custom_target(save_depth_estimation_model
+    COMMENT "Checking for Depth Anything model"
+)
+
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/resources/models/depth-anything/Depth-Anything-V2-Small-hf")
+    add_custom_command(TARGET save_depth_estimation_model POST_BUILD
+        COMMAND ${VENV_PYTHON} ${CMAKE_SOURCE_DIR}/resources/scripts/download_depth_estimation_model.py ${VENV_PYTHON} ${CMAKE_SOURCE_DIR}/resources/models/depth-anything/Depth-Anything-V2-Small-hf
+        DEPENDS install_main_python_deps install_edgesam_deps
+    )
+else()
+    message(STATUS "Depth Anything model already exists. Skipping download.")
+endif()
+
 # Add executable
 add_executable(${PROJECT_NAME} 
     src/main.cpp 
@@ -165,4 +179,4 @@ add_custom_target(copy_resources ALL
 add_dependencies(${PROJECT_NAME} copy_resources)
 
 # Add dependencies to the main target AFTER the executable is defined
-add_dependencies(${PROJECT_NAME} install_main_python_deps install_edgesam_deps save_stable_diffusion_model)
+add_dependencies(${PROJECT_NAME} install_main_python_deps install_edgesam_deps save_stable_diffusion_model save_depth_estimation_model)

@@ -77,7 +77,6 @@ ImageToolbar::ImageToolbar(QWidget* parent) : QWidget(parent) {
     depthRemovalAction = toolbar->addAction(QIcon(iconPath + "depthwise-background-removal.png"), "Depthwise Background Removal"); // Add depth removal button
     depthRemovalAction->setToolTip("Depthwise Background Removal (Currently unavailable)");
     depthRemovalAction->setCheckable(true);
-    depthRemovalAction->setEnabled(false);
 
     // Icon Attribution: "https://www.flaticon.com/free-icons/remove-user" title="remove user icons" Remove user icons created by Tempo_doloe - Flaticon
     oneshotRemovalAction = toolbar->addAction(QIcon(iconPath + "oneshot-background-removal.png"), "Oneshot Background Removal"); // Add oneshot removal button
