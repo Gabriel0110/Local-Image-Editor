@@ -1,6 +1,6 @@
 # Local Image Editor
 
-Local Image Editor is a desktop application that provides basic and advanced image editing capabilities. This project is based on Yacine's Dingboard (dingboard.com), just not as good, but local! I like to call it Fingboard (Fake Dingboard).
+Local Image Editor is a desktop application that provides basic and advanced image editing capabilities. Simply drag-and-drop, copy/paste, or upload an image via file explorer and play around. This project is based on Yacine's Dingboard (dingboard.com), just not as good, but local! I like to call it Fingboard (Fake Dingboard).
 
 ## Features
 
