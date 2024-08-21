@@ -989,7 +989,17 @@ void MyOpenGLWidget::rotateImage(QMouseEvent* event) {
     }
 }
 
+// void MyOpenGLWidget::toggleRotationMode(bool enabled) {
+//     rotationMode = enabled;
+//     isRotating = false;
+//     accumulatedRotation = 0;
+//     update();
+// }
+
 void MyOpenGLWidget::toggleRotationMode(bool enabled) {
+    if (enabled) {
+        disableOtherModes();
+    }
     rotationMode = enabled;
     isRotating = false;
     accumulatedRotation = 0;
@@ -1045,13 +1055,21 @@ void MyOpenGLWidget::saveSelectedImage() {
     }
 }
 
+// void MyOpenGLWidget::toggleEraserMode(bool enabled) {
+//     eraserMode = enabled;
+//     if (enabled) {
+//         setCursor(Qt::CrossCursor);
+//     } else {
+//         setCursor(Qt::ArrowCursor);
+//     }
+//     update();
+// }
+
 void MyOpenGLWidget::toggleEraserMode(bool enabled) {
-    eraserMode = enabled;
     if (enabled) {
-        setCursor(Qt::CrossCursor);
-    } else {
-        setCursor(Qt::ArrowCursor);
+        disableOtherModes();
     }
+    eraserMode = enabled;
     update();
 }
 
@@ -1153,14 +1171,46 @@ void MyOpenGLWidget::pushToBack() {
     }
 }
 
+void MyOpenGLWidget::disableOtherModes() {
+    if (rotationMode) toggleRotationMode(false);
+    if (eraserMode) toggleEraserMode(false);
+    if (cropMode) toggleCropMode(false);
+    if (inpaintMode) toggleInpaintMode(false);
+    if (snipeMode) toggleSnipeMode(false);
+    if (depthRemovalMode) toggleDepthRemovalMode(false);
+    toolbar->setUntoggledActions();
+}
+
+// void MyOpenGLWidget::toggleCropMode(bool enabled) {
+//     cropMode = enabled;
+//     if (enabled && selectedImage) {
+//         selectedImage->disableBoundingBox();
+//         cropBox = selectedImage->boundingBox;
+//         setCursor(Qt::CrossCursor);
+//     } else {
+//         setCursor(Qt::ArrowCursor);
+//         if (selectedImage) {
+//             selectedImage->enableBoundingBox();
+//             if (cropBox != selectedImage->boundingBox) {
+//                 saveState();
+//                 selectedImage->image = selectedImage->image.copy(cropBox.translated(-selectedImage->boundingBox.topLeft()));
+//                 selectedImage->boundingBox.setSize(cropBox.size());
+//             }
+//         }
+//     }
+//     update();
+// }
+
 void MyOpenGLWidget::toggleCropMode(bool enabled) {
-    cropMode = enabled;
-    if (enabled && selectedImage) {
-        selectedImage->disableBoundingBox();
-        cropBox = selectedImage->boundingBox;
-        setCursor(Qt::CrossCursor);
+    if (enabled) {
+        disableOtherModes();
+        if (selectedImage) {
+            selectedImage->disableBoundingBox();
+            cropBox = selectedImage->boundingBox;
+            // setCursor(Qt::CrossCursor);
+        }
     } else {
-        setCursor(Qt::ArrowCursor);
+        // setCursor(Qt::ArrowCursor);
         if (selectedImage) {
             selectedImage->enableBoundingBox();
             if (cropBox != selectedImage->boundingBox) {
@@ -1170,6 +1220,7 @@ void MyOpenGLWidget::toggleCropMode(bool enabled) {
             }
         }
     }
+    cropMode = enabled;
     update();
 }
 
@@ -1567,15 +1618,25 @@ void MyOpenGLWidget::handleInpaintError(QProcess::ProcessError error) {
     delete progressDialog;
 }
 
+// void MyOpenGLWidget::toggleSnipeMode(bool enabled) {
+//     snipeMode = enabled;
+//     if (enabled) {
+//         positivePoints.clear();
+//         negativePoints.clear();
+//         setCursor(Qt::CrossCursor);
+//     } else {
+//         setCursor(Qt::ArrowCursor);
+//     }
+//     update();
+// }
+
 void MyOpenGLWidget::toggleSnipeMode(bool enabled) {
-    snipeMode = enabled;
     if (enabled) {
+        disableOtherModes();
         positivePoints.clear();
         negativePoints.clear();
-        setCursor(Qt::CrossCursor);
-    } else {
-        setCursor(Qt::ArrowCursor);
     }
+    snipeMode = enabled;
     update();
 }
 
@@ -1913,21 +1974,38 @@ void MyOpenGLWidget::drawMaskAt(const QPoint& pos) {
     update();
 }
 
+// void MyOpenGLWidget::toggleDepthRemovalMode(bool enabled) {
+//     depthRemovalMode = enabled;
+//     if (enabled) {
+//         //setCursor(Qt::CrossCursor);
+//         if (selectedImage) {
+//             originalImage = selectedImage->image;
+//             requestDepthEstimation();
+//         }
+//     } else {
+//         //setCursor(Qt::ArrowCursor);
+//         if (depthRemovalSlider) {
+//             depthRemovalSlider->setValue(0);
+//             depthRemovalSlider->setVisible(false);
+//         }
+//     }
+//     update();
+// }
+
 void MyOpenGLWidget::toggleDepthRemovalMode(bool enabled) {
-    depthRemovalMode = enabled;
     if (enabled) {
-        //setCursor(Qt::CrossCursor);
+        disableOtherModes();
         if (selectedImage) {
             originalImage = selectedImage->image;
             requestDepthEstimation();
         }
     } else {
-        //setCursor(Qt::ArrowCursor);
         if (depthRemovalSlider) {
             depthRemovalSlider->setValue(0);
             depthRemovalSlider->setVisible(false);
         }
     }
+    depthRemovalMode = enabled;
     update();
 }
 

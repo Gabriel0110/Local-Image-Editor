@@ -181,6 +181,7 @@ private:
     void rotateImage(QMouseEvent* event);
     void startRotation(QMouseEvent* event);
     void rotateImageAroundCenter(ImageObject* img, int angle);
+    void disableOtherModes();
 
 };
 
